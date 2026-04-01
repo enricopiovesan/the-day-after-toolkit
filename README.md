@@ -46,4 +46,5 @@ This toolkit accompanies *The Day After: How to Restructure Your Software Compan
 
 - License: [Apache-2.0](/Users/piovese/Documents/the-day-after-toolkit/LICENSE)
 - Contributing: [CONTRIBUTING.md](/Users/piovese/Documents/the-day-after-toolkit/CONTRIBUTING.md)
+- Specs: [openspec/README.md](/Users/piovese/Documents/the-day-after-toolkit/openspec/README.md)
 - Author: Enrico Piovesan
