@@ -1,0 +1,101 @@
+# =============================================================================
+# Extended Contract
+# The Day After Toolkit — github.com/enricopiovesan/the-day-after-toolkit
+# =============================================================================
+# Includes all minimum viable fields plus dependency, behavioral, and
+# evolutionary layers for capabilities that need deeper navigability.
+# =============================================================================
+
+id: domain/subdomain/action
+version: 0.1.0
+owner: team-or-individual
+state: draft
+name: Human-Readable Capability Name
+description: |
+  [Describe business intent and why the capability exists]
+inputs:
+  - name: input_name
+    type: string
+    required: true
+    constraints: |
+      [Describe business constraints]
+outputs:
+  - name: output_name
+    type: string
+    guarantees: |
+      [Describe output guarantees]
+non_goals:
+  - |
+    This capability does not [x].
+use_cases:
+  - |
+    As a [role], I need to [action] so that [outcome].
+open_questions: []
+
+# =============================================================================
+# DEPENDENCY LAYER
+# Declare what this capability depends on and why.
+# =============================================================================
+
+dependencies:
+  - id: domain/subdomain/action
+    version: ">=1.2.0"
+    rationale: |
+      [Why this dependency exists and why this version or shape matters]
+
+# =============================================================================
+# BEHAVIORAL LAYER
+# Declare how this capability must behave at runtime.
+# =============================================================================
+
+performance:
+  response_time_p99_ms: 500
+  throughput_rps: 100
+  notes: |
+    [Any context needed to interpret these thresholds]
+
+error_handling:
+  - error: ERROR_TYPE
+    required_response: |
+      [What must happen when this error occurs]
+
+trust_zone: internal | external | privileged
+
+rate_limits:
+  requests_per_minute: 60
+  burst_allowance: 10
+  notes: |
+    [Context — inherited from policy, regulation, or system limit]
+
+inherited_constraints:
+  - source: company | org | project
+    constraint: |
+      [Inherited constraint stated precisely]
+
+constraint_history:
+  - date: YYYY-MM-DD
+    context: |
+      [What was tried]
+    outcome: |
+      [What happened]
+    lesson: |
+      [What this means for future changes]
+
+# =============================================================================
+# EVOLUTIONARY LAYER
+# Declare how this capability is expected to change over time.
+# =============================================================================
+
+deprecation_timeline: null
+
+migration_path: |
+  [Required if state: deprecated. Null otherwise.]
+
+versioning_strategy: |
+  [How breaking changes are introduced for this capability]
+
+version_history:
+  - version: 1.0.0
+    date: YYYY-MM-DD
+    changed: |
+      [What changed and why]

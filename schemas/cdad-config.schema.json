@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/enricopiovesan/the-day-after-toolkit/main/schemas/cdad-config.schema.json",
+  "title": "cdad Config",
+  "description": "Configuration for the The Day After Toolkit.",
+  "type": "object",
+  "properties": {
+    "contracts_directory": {
+      "type": "string",
+      "description": "Directory that contains capability contracts."
+    },
+    "report_output": {
+      "type": "string",
+      "description": "Default output path for cdad-report.md."
+    },
+    "roadmap_output": {
+      "type": "string",
+      "description": "Default output path for cdad-roadmap.md."
+    },
+    "graph_output_directory": {
+      "type": "string",
+      "description": "Directory used for graph artifacts."
+    }
+  },
+  "additionalProperties": true
+}

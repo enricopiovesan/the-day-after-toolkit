@@ -1,0 +1,70 @@
+# =============================================================================
+# Minimum Viable Contract
+# The Day After Toolkit — github.com/enricopiovesan/the-day-after-toolkit
+# =============================================================================
+# A contract is a machine-readable, human-authored declaration of what a
+# capability does, what it needs, what it promises, and what it does not do.
+# Fill in every field. Leave no field as a placeholder in an active contract.
+# =============================================================================
+
+id: domain/subdomain/action
+                                    # REQUIRED: semantic naming — lowercase, no spaces
+                                    # Example: payment/retry, auth/session/login
+
+version: 0.1.0
+                                    # REQUIRED: MAJOR.MINOR.PATCH
+                                    # MAJOR: breaking changes
+                                    # MINOR: backward-compatible additions
+                                    # PATCH: corrections to the contract text
+
+owner: team-or-individual
+                                    # REQUIRED: who is accountable for this contract
+
+state: draft
+                                    # REQUIRED: draft | active | deprecated | retired
+                                    # A contract cannot be active while open_questions
+                                    # contains unresolved items.
+
+name: Human-Readable Capability Name
+                                    # REQUIRED: plain English name
+
+description: |
+                                    # REQUIRED: what this capability does and WHY it exists.
+                                    # Business intent, not technical implementation.
+                                    # Wrong: "retries using exponential backoff"
+                                    # Correct: "retries only after confirming the upstream
+                                    # processor has not yet received the request, because
+                                    # this processor does not honor idempotency keys until
+                                    # after processing is complete"
+
+inputs:
+                                    # REQUIRED: all declared inputs
+  - name: input_name
+    type: string | number | boolean | object | array
+    required: true | false
+    constraints: |
+      [describe the constraint and why it exists]
+
+outputs:
+                                    # REQUIRED: all declared outputs
+  - name: output_name
+    type: string | number | boolean | object | array
+    guarantees: |
+      [describe the guarantee]
+
+non_goals:
+                                    # REQUIRED: what this capability explicitly does NOT do.
+  - |
+    This capability does not [x].
+                                    # Each non-goal is a declarative sentence.
+                                    # Non-goals prevent scope creep and agent overreach.
+
+use_cases:
+                                    # REQUIRED: the business intents this capability satisfies
+  - |
+    As a [role], I need to [action] so that [outcome].
+
+open_questions:
+                                    # Unresolved decisions. Must be empty before state: active.
+  - |
+    [Question that must be answered before this contract is authoritative]

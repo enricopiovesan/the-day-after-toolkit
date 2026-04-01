@@ -1,0 +1,34 @@
+{
+  "name": "cdad",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Is your codebase ready for AI agents? The Day After toolkit.",
+  "bin": {
+    "cdad": "./cli/dist/index.js"
+  },
+  "keywords": [
+    "ai-agents",
+    "software-architecture",
+    "contracts",
+    "legibility",
+    "cdad",
+    "the-day-after",
+    "capability-graph",
+    "agent-readiness"
+  ],
+  "homepage": "https://github.com/enricopiovesan/the-day-after-toolkit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enricopiovesan/the-day-after-toolkit.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "npm --prefix cli run build",
+    "lint": "npm --prefix cli run lint",
+    "test": "npm --prefix cli run test",
+    "validate-schemas": "npm --prefix cli run validate-schemas",
+    "generate-examples": "npm --prefix cli run generate-examples"
+  }
+}

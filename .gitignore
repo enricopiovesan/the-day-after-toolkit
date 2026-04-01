@@ -1,0 +1,13 @@
+ref/
+.DS_Store
+node_modules/
+dist/
+coverage/
+.nyc_output/
+*.log
+tmp/
+cdad-report.md
+cdad-roadmap.md
+cdad-graph.mmd
+cdad-graph.json
+cdad-graph.md

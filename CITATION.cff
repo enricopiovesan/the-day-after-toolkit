@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use The Day After Toolkit in research, talks, or practitioner guidance, please cite this repository."
+title: "The Day After Toolkit"
+type: software
+authors:
+  - family-names: "Piovesan"
+    given-names: "Enrico"
+repository-code: "https://github.com/enricopiovesan/the-day-after-toolkit"
+url: "https://github.com/enricopiovesan/the-day-after-toolkit"
+abstract: >-
+  Open source toolkit for assessing whether a codebase is ready for AI agents,
+  prioritizing capability extraction, and authoring machine-readable capability
+  contracts.
+keywords:
+  - ai-agents
+  - software-architecture
+  - contracts
+  - legibility
+  - cdad
+  - the-day-after
+license: "Apache-2.0"

@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/enricopiovesan/the-day-after-toolkit/main/schemas/cdad-report.schema.json",
+  "title": "cdad Report",
+  "description": "Placeholder schema pending exact spec transcription.",
+  "type": "object"
+}

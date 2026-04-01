@@ -1,0 +1,20 @@
+name: Validate Templates
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    paths:
+      - "templates/**"
+
+jobs:
+  validate-templates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+      - run: echo "Template validation command wiring pending CLI implementation."
