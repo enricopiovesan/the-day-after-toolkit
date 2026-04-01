@@ -11,8 +11,8 @@
 - [ ] build
 - [ ] tests
 - [ ] schema validation
-- [ ] business logic unit coverage is 100%
-- [ ] implementation is aligned to spec
+- [ ] business logic unit coverage requirements are satisfied
+- [ ] implementation is aligned to the governing spec
 - [ ] output example included if user-facing behavior changed
 
 ## Notes

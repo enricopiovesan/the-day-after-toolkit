@@ -36,6 +36,12 @@ The repository SHALL treat the governing spec as authoritative for implementatio
 - WHEN the change is reviewed
 - THEN the pull request is rejected until the implementation or spec is corrected
 
+#### Scenario: Multiple spec sources exist
+
+- GIVEN an OpenSpec artifact and `ref/the-day-after-toolkit-spec.md` both describe the same behavior
+- WHEN they disagree
+- THEN `ref/the-day-after-toolkit-spec.md` wins until that area is explicitly migrated
+
 ### Requirement: OpenSpec is the planning layer
 
 The repository SHALL store living specs and change proposals using the OpenSpec layout.
@@ -48,10 +54,10 @@ The repository SHALL store living specs and change proposals using the OpenSpec 
 
 ### Requirement: Business logic must be fully unit tested
 
-The repository SHALL reject pull requests when deterministic business logic does not have 100% unit test coverage.
+The repository SHALL require deterministic business logic to reach 100% unit test coverage before merge.
 
 #### Scenario: Coverage below threshold
 
 - GIVEN a pull request changes scoring, prioritization, validation, or report-generation logic
 - WHEN unit test coverage for that business logic is below 100%
-- THEN the pull request does not merge
+- THEN the pull request does not merge once the repo coverage gate is wired into CI, and reviewers treat the gap as blocking until then

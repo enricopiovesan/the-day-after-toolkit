@@ -18,8 +18,8 @@ Please read:
 ## Acceptance Bar
 
 Before a pull request merges, it must pass the required build, lint, test, schema validation, and contract validation checks.
-No pull request may merge if deterministic business logic falls below 100% unit test coverage.
-No pull request may merge if the implementation drifts from the governing spec.
+Deterministic business logic is expected to maintain 100% unit test coverage.
+Implementation must stay aligned to the governing spec.
 
 ## The Contract for This Repo
 
@@ -31,6 +31,7 @@ The implementation must stay aligned to the authoritative spec for the change. I
 Use [OpenSpec](https://openspec.dev/) to define and evolve specs in this repository.
 Specs live in `openspec/specs/` and change proposals live in `openspec/changes/`.
 Implementation work should point to the governing OpenSpec artifact and the authoritative repo spec section when relevant.
+When an OpenSpec artifact and `ref/the-day-after-toolkit-spec.md` both cover the same behavior, `ref/the-day-after-toolkit-spec.md` is authoritative until the repo explicitly migrates that area into OpenSpec.
 
 ## Documentation Standard
 
@@ -52,9 +53,9 @@ Every pull request should include:
 
 Pull requests must not merge unless:
 
-- business logic unit test coverage is 100%
 - required status checks pass
-- the implementation is aligned to spec
+- business logic unit coverage requirements for the affected area are satisfied
+- the implementation is aligned to the governing spec
 - review feedback is resolved
 
 ## Issues
@@ -64,7 +65,7 @@ Use the issue templates when possible so work lands in the project board and mil
 ## Coverage Gate
 
 The repository enforces a high bar for core business logic. Scoring, prioritization, validation, and report generation must keep the required coverage floor and should not merge when a branch reduces trust in deterministic behavior.
-For deterministic business logic, the merge gate is 100% unit test coverage.
+For deterministic business logic, the target merge gate is 100% unit test coverage. Until CI enforces this mechanically, reviewers must treat it as a blocking requirement.
 
 ## Public Repo Hygiene
 

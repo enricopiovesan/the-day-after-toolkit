@@ -7,6 +7,11 @@ This repository uses [OpenSpec](https://openspec.dev/) as the planning and speci
 - `openspec/specs/` holds the living specs for capabilities and repo-level rules
 - `openspec/changes/` holds proposed changes, design notes, and implementation tasks
 
+## Authority
+
+OpenSpec is the planning and change-tracking layer for this repo.
+When an OpenSpec artifact and `ref/the-day-after-toolkit-spec.md` overlap, `ref/the-day-after-toolkit-spec.md` remains authoritative until that area is explicitly migrated.
+
 ## Rules
 
 - Specs live in the repo and are reviewed with code
