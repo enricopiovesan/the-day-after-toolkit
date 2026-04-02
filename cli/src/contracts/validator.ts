@@ -7,13 +7,12 @@
 
 import Ajv2020Module from "ajv/dist/2020.js";
 import type { ErrorObject } from "ajv";
-import type Ajv from "ajv";
 import { glob } from "glob";
 import { chmod, mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { readFileSync } from "node:fs";
 import { dirname, extname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { load as loadYaml } from "js-yaml";
+import { JSON_SCHEMA, load as loadYaml } from "js-yaml";
 
 import { CONTRACT_SCHEMA_FILES } from "./schema.js";
 import {
@@ -41,6 +40,12 @@ import { pathExists } from "../utils/file.js";
 interface CompiledSchemaValidator {
   (data: unknown): boolean;
   errors?: readonly ErrorObject[] | null;
+}
+
+interface AjvConstructor {
+  new (options?: Record<string, unknown>): {
+    compile(schema: object): CompiledSchemaValidator;
+  };
 }
 
 interface ContractDocument extends Record<string, unknown> {
@@ -73,7 +78,10 @@ interface ValidatedContractFile extends FileValidationResult {
 }
 
 const TOOLKIT_ROOT = resolve(fileURLToPath(new URL("../../../", import.meta.url)));
-const Ajv2020 = Ajv2020Module as unknown as typeof Ajv;
+// Ajv2020 is shipped as an ESM/CJS compatibility wrapper, so we narrow it to
+// the constructor shape we actually use instead of depending on the module's
+// inferred default-export typing.
+const Ajv2020 = Ajv2020Module as unknown as AjvConstructor;
 const SCHEMA_VALIDATOR = new Ajv2020({ allErrors: true, strict: false, validateFormats: false });
 const SCHEMA_CACHE = new Map<string, object>();
 const VALIDATOR_CACHE = new Map<ContractSchemaKind, CompiledSchemaValidator>();
@@ -349,7 +357,9 @@ function parseContractDocument(raw: string, filePath: string): ContractDocument 
       return isContractDocument(parsed) ? parsed : null;
     }
 
-    const parsed = loadYaml(raw) as unknown;
+    // Use the JSON schema so plain ISO dates stay strings and do not coerce
+    // into Date objects before validation runs.
+    const parsed = loadYaml(raw, { schema: JSON_SCHEMA }) as unknown;
     return isContractDocument(parsed) ? parsed : null;
   } catch {
     return null;

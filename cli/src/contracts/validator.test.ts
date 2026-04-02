@@ -64,6 +64,24 @@ describe("validateContracts", () => {
     ]);
   });
 
+  it("keeps YAML ISO dates as strings while validating extended contracts", async () => {
+    const repoRoot = await createRepoFixture({
+      "cdad/payment/retry-extended/contract.yaml": EXTENDED_CONTRACT_YAML
+    });
+
+    const report = await validateContracts(
+      {
+        path: join(repoRoot, "cdad/payment/retry-extended/contract.yaml"),
+        format: "text"
+      },
+      { cwd: repoRoot }
+    );
+
+    expect(report.totals.errors).toBe(0);
+    expect(report.exitCode).toBe(0);
+    expect(report.files[0]?.schemaKind).toBe("extended");
+  });
+
   it("flags implementation language as a warning and upgrades that warning to an error in strict mode", async () => {
     const repoRoot = await createRepoFixture({
       "cdad/payment/retry/contract.yaml": WARNING_CONTRACT
@@ -222,3 +240,36 @@ const EXTENDED_CONTRACT = {
     }
   ]
 } as const;
+
+const EXTENDED_CONTRACT_YAML = `id: payment/retry/extended
+version: 1.2.0
+owner: Payments
+state: active
+name: Payment Retry
+description: Keep the customer payment flow moving when an upstream authorization fails.
+inputs: []
+outputs: []
+non_goals: []
+use_cases: []
+open_questions: []
+dependencies: []
+performance:
+  response_time_p99_ms: 200
+  throughput_rps: 50
+  notes: Handles online checkout requests only.
+error_handling: []
+trust_zone: internal
+rate_limits:
+  requests_per_minute: 60
+  burst_allowance: 10
+  notes: Applies only to public API calls.
+constraint_history:
+  - date: 2022-03-14
+    context: The upstream processor can accept only one in-flight request per payment.
+    outcome: A naive retry during processing caused duplicate charges.
+    lesson: Retry only after the processor confirms the first request is no longer in flight.
+version_history:
+  - version: 1.0.0
+    date: 2024-01-15
+    changed: Initial release.
+`;
