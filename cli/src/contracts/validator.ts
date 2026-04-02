@@ -5,7 +5,7 @@
  * in one place so the command layer stays thin.
  */
 
-import Ajv2020 from "ajv/dist/2020";
+import Ajv2020 from "ajv/dist/2020.js";
 import type { ErrorObject } from "ajv";
 import { glob } from "glob";
 import { chmod, mkdir, readFile, stat, writeFile } from "node:fs/promises";
