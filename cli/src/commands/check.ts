@@ -55,11 +55,9 @@ interface CheckCommandExecution {
   readonly outputPath: string | null;
 }
 
-/* eslint-disable no-unused-vars */
-type CheckPromptRunner = <TAnswer extends Record<string, unknown>>(
-  ...args: [readonly CheckPromptQuestion[]]
-) => Promise<TAnswer>;
-/* eslint-enable no-unused-vars */
+type CheckPromptRunner = (
+  questions: readonly CheckPromptQuestion[]
+) => Promise<Record<string, unknown>>;
 
 interface CheckPromptQuestion {
   readonly type: "input" | "list";
@@ -71,10 +69,6 @@ interface CheckPromptQuestion {
 
 interface CapabilityNamePromptAnswer {
   readonly capabilityNames: string;
-}
-
-interface PromptAnswerMap {
-  readonly [key: string]: LegibilityAnswer;
 }
 
 export function registerCheckCommand(program: Command): void {
@@ -92,7 +86,7 @@ export function registerCheckCommand(program: Command): void {
         await executeCheckCommand(options, {
           cwd: process.cwd(),
           now: () => new Date(),
-          prompt: (questions) => inquirer.prompt<Record<string, unknown>>(questions as never)
+          prompt: async (questions) => inquirer.prompt<Record<string, unknown>>(questions as never)
         });
       } catch (error) {
         console.error(formatCheckCommandError(error));
@@ -158,7 +152,15 @@ async function buildQuestionnaireSummary(
   }
 
   return createQuestionnaireSummary(
-    capabilityIds.map((capabilityId, index) => createCapabilityAssessment(capabilityId, assessments[index]))
+    capabilityIds.map((capabilityId, index) => {
+      const assessment = assessments[index];
+
+      if (!assessment) {
+        throw new Error(`Missing questionnaire answers for capability ${capabilityId}.`);
+      }
+
+      return createCapabilityAssessment(capabilityId, assessment);
+    })
   );
 }
 
@@ -166,13 +168,13 @@ async function promptCapabilityNames(
   capabilityLimit: number,
   prompt: CheckPromptRunner
 ): Promise<string[]> {
-  const response = await prompt<CapabilityNamePromptAnswer>([
+  const response = await prompt([
     {
       type: "input",
       name: "capabilityNames",
       message: `Enter up to ${capabilityLimit} business-critical capabilities (comma-separated):`
     }
-  ]);
+  ]) as CapabilityNamePromptAnswer;
 
   const capabilityIds = response.capabilityNames
     .split(",")
@@ -192,7 +194,7 @@ async function promptCapabilityAnswers(
   capabilityId: string,
   prompt: CheckPromptRunner
 ): Promise<CapabilityAnswerSet> {
-  const responses = await prompt<PromptAnswerMap>(
+  const responses = await prompt(
     LEGIBILITY_QUESTIONS.map((question) => ({
       type: "list",
       name: `${capabilityId}.${question.key}`,
@@ -206,10 +208,10 @@ async function promptCapabilityAnswers(
   );
 
   return {
-    businessRules: responses[`${capabilityId}.businessRules`],
-    constraintHistory: responses[`${capabilityId}.constraintHistory`],
-    dependencyRationale: responses[`${capabilityId}.dependencyRationale`],
-    exceptionLogic: responses[`${capabilityId}.exceptionLogic`]
+    businessRules: requireLegibilityAnswer(responses, `${capabilityId}.businessRules`),
+    constraintHistory: requireLegibilityAnswer(responses, `${capabilityId}.constraintHistory`),
+    dependencyRationale: requireLegibilityAnswer(responses, `${capabilityId}.dependencyRationale`),
+    exceptionLogic: requireLegibilityAnswer(responses, `${capabilityId}.exceptionLogic`)
   };
 }
 
@@ -244,6 +246,19 @@ function buildTerminalSummary(report: CheckReport, options: CheckCommandOptions)
     .filter((line) => line.trim() !== `Full report saved to: ${outputLabel}`)
     .filter((line, index, lines) => !(line.trim().length === 0 && lines[index - 1]?.trim().length === 0))
     .join("\n");
+}
+
+function requireLegibilityAnswer(
+  responses: Record<string, unknown>,
+  key: string
+): LegibilityAnswer {
+  const value = responses[key];
+
+  if (value === "yes" || value === "partially" || value === "no") {
+    return value;
+  }
+
+  throw new Error(`Missing questionnaire answer for ${key}.`);
 }
 
 function formatCheckCommandError(error: unknown): string {

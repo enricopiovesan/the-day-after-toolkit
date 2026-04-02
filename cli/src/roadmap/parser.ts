@@ -80,7 +80,7 @@ function parseFrontmatter(markdown: string, reportPath: string): ReportFrontmatt
     throw new Error(`${reportPath}: missing YAML frontmatter block. Regenerate the report with cdad check.`);
   }
 
-  const parsed = loadYaml(match[1]);
+  const parsed = loadYaml(match[1] ?? "");
 
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
     throw new Error(`${reportPath}: invalid YAML frontmatter. Regenerate the report with cdad check.`);
@@ -317,6 +317,6 @@ function normalizeGapLabel(value: string): string {
     .toLowerCase();
 }
 
-function uniqueStrings(values: readonly string[]): readonly string[] {
+function uniqueStrings(values: readonly string[]): string[] {
   return [...new Set(values.map((value) => value.trim()).filter((value) => value.length > 0))];
 }

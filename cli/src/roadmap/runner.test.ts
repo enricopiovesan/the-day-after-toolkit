@@ -27,8 +27,8 @@ describe("runRoadmapCommand", () => {
       },
       {
         prompt: vi.fn(async () => ({
-          businessCriticality: 3,
-          agentTouchpointFrequency: 1
+          businessCriticality: 3 as const,
+          agentTouchpointFrequency: 1 as const
         })),
         now: () => new Date("2026-04-02T00:00:00Z")
       }

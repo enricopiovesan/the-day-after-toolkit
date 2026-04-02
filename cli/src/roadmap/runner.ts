@@ -49,11 +49,9 @@ export interface RoadmapPromptAnswer {
   readonly agentTouchpointFrequency: 1 | 2 | 3;
 }
 
-/* eslint-disable no-unused-vars */
 export type RoadmapPromptRunner = (
-  ...args: [readonly RoadmapPromptQuestion[]]
+  questions: readonly RoadmapPromptQuestion[]
 ) => Promise<RoadmapPromptAnswer>;
-/* eslint-enable no-unused-vars */
 
 interface RoadmapPromptQuestion {
   readonly type: "list";
@@ -68,7 +66,7 @@ export interface RoadmapRunnerDependencies {
 }
 
 const DEFAULT_DEPENDENCIES: RoadmapRunnerDependencies = {
-  prompt: async (questions) => inquirer.prompt(questions as never),
+  prompt: async (questions) => inquirer.prompt(questions as never) as Promise<RoadmapPromptAnswer>,
   now: () => new Date()
 };
 
