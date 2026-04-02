@@ -6,13 +6,13 @@ import { fileURLToPath } from "node:url";
 
 const require = createRequire(new URL("../../cli/package.json", import.meta.url));
 const yaml = require("js-yaml");
-const Ajv = require("ajv");
+const Ajv2020 = require("ajv/dist/2020");
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const repoRoot = resolve(__dirname, "..", "..");
 
-const ajv = new Ajv({ allErrors: true, strict: false, validateFormats: false });
+const ajv = new Ajv2020({ allErrors: true, strict: false, validateFormats: false });
 
 const WORKED_EXAMPLES = [
   {
