@@ -28,7 +28,9 @@ Start with [docs/adoption-journey.md](docs/adoption-journey.md).
 
 ## What `cdad check` Produces
 
-The CLI prints a terminal summary and writes a machine-parseable `cdad-report.md` with frontmatter for humans and agents.
+The CLI prints a terminal summary and writes a machine-parseable `cdad-report.md` with YAML frontmatter on line 1. The report includes the overall score, band, static scan results, legibility assessment, gap inventory, and the next step.
+
+In Phase 1, the report is the bridge between discovery and action: it tells you what the repo already makes legible, what is still missing, and which capability should be scaffolded first.
 
 ## Templates
 
