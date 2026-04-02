@@ -1,0 +1,97 @@
+import { load } from "js-yaml";
+import { describe, expect, it } from "vitest";
+
+import { createCapabilityAssessment, createQuestionnaireSummary } from "./questionnaire.js";
+import {
+  createCheckReport,
+  renderCheckReportMarkdown,
+  renderCheckTerminalSummary
+} from "./report.js";
+import {
+  STATIC_SCAN_SIGNAL_DEFINITIONS,
+  summarizeStaticScan
+} from "./scanner.js";
+import type { StaticScanSignal } from "./types.js";
+
+describe("report generator", () => {
+  it("renders parseable frontmatter and the expected markdown sections", async () => {
+    const questionnaire = createQuestionnaireSummary([
+      createCapabilityAssessment("payment/retry", {
+        businessRules: "no",
+        constraintHistory: "no",
+        dependencyRationale: "partially",
+        exceptionLogic: "yes"
+      })
+    ]);
+
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    const markdown = renderCheckReportMarkdown(report);
+    const frontmatterMatch = markdown.match(/^---\n([\s\S]*?)\n---/);
+
+    expect(frontmatterMatch).not.toBeNull();
+
+    const frontmatter = load(frontmatterMatch?.[1] ?? "") as Record<string, unknown>;
+
+    expect(frontmatter.generated_by).toBe("cdad check");
+    expect(frontmatter.repo).toBe("example/repo");
+    expect(frontmatter.schema_version).toBe("1.0.0");
+    expect(frontmatter.band).toBe("amber");
+    expect(frontmatter.score).toBe(5.6);
+
+    expect(markdown).toContain("# Agent Readiness Report");
+    expect(markdown).toContain("## Summary");
+    expect(markdown).toContain("## Static Scan Results");
+    expect(markdown).toContain("## Capability Legibility Assessment");
+    expect(markdown).toContain("## Gap Inventory");
+    expect(markdown).toContain("## Recommended Next Step");
+    expect(markdown).toContain("Business Rules Legibility");
+    expect(markdown).toContain("Constraint History Legibility");
+    expect(markdown).toContain("Dependency Rationale Legibility");
+    expect(markdown).toContain("Exception Logic Legibility");
+  });
+
+  it("renders a terminal summary that follows the repo-wide header format", () => {
+    const questionnaire = createQuestionnaireSummary([
+      createCapabilityAssessment("payment/retry", {
+        businessRules: "no",
+        constraintHistory: "no",
+        dependencyRationale: "partially",
+        exceptionLogic: "yes"
+      })
+    ]);
+
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    const terminal = renderCheckTerminalSummary(report);
+
+    expect(terminal).toContain("cdad check — Agent Readiness Report");
+    expect(terminal).toContain("Next step: Run `cdad roadmap` to generate your transformation plan based on this report.");
+    expect(terminal).toContain("Full report saved to: cdad-report.md");
+  });
+});
+
+function buildPositiveFindings(): StaticScanSignal[] {
+  return STATIC_SCAN_SIGNAL_DEFINITIONS.map((definition) => ({
+    key: definition.key,
+    label: definition.label,
+    description: definition.description,
+    kind: definition.kind,
+    found: definition.kind === "positive",
+    points: definition.points,
+    score: definition.kind === "positive" ? definition.points : 0,
+    matchedPaths: definition.kind === "positive" ? ["/tmp/example"] : []
+  }));
+}
