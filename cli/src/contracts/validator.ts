@@ -471,17 +471,6 @@ function validateAntiPatterns(contract: ContractDocument, filePath: string): Val
     }
   }
 
-  const nonGoals = readArray(contract, "non_goals");
-  if (nonGoals && nonGoals.length === 0) {
-    issues.push({
-      code: "anti-pattern",
-      severity: "warning",
-      filePath,
-      field: "non_goals",
-      message: "Add at least one non-goal so the contract has a clear boundary."
-    });
-  }
-
   return issues;
 }
 

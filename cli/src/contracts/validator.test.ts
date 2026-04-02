@@ -59,8 +59,8 @@ describe("validateContracts", () => {
     expect(Array.isArray(parsed.files)).toBe(true);
     expect((parsed.files as readonly unknown[]).length).toBe(2);
     expect(textFilePaths(report)).toEqual([
-      join(repoRoot, "cdad/payment/retry/contract.yaml"),
-      join(repoRoot, "cdad/payment/retry-extended/contract.json")
+      join(repoRoot, "cdad/payment/retry-extended/contract.json"),
+      join(repoRoot, "cdad/payment/retry/contract.yaml")
     ]);
   });
 
