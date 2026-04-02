@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "lint": "eslint 'src/**/*.ts' --max-warnings 0",
-    "test": "vitest run --coverage",
+    "test": "vitest run --coverage && node ./scripts/check-business-logic-coverage.mjs",
     "validate-schemas": "node ./dist/utils/validate-schemas.js",
     "generate-examples": "node ./dist/utils/generate-examples.js"
   },
@@ -22,10 +22,14 @@
     "ora": "^8.2.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.20.0",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.13.4",
+    "@typescript-eslint/eslint-plugin": "^8.24.0",
+    "@typescript-eslint/parser": "^8.24.0",
     "@vitest/coverage-v8": "^3.0.6",
     "eslint": "^9.20.1",
+    "globals": "^15.15.0",
     "typescript": "^5.8.2",
     "vitest": "^3.0.6"
   }

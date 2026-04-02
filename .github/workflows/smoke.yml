@@ -13,5 +13,6 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      - run: npm install --prefix cli
       - run: npm run build
       - run: echo "Smoke flow wiring pending CLI implementation."
