@@ -2,6 +2,157 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/enricopiovesan/the-day-after-toolkit/main/schemas/minimum-viable-contract.schema.json",
   "title": "Minimum Viable Contract",
-  "description": "Placeholder schema pending exact spec transcription.",
-  "type": "object"
+  "description": "Machine-readable schema for the minimum viable capability contract described in the toolkit spec.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "owner",
+    "state",
+    "name",
+    "description",
+    "inputs",
+    "outputs",
+    "non_goals",
+    "use_cases",
+    "open_questions"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Semantic capability identifier in lowercase slash-delimited form such as payment/retry or auth/session/login.",
+      "pattern": "^[a-z0-9]+(?:/[a-z0-9]+)+$"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version number for the contract using MAJOR.MINOR.PATCH.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "owner": {
+      "type": "string",
+      "description": "The team or individual accountable for maintaining this contract.",
+      "minLength": 1
+    },
+    "state": {
+      "type": "string",
+      "description": "Lifecycle state for the contract.",
+      "enum": ["draft", "active", "deprecated", "retired"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for the capability.",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "Business intent for the capability: what it does and why it exists.",
+      "minLength": 1
+    },
+    "inputs": {
+      "type": "array",
+      "description": "Declared inputs that the capability accepts, along with their business constraints.",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/input"
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "description": "Declared outputs that the capability returns, along with the guarantees each output provides.",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/output"
+      }
+    },
+    "non_goals": {
+      "type": "array",
+      "description": "Explicit statements of what the capability does not do.",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/nonGoal"
+      }
+    },
+    "use_cases": {
+      "type": "array",
+      "description": "Business intents or practitioner scenarios that this capability satisfies.",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/useCase"
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "description": "Unresolved decisions that must be closed before the contract can be treated as authoritative.",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/openQuestion"
+      }
+    }
+  },
+  "$defs": {
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type", "required", "constraints"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Input field name used by the capability.",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "description": "Declared JSON-compatible type for the input.",
+          "enum": ["string", "number", "boolean", "object", "array"]
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether this input must be provided by callers."
+        },
+        "constraints": {
+          "type": "string",
+          "description": "Business constraint on this input and why that constraint exists.",
+          "minLength": 1
+        }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type", "guarantees"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Output field name produced by the capability.",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "description": "Declared JSON-compatible type for the output.",
+          "enum": ["string", "number", "boolean", "object", "array"]
+        },
+        "guarantees": {
+          "type": "string",
+          "description": "Guarantee this capability makes about the output value.",
+          "minLength": 1
+        }
+      }
+    },
+    "nonGoal": {
+      "type": "string",
+      "description": "Single-sentence statement of what the capability explicitly does not do.",
+      "minLength": 1
+    },
+    "useCase": {
+      "type": "string",
+      "description": "A practitioner-facing scenario that this capability serves.",
+      "minLength": 1
+    },
+    "openQuestion": {
+      "type": "string",
+      "description": "A question that still needs resolution before the contract can be authoritative.",
+      "minLength": 1
+    }
+  }
 }

@@ -9,7 +9,7 @@
   "inputs": [
     {
       "name": "input_name",
-      "type": "string | number | boolean | object | array",
+      "type": "string",
       "required": true,
       "constraints": "[Describe the constraint and why it exists]"
     }
@@ -17,7 +17,7 @@
   "outputs": [
     {
       "name": "output_name",
-      "type": "string | number | boolean | object | array",
+      "type": "string",
       "guarantees": "[Describe the guarantee]"
     }
   ],

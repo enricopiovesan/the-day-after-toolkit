@@ -2,25 +2,122 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/enricopiovesan/the-day-after-toolkit/main/schemas/cdad-config.schema.json",
   "title": "cdad Config",
-  "description": "Configuration for the The Day After Toolkit.",
+  "description": "Schema for the optional `cdad.config.json` repository configuration file.",
   "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contracts_directory",
+    "report_output",
+    "roadmap_output",
+    "graph_output_directory",
+    "scanner",
+    "validate",
+    "graph"
+  ],
   "properties": {
     "contracts_directory": {
       "type": "string",
-      "description": "Directory that contains capability contracts."
+      "description": "Directory that contains capability contract files.",
+      "minLength": 1
     },
     "report_output": {
       "type": "string",
-      "description": "Default output path for cdad-report.md."
+      "description": "Default path for the `cdad check` report output.",
+      "minLength": 1
     },
     "roadmap_output": {
       "type": "string",
-      "description": "Default output path for cdad-roadmap.md."
+      "description": "Default path for the `cdad roadmap` output.",
+      "minLength": 1
     },
     "graph_output_directory": {
       "type": "string",
-      "description": "Directory used for graph artifacts."
+      "description": "Default directory for graph artifacts.",
+      "minLength": 1
+    },
+    "scanner": {
+      "$ref": "#/$defs/scanner"
+    },
+    "validate": {
+      "$ref": "#/$defs/validate"
+    },
+    "graph": {
+      "$ref": "#/$defs/graph"
     }
   },
-  "additionalProperties": true
+  "$defs": {
+    "scanner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["additional_contract_patterns", "additional_adr_directories", "ignore"],
+      "properties": {
+        "additional_contract_patterns": {
+          "type": "array",
+          "description": "Extra glob patterns that count as contract files during scans.",
+          "minItems": 0,
+          "items": {
+            "type": "string",
+            "description": "Additional file pattern that should be treated as a contract signal.",
+            "minLength": 1
+          }
+        },
+        "additional_adr_directories": {
+          "type": "array",
+          "description": "Additional directories that should be treated as ADR locations.",
+          "minItems": 0,
+          "items": {
+            "type": "string",
+            "description": "Directory path to scan for ADRs.",
+            "minLength": 1
+          }
+        },
+        "ignore": {
+          "type": "array",
+          "description": "Paths or directories to ignore during scans.",
+          "minItems": 0,
+          "items": {
+            "type": "string",
+            "description": "Path or directory name to ignore.",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "validate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strict", "require_behavioral_layer", "require_evolutionary_layer"],
+      "properties": {
+        "strict": {
+          "type": "boolean",
+          "description": "Whether validation warnings should be treated as errors."
+        },
+        "require_behavioral_layer": {
+          "type": "boolean",
+          "description": "Whether extended-contract behavioral fields are required in all validated contracts."
+        },
+        "require_evolutionary_layer": {
+          "type": "boolean",
+          "description": "Whether extended-contract evolutionary fields are required in all validated contracts."
+        }
+      }
+    },
+    "graph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default_scope", "mermaid_theme"],
+      "properties": {
+        "default_scope": {
+          "type": "string",
+          "description": "Default graph scope used when the graph command is invoked without a scope argument.",
+          "default": "all"
+        },
+        "mermaid_theme": {
+          "type": "string",
+          "description": "Default Mermaid theme used when rendering graph output.",
+          "default": "default"
+        }
+      }
+    }
+  }
 }

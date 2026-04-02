@@ -9,7 +9,7 @@
   "inputs": [
     {
       "name": "input_name",
-      "type": "string | number | boolean | object | array",
+      "type": "string",
       "required": true,
       "constraints": "[Describe the business constraint and why it exists]"
     }
@@ -17,7 +17,7 @@
   "outputs": [
     {
       "name": "output_name",
-      "type": "string | number | boolean | object | array",
+      "type": "string",
       "guarantees": "[Describe the guarantee]"
     }
   ],
@@ -48,7 +48,7 @@
       "required_response": "[What must happen when this error occurs]"
     }
   ],
-  "trust_zone": "internal | external | privileged",
+  "trust_zone": "internal",
   "rate_limits": {
     "requests_per_minute": 60,
     "burst_allowance": 10,
@@ -56,25 +56,25 @@
   },
   "inherited_constraints": [
     {
-      "source": "company | org | project",
+      "source": "company",
       "constraint": "[Inherited constraint stated precisely]"
     }
   ],
   "constraint_history": [
     {
-      "date": "YYYY-MM-DD",
+      "date": "1970-01-01",
       "context": "[What was tried]",
       "outcome": "[What happened]",
       "lesson": "[What this means for future changes]"
     }
   ],
   "deprecation_timeline": null,
-  "migration_path": "[Required if state: deprecated. Null otherwise.]",
+  "migration_path": null,
   "versioning_strategy": "[How breaking changes are introduced for this capability]",
   "version_history": [
     {
       "version": "1.0.0",
-      "date": "YYYY-MM-DD",
+      "date": "1970-01-01",
       "changed": "[What changed and why]"
     }
   ]
