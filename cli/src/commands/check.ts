@@ -55,10 +55,11 @@ interface CheckCommandExecution {
   readonly outputPath: string | null;
 }
 
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 type CheckPromptRunner = <TAnswer extends Record<string, unknown>>(
   ...args: [readonly CheckPromptQuestion[]]
 ) => Promise<TAnswer>;
+/* eslint-enable no-unused-vars */
 
 interface CheckPromptQuestion {
   readonly type: "input" | "list";

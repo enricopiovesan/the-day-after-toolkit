@@ -49,10 +49,11 @@ export interface RoadmapPromptAnswer {
   readonly agentTouchpointFrequency: 1 | 2 | 3;
 }
 
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 export type RoadmapPromptRunner = (
   ...args: [readonly RoadmapPromptQuestion[]]
 ) => Promise<RoadmapPromptAnswer>;
+/* eslint-enable no-unused-vars */
 
 interface RoadmapPromptQuestion {
   readonly type: "list";
