@@ -176,7 +176,7 @@ async function promptCapabilityNames(
       name: "capabilityNames",
       message: `Enter up to ${capabilityLimit} business-critical capabilities (comma-separated):`
     }
-  ]) as CapabilityNamePromptAnswer;
+  ]) as unknown as CapabilityNamePromptAnswer;
 
   const capabilityIds = response.capabilityNames
     .split(",")

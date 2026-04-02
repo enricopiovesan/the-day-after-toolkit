@@ -68,7 +68,8 @@ export interface RoadmapRunnerDependencies {
 }
 
 const DEFAULT_DEPENDENCIES: RoadmapRunnerDependencies = {
-  prompt: async (questions) => inquirer.prompt(questions as never) as Promise<RoadmapPromptAnswer>,
+  prompt: async (questions) =>
+    inquirer.prompt(questions as never) as unknown as Promise<RoadmapPromptAnswer>,
   now: () => new Date()
 };
 
