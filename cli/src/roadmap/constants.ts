@@ -7,12 +7,34 @@ export const ROADMAP_GENERATED_BY = "cdad roadmap";
 export const ROADMAP_SCHEMA_VERSION = "1.0.0";
 export const ROADMAP_TITLE = "Transformation Roadmap";
 export const ROADMAP_AGENT_READINESS_LABEL = "Agent-Readiness Score";
+export const ROADMAP_REPORT_HEADING = "Agent Readiness Report";
+export const ROADMAP_INPUT_REPORT_NAME = "cdad-report.md";
 export const ROADMAP_NEXT_STEPS_TITLE = "Next Steps";
 export const ROADMAP_PRIORITY_TABLE_TITLE = "Capability Priority Table";
 export const ROADMAP_NOT_CURRENT_CANDIDATE_TITLE = "Not a Current Extraction Candidate";
 export const ROADMAP_DEFAULT_CAPTURE_NOTE = "Capture the highest-risk constraint first.";
 export const ROADMAP_DEFAULT_SUMMARY =
   "This roadmap focuses the first extraction work on the capabilities most likely to fail under agent navigation.";
+export const ROADMAP_COMMAND_HEADER_DESCRIPTION = "Transformation Roadmap";
+export const ROADMAP_COMMAND_NEXT_STEP =
+  "run `cdad init payment/retry` to scaffold the first contract.";
+export const ROADMAP_COMMAND_OUTPUT_PREFIX = "Roadmap saved to:";
+export const ROADMAP_COMMAND_PRIORITY_PREFIX = "Priority order:";
+export const ROADMAP_COMMAND_COMPLETE_PREFIX = "Prioritization complete.";
+export const ROADMAP_COMMAND_BASENAME = "cdad-roadmap.md";
+export const ROADMAP_COMMAND_JSON_BASENAME = "cdad-roadmap.json";
+export const ROADMAP_CRITICALITY_PROMPT = "Business criticality (1-3):";
+export const ROADMAP_FREQUENCY_PROMPT = "Agent touchpoint frequency (1-3):";
+export const ROADMAP_PROMPT_OPTION_LABELS = {
+  1: "1 = supporting function, limited revenue impact",
+  2: "2 = important but not on the critical revenue path",
+  3: "3 = directly on the critical revenue / compliance path"
+} as const;
+export const ROADMAP_FREQUENCY_OPTION_LABELS = {
+  1: "1 = agents will rarely navigate this capability",
+  2: "2 = agents will navigate this capability regularly",
+  3: "3 = agents will navigate this capability constantly — it is a high-traffic node"
+} as const;
 
 export const ROADMAP_PHASE_1_HEADING = "## Phase 1 — Immediate (Weeks 1–4)";
 export const ROADMAP_PHASE_2_HEADING = "## Phase 2 — Near-term (Weeks 4–12)";
