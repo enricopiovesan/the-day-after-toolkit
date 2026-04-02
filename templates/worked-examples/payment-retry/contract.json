@@ -29,12 +29,12 @@
     {
       "name": "retry_id",
       "type": "string",
-      "guarantees": "A new identifier for the retry attempt, distinct from payment_id. Used for audit trail only; do not pass this to the processor as the payment identifier."
+      "guarantees": "A new identifier for the retry attempt, distinct from payment_id. Used for audit trail only — do not pass this to the processor as the payment identifier."
     }
   ],
   "non_goals": [
     "This capability does not initiate new payment attempts. It assesses retry safety and returns a status. The calling capability is responsible for the retry execution.",
-    "This capability does not handle declined payments. A payment declined by the processor is not a retry candidate; it is a new payment decision.",
+    "This capability does not handle declined payments. A payment declined by the processor is not a retry candidate — it is a new payment decision.",
     "This capability does not modify the original payment record."
   ],
   "use_cases": [

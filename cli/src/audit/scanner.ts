@@ -191,7 +191,7 @@ async function collectGlobEvidence(
         cwd: rootDir,
         absolute: true,
         nodir: true,
-        ignore: STATIC_SCAN_ROOT_IGNORE
+        ignore: [...STATIC_SCAN_ROOT_IGNORE]
       })
     )
   );
