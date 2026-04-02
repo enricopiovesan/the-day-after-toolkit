@@ -11,13 +11,13 @@
       "name": "payment_id",
       "type": "string",
       "required": true,
-      "constraints": "Must be the original payment_id from the failed attempt. Do not generate a new payment_id for a retry, because the processor uses this field to detect duplicate attempts when idempotency keys are active."
+      "constraints": "Must be the original payment_id from the failed attempt. Do not generate a new payment_id for a retry — the processor uses this field to detect duplicate attempts when idempotency keys are active."
     },
     {
       "name": "retry_reason",
       "type": "string",
       "required": true,
-      "constraints": "Must be one of: network_timeout, processor_unavailable, rate_limited. This capability does not handle retries for declined payments; that is a separate capability (payment/retry/declined)."
+      "constraints": "Must be one of: network_timeout, processor_unavailable, rate_limited. This capability does not handle retries for declined payments — that is a separate capability (payment/retry/declined)."
     }
   ],
   "outputs": [
