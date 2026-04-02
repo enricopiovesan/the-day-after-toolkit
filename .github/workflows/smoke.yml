@@ -15,4 +15,4 @@ jobs:
       - run: npm ci
       - run: npm install --prefix cli
       - run: npm run build
-      - run: echo "Smoke flow wiring pending CLI implementation."
+      - run: echo "Phase 1 smoke scaffold: this job will exercise the install and reader journey once the CLI is implemented."

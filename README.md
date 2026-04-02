@@ -13,7 +13,7 @@ cdad check
 
 ### I want to implement the full model
 
-Start with [docs/adoption-journey.md](/Users/piovese/Documents/the-day-after-toolkit/docs/adoption-journey.md).
+Start with [docs/adoption-journey.md](docs/adoption-journey.md).
 
 ## The Six Commands
 
@@ -32,11 +32,11 @@ The CLI prints a terminal summary and writes a machine-parseable `cdad-report.md
 
 ## Templates
 
-Contract, audit, and prioritization templates live under [`templates/`](/Users/piovese/Documents/the-day-after-toolkit/templates/README.md). Use the minimum viable contract to make a capability navigable now, then move to the extended contract when the capability needs deeper dependency, behavioral, and evolutionary context.
+Contract, audit, and prioritization templates live under [`templates/`](templates/README.md). Use the minimum viable contract to make a capability navigable now, then move to the extended contract when the capability needs deeper dependency, behavioral, and evolutionary context.
 
 ## Claude / Cursor / Codex Configurations
 
-Prompt and agent configuration files live under [`claude-configs/`](/Users/piovese/Documents/the-day-after-toolkit/claude-configs/README.md) and [`agent-configs/`](/Users/piovese/Documents/the-day-after-toolkit/agent-configs/README.md). They are designed to work with this repo's schemas, commands, and generated artifacts.
+Prompt and agent configuration files live under [`claude-configs/`](claude-configs/README.md) and [`agent-configs/`](agent-configs/README.md). They are designed to work with this repo's schemas, commands, and generated artifacts.
 
 ## From the book
 
@@ -44,7 +44,7 @@ This toolkit accompanies *The Day After: How to Restructure Your Software Compan
 
 ## License | Contributing | Author
 
-- License: [Apache-2.0](/Users/piovese/Documents/the-day-after-toolkit/LICENSE)
-- Contributing: [CONTRIBUTING.md](/Users/piovese/Documents/the-day-after-toolkit/CONTRIBUTING.md)
-- Specs: [openspec/README.md](/Users/piovese/Documents/the-day-after-toolkit/openspec/README.md)
+- License: [Apache-2.0](LICENSE)
+- Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
+- Specs: [openspec/README.md](openspec/README.md)
 - Author: Enrico Piovesan

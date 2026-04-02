@@ -18,4 +18,4 @@ Questions, bug reports, and contribution discussions should generally go through
 
 Do not report security issues publicly in GitHub issues.
 
-Follow [SECURITY.md](/Users/piovese/Documents/the-day-after-toolkit/SECURITY.md) for private reporting expectations.
+Follow [SECURITY.md](SECURITY.md) for private reporting expectations.
