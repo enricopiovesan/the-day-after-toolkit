@@ -65,3 +65,4 @@ Transfer this ranked list to the Extraction Priority Matrix
 ---
 
 *Tool from: The Day After — github.com/enricopiovesan/the-day-after-toolkit*
+*Implements: Appendix B of The Day After by Enrico Piovesan*

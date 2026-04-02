@@ -112,11 +112,3 @@ constraint_history:
       Any retry implementation must check in-flight status explicitly before
       retrying. This constraint is not in the processor's public documentation.
       It was confirmed by the processor's support team in ticket #PRO-8821.
-
-version_history:
-  - version: 1.0.0
-    date: 2024-01-15
-    changed: |
-      Initial contract authored. Captures constraint discovered in March 2022
-      incident that had previously existed only in the memory of the payments
-      team and a Slack thread from March 2022 that has since been archived.

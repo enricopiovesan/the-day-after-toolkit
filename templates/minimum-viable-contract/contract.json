@@ -1,3 +1,33 @@
 {
-  "_comment": "Auto-generated format reference placeholder. The full template will be generated from the spec-aligned YAML structure."
+  "_comment": "Auto-generated template reference for the minimum viable contract.",
+  "id": "domain/subdomain/action",
+  "version": "0.1.0",
+  "owner": "team-or-individual",
+  "state": "draft",
+  "name": "Human-Readable Capability Name",
+  "description": "[Describe what this capability does and why it exists]",
+  "inputs": [
+    {
+      "name": "input_name",
+      "type": "string | number | boolean | object | array",
+      "required": true,
+      "constraints": "[Describe the constraint and why it exists]"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output_name",
+      "type": "string | number | boolean | object | array",
+      "guarantees": "[Describe the guarantee]"
+    }
+  ],
+  "non_goals": [
+    "This capability does not [x]."
+  ],
+  "use_cases": [
+    "As a [role], I need to [action] so that [outcome]."
+  ],
+  "open_questions": [
+    "[Question that must be answered before this contract is authoritative]"
+  ]
 }

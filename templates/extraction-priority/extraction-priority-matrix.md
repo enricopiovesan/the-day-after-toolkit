@@ -62,3 +62,4 @@ the contract and begin the extraction.
 ---
 
 *Tool from: The Day After — github.com/enricopiovesan/the-day-after-toolkit*
+*Implements: Appendix C of The Day After by Enrico Piovesan*
