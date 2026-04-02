@@ -37,6 +37,7 @@ import type {
 } from "./types.js";
 import { pathExists } from "../utils/file.js";
 
+/* eslint-disable no-unused-vars */
 interface CompiledSchemaValidator {
   (data: unknown): boolean;
   errors?: readonly ErrorObject[] | null;
@@ -47,6 +48,7 @@ interface AjvConstructor {
     compile(schema: object): CompiledSchemaValidator;
   };
 }
+/* eslint-enable no-unused-vars */
 
 interface ContractDocument extends Record<string, unknown> {
   readonly id?: unknown;
