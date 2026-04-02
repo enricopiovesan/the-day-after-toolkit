@@ -10,10 +10,10 @@ Never commit working changes directly to `main`. Every change starts on a proper
 
 Please read:
 
-- [README.md](/Users/piovese/Documents/the-day-after-toolkit/README.md)
-- [ref/the-day-after-toolkit-spec.md](/Users/piovese/Documents/the-day-after-toolkit/ref/the-day-after-toolkit-spec.md)
+- [README.md](README.md)
+- [ref/the-day-after-toolkit-spec.md](ref/the-day-after-toolkit-spec.md)
 - the reference material in `ref/`
-- [openspec/README.md](/Users/piovese/Documents/the-day-after-toolkit/openspec/README.md)
+- [openspec/README.md](openspec/README.md)
 
 ## Acceptance Bar
 
