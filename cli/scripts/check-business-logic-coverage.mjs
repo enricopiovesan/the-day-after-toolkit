@@ -17,9 +17,11 @@ const REQUIRED_PERCENT = 100;
 async function main() {
   const rawSummary = await readFile(COVERAGE_SUMMARY_PATH, "utf8");
   const summary = JSON.parse(rawSummary);
+  const summaryEntries = Object.entries(summary);
 
   const failures = BUSINESS_LOGIC_TARGETS.flatMap((target) => {
-    const metrics = summary[target];
+    const matchedEntry = summaryEntries.find(([key]) => key === target || key.endsWith(`/${target}`));
+    const metrics = matchedEntry?.[1];
 
     if (!metrics) {
       return [`Missing coverage metrics for ${target}. Ensure the file is included in the test run.`];
