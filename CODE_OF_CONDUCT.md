@@ -1,6 +1,6 @@
 # Code of Conduct
 
-This repository is meant to be useful to readers, contributors, and maintainers. Keep the discussion useful for future readers as well as the people in the thread.
+This repository is meant to be useful to readers, contributors, and maintainers.
 
 ## Expected Behavior
 

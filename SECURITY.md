@@ -8,7 +8,7 @@ The Day After Toolkit should currently be treated as pre-production software.
 
 Please do not open public GitHub issues for suspected security vulnerabilities.
 
-Instead, report them privately to the maintainer using the support path in [SUPPORT.md](SUPPORT.md) and clearly mark the report as a security issue.
+Instead, report them privately to the maintainer using the support path in [SUPPORT.md](/Users/piovese/Documents/the-day-after-toolkit/SUPPORT.md) and clearly mark the report as a security issue.
 
 ## What to Include
 

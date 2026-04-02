@@ -8,7 +8,7 @@ authors:
 repository-code: "https://github.com/enricopiovesan/the-day-after-toolkit"
 url: "https://github.com/enricopiovesan/the-day-after-toolkit"
 abstract: >-
-  Open source toolkit for checking whether a codebase is ready for AI agents,
+  Open source toolkit for assessing whether a codebase is ready for AI agents,
   prioritizing capability extraction, and authoring machine-readable capability
   contracts.
 keywords:
