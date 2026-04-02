@@ -7,6 +7,7 @@
 
 import Ajv2020Module from "ajv/dist/2020.js";
 import type { ErrorObject } from "ajv";
+import type Ajv from "ajv";
 import { glob } from "glob";
 import { chmod, mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { readFileSync } from "node:fs";
@@ -37,12 +38,10 @@ import type {
 } from "./types.js";
 import { pathExists } from "../utils/file.js";
 
-/* eslint-disable no-unused-vars */
 interface CompiledSchemaValidator {
   (data: unknown): boolean;
   errors?: readonly ErrorObject[] | null;
 }
-/* eslint-enable no-unused-vars */
 
 interface ContractDocument extends Record<string, unknown> {
   readonly id?: unknown;
@@ -74,7 +73,7 @@ interface ValidatedContractFile extends FileValidationResult {
 }
 
 const TOOLKIT_ROOT = resolve(fileURLToPath(new URL("../../../", import.meta.url)));
-const Ajv2020 = Ajv2020Module as unknown as typeof import("ajv").default;
+const Ajv2020 = Ajv2020Module as unknown as typeof Ajv;
 const SCHEMA_VALIDATOR = new Ajv2020({ allErrors: true, strict: false, validateFormats: false });
 const SCHEMA_CACHE = new Map<string, object>();
 const VALIDATOR_CACHE = new Map<ContractSchemaKind, CompiledSchemaValidator>();
