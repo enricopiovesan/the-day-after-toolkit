@@ -48,6 +48,14 @@ The capability depends on the processor status endpoint and should respond withi
 
 - `payment/processor/status` `>=2.1.0`: This version exposes in-flight transaction state, which makes safe retry assessment possible. Earlier versions did not expose enough state for this capability.
 
+## Versioning notes
+
+This capability uses MAJOR version changes for any breaking change to retry safety, input semantics, or dependency requirements. MINOR changes add new non-breaking clarity, and PATCH changes correct the contract text without altering the declared behavior.
+
+Version history:
+
+- `1.0.0` on `2024-01-15`: Initial contract authored. Captures retry safety rules and the processor status dependency needed to keep the retry path safe.
+
 ## Open questions
 
 []
