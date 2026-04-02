@@ -119,11 +119,15 @@ describe("executeCheckCommand", () => {
 function createPromptQueue(
   responses: readonly Record<string, unknown>[]
 ): <TAnswer extends Record<string, unknown>>(
-  _questions?: readonly unknown[]
+  questions?: readonly unknown[]
 ) => Promise<TAnswer> {
   const queue = [...responses];
 
-  return async <TAnswer extends Record<string, unknown>>(): Promise<TAnswer> => {
+  return async <TAnswer extends Record<string, unknown>>(
+    incomingQuestions?: readonly unknown[]
+  ): Promise<TAnswer> => {
+    void questions;
+    void incomingQuestions;
     const next = queue.shift();
 
     if (!next) {

@@ -56,7 +56,7 @@ interface CheckCommandExecution {
 }
 
 type CheckPromptRunner = <TAnswer extends Record<string, unknown>>(
-  questions: readonly CheckPromptQuestion[]
+  ...args: [readonly CheckPromptQuestion[]]
 ) => Promise<TAnswer>;
 
 interface CheckPromptQuestion {

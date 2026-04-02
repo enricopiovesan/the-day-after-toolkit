@@ -50,7 +50,7 @@ export interface RoadmapPromptAnswer {
 }
 
 export type RoadmapPromptRunner = (
-  questions: readonly RoadmapPromptQuestion[]
+  ...args: [readonly RoadmapPromptQuestion[]]
 ) => Promise<RoadmapPromptAnswer>;
 
 interface RoadmapPromptQuestion {
