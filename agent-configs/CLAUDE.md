@@ -1,4 +1,4 @@
-# [Project Name] — Agent Context
+# The Day After Toolkit — Agent Context
 
 This repository uses the C-DAD (Contract-Driven AI Development) model.
 All capabilities in this system are declared in `cdad/` as contracts.
@@ -38,4 +38,8 @@ A contract violation must be resolved before the change is committed.
 
 ## Current agent-readiness score
 
-[Link to cdad-report.md if present, or instruction to run `cdad check`]
+Run `cdad check` to generate `cdad-report.md`, then link the live report here once the repository has one.
+
+## Working Rule
+
+If a contract, a workflow, and the code disagree, stop and identify the mismatch before you make the change. The contract is the navigation surface, not the implementation detail.

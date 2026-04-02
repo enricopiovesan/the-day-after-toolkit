@@ -18,4 +18,4 @@ jobs:
       - run: npm ci
       - run: npm install --prefix cli
       - run: npm run build
-      - run: echo "Template validation command wiring pending CLI implementation."
+      - run: node templates/scripts/validate-worked-examples.mjs

@@ -113,10 +113,19 @@ constraint_history:
       retrying. This constraint is not in the processor's public documentation.
       It was confirmed by the processor's support team in ticket #PRO-8821.
 
+deprecation_timeline: null
+
+migration_path: null
+
+versioning_strategy: |
+  This capability uses MAJOR version changes for any breaking change to retry
+  safety, input semantics, or dependency requirements. MINOR changes add new
+  non-breaking clarity, and PATCH changes correct the contract text without
+  altering the declared behavior.
+
 version_history:
   - version: 1.0.0
     date: 2024-01-15
     changed: |
-      Initial contract authored. Captures constraint discovered in March 2022
-      incident that had previously existed only in the memory of the payments
-      team and a Slack thread from March 2022 that has since been archived.
+      Initial contract authored. Captures retry safety rules and the processor
+      status dependency needed to keep the retry path safe.

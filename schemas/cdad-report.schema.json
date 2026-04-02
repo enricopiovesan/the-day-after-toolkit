@@ -2,6 +2,206 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/enricopiovesan/the-day-after-toolkit/main/schemas/cdad-report.schema.json",
   "title": "cdad Report",
-  "description": "Placeholder schema pending exact spec transcription.",
-  "type": "object"
+  "description": "Schema for the machine-readable JSON export corresponding to the `cdad check` report output. The default human artifact is Markdown with YAML frontmatter; this schema describes the structured JSON representation of the same report data.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "generated_by",
+    "generated_at",
+    "repo",
+    "score",
+    "band",
+    "schema_version",
+    "summary",
+    "static_scan_results",
+    "capability_legibility_assessment",
+    "gap_inventory",
+    "recommended_next_step"
+  ],
+  "properties": {
+    "generated_by": {
+      "type": "string",
+      "description": "Command that generated the report.",
+      "const": "cdad check"
+    },
+    "generated_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp for when the report was generated.",
+      "format": "date-time"
+    },
+    "repo": {
+      "type": "string",
+      "description": "Repository name or identifier that the report describes.",
+      "minLength": 1
+    },
+    "score": {
+      "type": "number",
+      "description": "Overall agent-readiness score on the 0 to 10 scale used by the toolkit.",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "band": {
+      "type": "string",
+      "description": "Score band label derived from the overall score.",
+      "enum": ["red", "amber", "yellow", "green"]
+    },
+    "schema_version": {
+      "type": "string",
+      "description": "Version of the report schema represented by the document.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "summary": {
+      "type": "object",
+      "description": "High-level human summary of the report.",
+      "additionalProperties": false,
+      "required": ["overall_score", "human_summary", "primary_risk"],
+      "properties": {
+        "overall_score": {
+          "type": "number",
+          "description": "Repeat of the overall score for direct machine consumption.",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "human_summary": {
+          "type": "string",
+          "description": "Two-sentence summary of what the score means.",
+          "minLength": 1
+        },
+        "primary_risk": {
+          "type": "string",
+          "description": "The main failure mode if agents are used against the repository now.",
+          "minLength": 1
+        }
+      }
+    },
+    "static_scan_results": {
+      "type": "array",
+      "description": "Signals found by the static repository scan.",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/staticScanResult"
+      }
+    },
+    "capability_legibility_assessment": {
+      "type": "array",
+      "description": "Assessment of the named capabilities from the questionnaire.",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/capabilityAssessment"
+      }
+    },
+    "gap_inventory": {
+      "type": "array",
+      "description": "Machine-readable list of gaps identified in the report.",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/gap"
+      }
+    },
+    "recommended_next_step": {
+      "type": "string",
+      "description": "Recommended next action for the practitioner after reading the report.",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "staticScanResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["signal", "found", "score"],
+      "properties": {
+        "signal": {
+          "type": "string",
+          "description": "Name of the static scan signal being reported.",
+          "minLength": 1
+        },
+        "found": {
+          "type": "boolean",
+          "description": "Whether the signal was present in the repository."
+        },
+        "score": {
+          "type": "number",
+          "description": "Score contribution assigned to this signal.",
+          "minimum": 0,
+          "maximum": 10
+        }
+      }
+    },
+    "capabilityAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capability", "legibility_score", "questions", "risk"],
+      "properties": {
+        "capability": {
+          "type": "string",
+          "description": "Capability identifier being assessed.",
+          "minLength": 1
+        },
+        "legibility_score": {
+          "type": "number",
+          "description": "Capability legibility score on the 0 to 4 scale.",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "questions": {
+          "type": "array",
+          "description": "The four legibility questions and the answer for each one.",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/questionAssessment"
+          }
+        },
+        "risk": {
+          "type": "string",
+          "description": "Narrative risk statement for this capability.",
+          "minLength": 1
+        }
+      }
+    },
+    "questionAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "answer", "gap_type"],
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "Text of the legibility question that was asked.",
+          "minLength": 1
+        },
+        "answer": {
+          "type": "string",
+          "description": "Practitioner answer to the question.",
+          "enum": ["yes", "partially", "no"]
+        },
+        "gap_type": {
+          "type": "string",
+          "description": "Gap category implied by the answer.",
+          "minLength": 1
+        }
+      }
+    },
+    "gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capability", "gap_type", "severity"],
+      "properties": {
+        "capability": {
+          "type": "string",
+          "description": "Capability identifier affected by the gap.",
+          "minLength": 1
+        },
+        "gap_type": {
+          "type": "string",
+          "description": "Type of gap recorded in the report.",
+          "minLength": 1
+        },
+        "severity": {
+          "type": "string",
+          "description": "Severity assigned to the gap.",
+          "enum": ["critical", "high", "medium", "low"]
+        }
+      }
+    }
+  }
 }
