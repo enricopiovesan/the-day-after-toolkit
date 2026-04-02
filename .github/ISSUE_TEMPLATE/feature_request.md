@@ -11,6 +11,8 @@ labels: ["enhancement"]
 
 ## Proposed behavior
 
+## OpenSpec impact
+
 ## Spec reference
 
 ## Definition of done

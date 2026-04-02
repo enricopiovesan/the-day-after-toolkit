@@ -2,6 +2,10 @@
 
 The Day After Toolkit turns the book's argument into executable open source tooling. Contributions matter because the repo has to work for first-time practitioners, not only readers who already know the model.
 
+## Branching Rule
+
+Never commit working changes directly to `main`. Every change starts on a proper branch, opens a pull request, and lands through review.
+
 ## Before You Start
 
 Please read:
@@ -9,14 +13,25 @@ Please read:
 - [README.md](/Users/piovese/Documents/the-day-after-toolkit/README.md)
 - [ref/the-day-after-toolkit-spec.md](/Users/piovese/Documents/the-day-after-toolkit/ref/the-day-after-toolkit-spec.md)
 - the reference material in `ref/`
+- [openspec/README.md](/Users/piovese/Documents/the-day-after-toolkit/openspec/README.md)
 
 ## Acceptance Bar
 
 Before a pull request merges, it must pass the required build, lint, test, schema validation, and contract validation checks.
+Deterministic business logic is expected to maintain 100% unit test coverage.
+Implementation must stay aligned to the governing spec.
 
 ## The Contract for This Repo
 
 This repo must be useful to a first-time practitioner. Changes that break the reader or practitioner path are rejected even if the code is otherwise clean.
+The implementation must stay aligned to the authoritative spec for the change. If code and spec disagree, fix the spec first or do not merge the code.
+
+## Spec Workflow
+
+Use [OpenSpec](https://openspec.dev/) to define and evolve specs in this repository.
+Specs live in `openspec/specs/` and change proposals live in `openspec/changes/`.
+Implementation work should point to the governing OpenSpec artifact and the authoritative repo spec section when relevant.
+When an OpenSpec artifact and `ref/the-day-after-toolkit-spec.md` both cover the same behavior, `ref/the-day-after-toolkit-spec.md` is authoritative until the repo explicitly migrates that area into OpenSpec.
 
 ## Documentation Standard
 
@@ -30,9 +45,18 @@ TypeScript runs in strict mode. No `any`, no `@ts-ignore`, and no lint warnings.
 
 Every pull request should include:
 
+- the branch name and linked issue
+- the governing OpenSpec spec or change proposal
 - the relevant spec section reference
 - test or validation evidence
 - an example of changed output when user-facing behavior changes
+
+Pull requests must not merge unless:
+
+- required status checks pass
+- business logic unit coverage requirements for the affected area are satisfied
+- the implementation is aligned to the governing spec
+- review feedback is resolved
 
 ## Issues
 
@@ -41,6 +65,7 @@ Use the issue templates when possible so work lands in the project board and mil
 ## Coverage Gate
 
 The repository enforces a high bar for core business logic. Scoring, prioritization, validation, and report generation must keep the required coverage floor and should not merge when a branch reduces trust in deterministic behavior.
+For deterministic business logic, the target merge gate is 100% unit test coverage. Until CI enforces this mechanically, reviewers must treat it as a blocking requirement.
 
 ## Public Repo Hygiene
 
