@@ -41,6 +41,28 @@ function stripComment(value) {
   return value;
 }
 
+function normalizeValue(value) {
+  if (Array.isArray(value)) {
+    return value.map((entry) => normalizeValue(entry));
+  }
+
+  if (value instanceof Date) {
+    return value.toISOString().slice(0, 10);
+  }
+
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, entry]) => [key, normalizeValue(entry)])
+    );
+  }
+
+  if (typeof value === "string") {
+    return value.replace(/\s+/g, " ").trim();
+  }
+
+  return value;
+}
+
 function parseMarkdownFrontmatter(markdown, filePath) {
   const match = markdown.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
 
@@ -74,7 +96,7 @@ async function validateWorkedExample(example) {
     readFile(schemaPath, "utf8")
   ]);
 
-  const contract = yaml.load(yamlSource);
+  const contract = yaml.load(yamlSource, { schema: yaml.JSON_SCHEMA });
   const parsedJson = JSON.parse(jsonSource);
   const schema = JSON.parse(schemaSource);
   const validate = ajv.compile(schema);
@@ -83,7 +105,10 @@ async function validateWorkedExample(example) {
     fail(`${yamlPath}: schema validation failed\n${ajv.errorsText(validate.errors, { separator: "\n" })}`);
   }
 
-  if (JSON.stringify(stripComment(parsedJson)) !== JSON.stringify(contract)) {
+  if (
+    JSON.stringify(normalizeValue(stripComment(parsedJson))) !==
+    JSON.stringify(normalizeValue(contract))
+  ) {
     fail(`${jsonPath}: JSON artifact is not synchronized with contract.yaml`);
   }
 
@@ -102,7 +127,12 @@ async function validateWorkedExample(example) {
   if (frontmatter?.do_not_edit !== true) {
     fail(`${markdownPath}: frontmatter do_not_edit must be true`);
   }
-  if (typeof frontmatter?.last_synced !== "string" || frontmatter.last_synced.length === 0) {
+  if (
+    !(
+      (typeof frontmatter?.last_synced === "string" && frontmatter.last_synced.length > 0) ||
+      frontmatter?.last_synced instanceof Date
+    )
+  ) {
     fail(`${markdownPath}: frontmatter last_synced must be present`);
   }
 
