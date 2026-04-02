@@ -55,9 +55,11 @@ interface CheckCommandExecution {
   readonly outputPath: string | null;
 }
 
+/* eslint-disable no-unused-vars */
 type CheckPromptRunner = (
   questions: readonly CheckPromptQuestion[]
 ) => Promise<Record<string, unknown>>;
+/* eslint-enable no-unused-vars */
 
 interface CheckPromptQuestion {
   readonly type: "input" | "list";
