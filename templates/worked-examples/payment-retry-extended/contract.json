@@ -5,7 +5,7 @@
   "owner": "payments-team",
   "state": "active",
   "name": "Payment Retry",
-  "description": "Retries a failed payment attempt only after confirming the upstream payment processor has not yet received or is not currently processing the original request. This capability exists because the payment processor used in production does not honor idempotency keys until after a transaction has completed processing, meaning a naive retry during processing will result in a duplicate charge. The constraint is not in the processor documentation; it was discovered in a production incident in March 2022.",
+  "description": "Retries a failed payment attempt only after confirming the upstream payment processor has not yet received or is not currently processing the original request. This capability exists because the payment processor used in production does not honor idempotency keys until after a transaction has completed processing — meaning a naive retry during processing will result in a duplicate charge. The constraint is not in the processor documentation; it was discovered in a production incident in March 2022.",
   "inputs": [
     {
       "name": "payment_id",
