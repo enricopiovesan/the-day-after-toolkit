@@ -5,7 +5,7 @@
  * in one place so the command layer stays thin.
  */
 
-import Ajv2020 from "ajv/dist/2020.js";
+import Ajv2020Module from "ajv/dist/2020.js";
 import type { ErrorObject } from "ajv";
 import { glob } from "glob";
 import { chmod, mkdir, readFile, stat, writeFile } from "node:fs/promises";
@@ -74,6 +74,7 @@ interface ValidatedContractFile extends FileValidationResult {
 }
 
 const TOOLKIT_ROOT = resolve(fileURLToPath(new URL("../../../", import.meta.url)));
+const Ajv2020 = Ajv2020Module as unknown as typeof import("ajv").default;
 const SCHEMA_VALIDATOR = new Ajv2020({ allErrors: true, strict: false, validateFormats: false });
 const SCHEMA_CACHE = new Map<string, object>();
 const VALIDATOR_CACHE = new Map<ContractSchemaKind, CompiledSchemaValidator>();
