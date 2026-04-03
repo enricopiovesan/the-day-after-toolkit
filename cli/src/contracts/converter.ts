@@ -43,7 +43,7 @@ export async function syncGeneratedArtifacts(
   const commentSuffix = options.extended ? "extended contract.yaml" : "contract.yaml";
   const jsonContract: JsonContractDocument = {
     _comment: `Auto-generated from ${options.capabilityId} ${commentSuffix}.`,
-    ...(contract as Record<string, unknown>)
+    ...(contract as unknown as Record<string, unknown>)
   };
 
   await writeFile(jsonPath, `${JSON.stringify(jsonContract, null, 2)}\n`, "utf8");

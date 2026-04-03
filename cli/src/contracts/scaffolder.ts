@@ -207,7 +207,7 @@ export async function scaffoldContract(
   const answers = normalizePromptAnswers(promptAnswers, defaults);
 
   const contract = options.extended
-    ? createExtendedContract(options.capabilityId, answers, runtime.now())
+    ? createExtendedContract(options.capabilityId, answers, runtime.now)
     : createMinimumContract(options.capabilityId, answers);
   const roadmapCaptureNote = await readRoadmapCaptureNote(runtime.cwd, options.capabilityId);
   const yamlContents = renderContractYaml(contract, roadmapCaptureNote, options.extended ?? false);
