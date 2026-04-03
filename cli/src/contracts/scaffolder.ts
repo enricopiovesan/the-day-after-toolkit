@@ -355,20 +355,30 @@ async function readRoadmapCaptureNote(cwd: string, capabilityId: string): Promis
   }
 
   const source = await readFile(roadmapPath, "utf8");
-  const escapedId = capabilityId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const sectionPattern = new RegExp(
-    `^###\\s+(?:\\d+\\.\\s+)?${escapedId}\\s*$([\\s\\S]*?)(?=^###\\s+|^##\\s+|\\Z)`,
-    "m"
-  );
-  const match = sectionPattern.exec(source);
-  const section = match?.[1];
+  const lines = source.split(/\r?\n/);
+  const headingPatterns = [
+    `### ${capabilityId}`,
+    `### 1. ${capabilityId}`,
+    `### 2. ${capabilityId}`,
+    `### 3. ${capabilityId}`
+  ];
+  const startIndex = lines.findIndex((line) => headingPatterns.includes(line.trim()));
 
-  if (!section) {
+  if (startIndex === -1) {
     return null;
   }
 
-  const captureMatch = /\*\*What to capture first:\*\*\s+(.+)/.exec(section);
-  return captureMatch?.[1]?.trim() ?? null;
+  const sectionLines: string[] = [];
+  for (const line of lines.slice(startIndex + 1)) {
+    if (line.startsWith("### ") || line.startsWith("## ")) {
+      break;
+    }
+
+    sectionLines.push(line);
+  }
+
+  const captureLine = sectionLines.find((line) => line.startsWith("**What to capture first:**"));
+  return captureLine?.replace("**What to capture first:**", "").trim() ?? null;
 }
 
 function humanizeCapabilityId(capabilityId: string): string {
