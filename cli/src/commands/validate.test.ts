@@ -30,6 +30,40 @@ describe("executeValidateCommand", () => {
     expect(parsed.generatedBy).toBe("cdad validate");
     expect(Array.isArray(parsed.files)).toBe(true);
   });
+
+  it("prefers yaml over generated json siblings when validating a directory", async () => {
+    const repoRoot = await createRepoFixture({
+      "cdad/payment/retry/contract.yaml": VALID_CONTRACT,
+      "cdad/payment/retry/contract.json": `{
+  "_comment": "Auto-generated from payment/retry contract.yaml.",
+  "id": "payment/retry",
+  "version": "0.1.0",
+  "owner": "Payments",
+  "state": "active",
+  "name": "Payment Retry",
+  "description": "Keep the payment flow moving when a transient failure occurs.",
+  "inputs": [],
+  "outputs": [],
+  "non_goals": [],
+  "use_cases": [],
+  "open_questions": []
+}`
+    });
+
+    const execution = await executeValidateCommand(
+      {
+        path: join(repoRoot, "cdad/payment/retry"),
+        format: "json"
+      },
+      {
+        cwd: repoRoot
+      }
+    );
+
+    expect(execution.report.exitCode).toBe(0);
+    expect(execution.report.files).toHaveLength(1);
+    expect(execution.report.files[0]?.filePath).toContain("contract.yaml");
+  });
 });
 
 async function createRepoFixture(

@@ -303,7 +303,7 @@ async function discoverContractFiles(rootDir: string): Promise<string[]> {
     ignore: [...IGNORED_GLOB_PATTERNS]
   });
 
-  return [...new Set(matches)].sort();
+  return selectPreferredContractFiles([...new Set(matches)].sort());
 }
 
 async function findRepoRoot(startDir: string): Promise<string> {
@@ -356,7 +356,7 @@ function parseContractDocument(raw: string, filePath: string): ContractDocument 
   try {
     if (extname(filePath).toLowerCase() === ".json") {
       const parsed = JSON.parse(raw) as unknown;
-      return isContractDocument(parsed) ? parsed : null;
+      return isContractDocument(parsed) ? sanitizeJsonContractDocument(parsed) : null;
     }
 
     // Use the JSON schema so plain ISO dates stay strings and do not coerce
@@ -366,6 +366,50 @@ function parseContractDocument(raw: string, filePath: string): ContractDocument 
   } catch {
     return null;
   }
+}
+
+function sanitizeJsonContractDocument(contract: ContractDocument): ContractDocument {
+  if (!Object.prototype.hasOwnProperty.call(contract, "_comment")) {
+    return contract;
+  }
+
+  const { _comment: ignoredComment, ...rest } = contract as ContractDocument & {
+    readonly _comment?: unknown;
+  };
+
+  void ignoredComment;
+  return rest as ContractDocument;
+}
+
+function selectPreferredContractFiles(paths: readonly string[]): string[] {
+  const grouped = new Map<string, string[]>();
+
+  for (const filePath of paths) {
+    const siblings = grouped.get(dirname(filePath)) ?? [];
+    siblings.push(filePath);
+    grouped.set(dirname(filePath), siblings);
+  }
+
+  const selected: string[] = [];
+
+  for (const siblings of grouped.values()) {
+    const yamlPath = siblings.find((filePath) => {
+      const extension = extname(filePath).toLowerCase();
+      return extension === ".yaml" || extension === ".yml";
+    });
+
+    if (yamlPath) {
+      selected.push(yamlPath);
+      continue;
+    }
+
+    const jsonPath = siblings.find((filePath) => extname(filePath).toLowerCase() === ".json");
+    if (jsonPath) {
+      selected.push(jsonPath);
+    }
+  }
+
+  return selected.sort();
 }
 
 function inferSchemaKind(contract: ContractDocument, filePath: string): ContractSchemaKind {
