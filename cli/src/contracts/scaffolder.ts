@@ -113,10 +113,16 @@ export interface InitPromptQuestion {
   readonly choices?: readonly { readonly name: string; readonly value: ContractState }[];
 }
 
+/* eslint-disable no-unused-vars */
+type InitPromptRunner = (
+  questions: readonly InitPromptQuestion[]
+) => Promise<InitPromptAnswerMap>;
+/* eslint-enable no-unused-vars */
+
 export interface InitRuntime {
   readonly cwd: string;
   readonly now: () => Date;
-  readonly prompt: (questions: readonly InitPromptQuestion[]) => Promise<InitPromptAnswerMap>;
+  readonly prompt: InitPromptRunner;
 }
 
 export interface ScaffoldContractOptions {
