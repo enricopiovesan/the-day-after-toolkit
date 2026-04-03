@@ -3,7 +3,7 @@
 - branch:
 - OpenSpec artifact:
 - spec reference:
-- issue:
+- issue: closes #
 
 ## Validation
 

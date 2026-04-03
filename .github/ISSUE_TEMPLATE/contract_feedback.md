@@ -13,4 +13,10 @@ labels: ["schemas", "templates"]
 
 ## Expected contract behavior
 
-## Spec reference
+## Acceptance criteria
+
+## OpenSpec impact
+
+## Spec references
+
+## Definition of done

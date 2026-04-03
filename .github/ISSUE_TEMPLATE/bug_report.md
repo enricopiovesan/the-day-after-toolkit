@@ -13,6 +13,12 @@ labels: ["bug"]
 
 ## Actual behavior
 
-## Spec reference
+## Acceptance criteria
+
+## OpenSpec impact
+
+## Spec references
+
+## Definition of done
 
 ## Environment
