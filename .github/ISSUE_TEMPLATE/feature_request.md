@@ -11,8 +11,10 @@ labels: ["enhancement"]
 
 ## Proposed behavior
 
+## Acceptance criteria
+
 ## OpenSpec impact
 
-## Spec reference
+## Spec references
 
 ## Definition of done

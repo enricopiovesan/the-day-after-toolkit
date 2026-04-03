@@ -52,6 +52,19 @@ The repository SHALL store living specs and change proposals using the OpenSpec 
 - WHEN they define the work
 - THEN they add or update the relevant OpenSpec spec or change proposal in-repo
 
+### Requirement: Active work needs an execution signal
+
+Accepted implementation issues SHALL show active execution within one working day.
+
+#### Scenario: Ticket exists but no one is executing it
+
+- GIVEN an open implementation issue exists
+- AND the issue has no assignee
+- AND the issue has no linked open pull request
+- WHEN the issue remains in that state longer than the allowed grace period
+- THEN repository automation flags it as stalled work
+- AND maintainers correct the status before opening more implementation tickets
+
 ### Requirement: Business logic must be fully unit tested
 
 The repository SHALL require deterministic business logic to reach 100% unit test coverage before merge.

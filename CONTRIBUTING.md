@@ -5,6 +5,7 @@ The Day After Toolkit turns the book's argument into executable open source tool
 ## Branching Rule
 
 Never commit working changes directly to `main`. Every change starts on a proper branch, opens a pull request, and lands through review.
+If an issue is accepted for implementation, it must be assigned, moved into active execution, and have a pull request opened promptly. Open issues must not sit indefinitely with no execution owner and no branch-backed PR.
 
 ## Before You Start
 
@@ -57,6 +58,15 @@ Pull requests must not merge unless:
 - business logic unit coverage requirements for the affected area are satisfied
 - the implementation is aligned to the governing spec
 - review feedback is resolved
+
+## Issue Execution Rule
+
+Once an issue is approved for implementation, it needs an execution signal within one working day. The minimum acceptable signal is one of:
+
+- an assignee who owns execution
+- an open pull request linked to the issue
+
+If none of those signals exists, the issue is treated as stalled planning work and must be corrected before more tickets are opened.
 
 ## Issues
 
