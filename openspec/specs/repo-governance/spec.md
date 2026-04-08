@@ -65,6 +65,23 @@ Accepted implementation issues SHALL show active execution within one working da
 - THEN repository automation flags it as stalled work
 - AND maintainers correct the status before opening more implementation tickets
 
+### Requirement: Project status reflects execution reality
+
+Implementation issues SHALL use the project status field to reflect whether work is ready, active, blocked, or done.
+
+#### Scenario: Ticket is fully specified and waiting to be picked up
+
+- GIVEN an implementation issue has spec references, definition of done, and no known blocker
+- WHEN the ticket is not yet actively owned
+- THEN its project status is `Ready`
+
+#### Scenario: Active work becomes blocked
+
+- GIVEN an implementation issue or linked pull request cannot progress because of a concrete blocker
+- WHEN execution cannot continue without that blocker being cleared
+- THEN its project status is `Blocked`
+- AND the blocking reason is recorded in the issue or pull request
+
 ### Requirement: Business logic must be fully unit tested
 
 The repository SHALL require deterministic business logic to reach 100% unit test coverage before merge.
