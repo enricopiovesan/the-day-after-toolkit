@@ -68,6 +68,18 @@ Once an issue is approved for implementation, it needs an execution signal withi
 
 If none of those signals exists, the issue is treated as stalled planning work and must be corrected before more tickets are opened.
 
+## Project Statuses
+
+Use the project `Status` field deliberately. Avoid leaving executable work in `Todo` when the next state is already known.
+
+- `Ready` means the ticket has a governing spec reference, definition of done, and no known blocker. It is ready to be picked up for implementation.
+- `In Progress` means one owner is actively executing the ticket and driving its linked branch or pull request.
+- `Blocked` means work cannot move forward because of a concrete dependency, decision, or failing external condition. The blocking reason should be written in the issue or PR.
+- `Done` means the linked implementation has merged or the ticket has been otherwise fully resolved.
+
+Implementation tickets should normally move through `Ready` → `In Progress` → `Done`.
+Use `Blocked` instead of letting a ticket or PR silently stall.
+
 ## Issues
 
 Use the issue templates when possible so work lands in the project board and milestones cleanly. Link the spec section that governs the behavior you are proposing or changing.
