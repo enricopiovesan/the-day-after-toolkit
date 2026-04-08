@@ -39,6 +39,6 @@ After producing the YAML, remind the practitioner to run:
 - Inputs with no business constraints declared
 - Constraint history left blank when the practitioner mentions a past incident
 
-## Success Criteria
+## Schema reference
 
-The result should pass `cdad validate` without requiring the practitioner to infer missing intent, fill in hidden placeholders, or translate implementation details back into business language.
+`schemas/minimum-viable-contract.schema.json`
