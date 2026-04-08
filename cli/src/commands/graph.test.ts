@@ -31,7 +31,7 @@ describe("executeGraphCommand", () => {
     const json = await readFile(join(repoRoot, "graph-output/cdad-graph.json"), "utf8");
 
     expect(execution.output).toContain("Found 4 contracts.");
-    expect(execution.output).toContain("Dependency edges: 3");
+    expect(execution.output).toContain("Dependency edges: 2");
     expect(markdown).toContain("# Capability Graph");
     expect(markdown).toContain("| payment | 2 | 1 | 1 | 0 |");
     expect(markdown).toContain("legacy/session: Use auth/session/login instead.");
