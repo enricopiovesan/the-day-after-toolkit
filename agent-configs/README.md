@@ -1,31 +1,18 @@
 # Agent Configurations
 
-These files show how a contract-driven repository should instruct coding agents to navigate and validate their work.
+These files show how a contract-driven repository should instruct coding agents
+to navigate and validate their work in Claude, Cursor, and Codex.
 
-## Examples
+## Included Files
 
-- `CLAUDE.md` shows the repo-level agent context format
-- `contract-aware-coding-agent.md` shows how to code against contracts rather than implementation guesses
+- `CLAUDE.md` is the repo-level context file. Use it directly as `CLAUDE.md`,
+  adapt it into Cursor project rules, or paste it into a Codex system prompt.
+- `contract-aware-coding-agent.md` is the task-level implementation prompt for
+  code changes that must honor contracts and generated artifacts.
 
 ## How to use them
 
-For Claude:
-- place `CLAUDE.md` or a repo-specific variant in your project instructions
-- adapt the example paths if your contracts live somewhere other than `cdad/`
-
-For Cursor:
-- translate the relevant sections into repository rules so edits always start from the contract, not from code search alone
-- keep the rule text close to the commands engineers should actually run
-
-For Codex:
-- use these files as the baseline instruction set for coding agents working in a contract-driven repo
-- keep examples grounded in toolkit commands that exist in this repository: `cdad init`, `cdad validate`, `cdad check`, and `cdad graph`
-
-## Adapting to a repository
-
-These files are templates, not claims about the current workspace state.
-Before adopting them in another repository, update:
-
-- the contract root path if it is not `cdad/`
-- any generated artifact names such as `cdad-graph.json`
-- the exact validation and reporting commands your team expects during review
+1. Load `CLAUDE.md` first so the agent has the repo map.
+2. Pair it with `contract-aware-coding-agent.md` for implementation work.
+3. Keep `docs/cli-reference.md`, `docs/contract-schema-reference.md`, and the
+   active contract or worked example open while coding.

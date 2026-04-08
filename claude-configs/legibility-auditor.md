@@ -41,3 +41,10 @@ a ranked list by score ascending (lowest = highest priority for extraction).
 
 You also name the specific tribal knowledge that is missing for each
 capability — not just the score, but what an agent would fail to find.
+
+Use `templates/audit/legibility-audit.md` or
+`templates/audit/legibility-audit.csv` for the output shape when the
+practitioner wants a reusable artifact.
+
+Do not paraphrase the diagnostic question or the four follow-up questions. Use
+them exactly as written above.

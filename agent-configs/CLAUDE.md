@@ -1,14 +1,23 @@
 # The Day After Toolkit — Agent Context
 
 This repository uses the C-DAD (Contract-Driven AI Development) model.
-Use this file as a template for repositories that store capability
-contracts under a `cdad/` directory and validate them with the toolkit
-commands in this repo.
+The toolkit itself lives in the CLI, docs, templates, schemas, and repo
+workflow files in this repository.
+
+## Primary navigation surfaces
+
+Read these before making non-trivial changes:
+
+- `README.md`
+- `docs/cli-reference.md`
+- `docs/contract-schema-reference.md`
+- `ref/the-day-after-toolkit-spec.md`
+- `openspec/specs/repo-governance/spec.md`
+- `templates/worked-examples/payment-retry/contract.yaml`
 
 ## How to navigate this system
 
-Before modifying any capability in a contract-driven repository, read
-its contract:
+Before modifying any capability, read its contract:
 `cdad/[domain]/[subdomain]/[action]/contract.yaml`
 
 The contract declares:
@@ -18,14 +27,13 @@ The contract declares:
 - What it does NOT do
 - What has been tried before and failed
 
+If no contract exists yet, say that the capability is still uncovered and do
+not infer intent from implementation alone.
+
 ## Capability graph
 
-Generate the capability dependency graph before making changes that
-affect multiple capabilities:
-`cdad graph --root cdad --output cdad-graph.json`
-
-Review the generated `cdad-graph.json` rather than assuming dependency
-intent from the code alone.
+When present, the machine-readable dependency graph is in `cdad-graph.json`.
+You can regenerate graph artifacts with `cdad graph`.
 
 ## Contract rules for agents
 
@@ -41,16 +49,22 @@ intent from the code alone.
 After modifying any capability contract, run:
 `cdad validate cdad/[capability-path]/contract.yaml`
 
-When bootstrapping a new capability, start from:
-`cdad init [domain/subdomain/action] --output cdad`
-
 A contract violation must be resolved before the change is committed.
+
+If you changed CLI behavior, docs, or generated artifact expectations, also
+run:
+
+- `npm test`
+- `cdad validate --all --strict` when contracts changed
+
+Use `docs/cli-reference.md` to confirm intended command behavior before you
+change user-facing output or artifact paths.
 
 ## Current agent-readiness score
 
-Run `cdad check --root cdad` to assess the repository.
-If your workflow exports a report artifact, link that generated file in
-repo-specific docs after it exists.
+Run `cdad check` to generate `cdad-report.md`.
+Run `cdad roadmap` to generate `cdad-roadmap.md`.
+Treat those artifacts as the current planning surface when they are present.
 
 ## Working Rule
 
