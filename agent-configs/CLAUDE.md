@@ -1,7 +1,19 @@
 # The Day After Toolkit — Agent Context
 
 This repository uses the C-DAD (Contract-Driven AI Development) model.
-All capabilities in this system are declared in `cdad/` as contracts.
+The toolkit itself lives in the CLI, docs, templates, schemas, and repo
+workflow files in this repository.
+
+## Primary navigation surfaces
+
+Read these before making non-trivial changes:
+
+- `README.md`
+- `docs/cli-reference.md`
+- `docs/contract-schema-reference.md`
+- `ref/the-day-after-toolkit-spec.md`
+- `openspec/specs/repo-governance/spec.md`
+- `templates/worked-examples/payment-retry/contract.yaml`
 
 ## How to navigate this system
 
@@ -15,10 +27,13 @@ The contract declares:
 - What it does NOT do
 - What has been tried before and failed
 
+If no contract exists yet, say that the capability is still uncovered and do
+not infer intent from implementation alone.
+
 ## Capability graph
 
-The full capability dependency graph is in `cdad-graph.json`.
-Read this before making changes that affect multiple capabilities.
+When present, the machine-readable dependency graph is in `cdad-graph.json`.
+You can regenerate graph artifacts with `cdad graph`.
 
 ## Contract rules for agents
 
@@ -31,14 +46,25 @@ Read this before making changes that affect multiple capabilities.
 
 ## Validate your changes
 
-After modifying any capability, run:
+After modifying any capability contract, run:
 `cdad validate cdad/[capability-path]/contract.yaml`
 
 A contract violation must be resolved before the change is committed.
 
+If you changed CLI behavior, docs, or generated artifact expectations, also
+run:
+
+- `npm test`
+- `cdad validate --all --strict` when contracts changed
+
+Use `docs/cli-reference.md` to confirm intended command behavior before you
+change user-facing output or artifact paths.
+
 ## Current agent-readiness score
 
-Run `cdad check` to generate `cdad-report.md`, then link the live report here once the repository has one.
+Run `cdad check` to generate `cdad-report.md`.
+Run `cdad roadmap` to generate `cdad-roadmap.md`.
+Treat those artifacts as the current planning surface when they are present.
 
 ## Working Rule
 
