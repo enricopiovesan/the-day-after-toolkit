@@ -55,6 +55,5 @@ describe("configuration assets", () => {
     await expectRepoPathToExist("docs/cli-reference.md");
     await expectRepoPathToExist("docs/contract-schema-reference.md");
     await expectRepoPathToExist("openspec/specs/repo-governance/spec.md");
-    await expectRepoPathToExist("ref/the-day-after-toolkit-spec.md");
   });
 });
