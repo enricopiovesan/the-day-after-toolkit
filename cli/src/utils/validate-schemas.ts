@@ -7,7 +7,6 @@ import { readdir, readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import type Ajv from "ajv";
 import { type ErrorObject, type Options } from "ajv";
 import Ajv2020Import from "ajv/dist/2020.js";
 
@@ -24,8 +23,14 @@ export interface SchemaValidationFailure {
 const MODULE_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(MODULE_DIR, "..", "..", "..");
 const SCHEMAS_DIR = resolve(REPO_ROOT, "schemas");
-// eslint-disable-next-line no-unused-vars
-type AjvConstructor = new (...args: [Options?]) => Ajv;
+
+interface AjvInstance {
+  validateSchema(schema: unknown): boolean;
+  readonly errors?: readonly ErrorObject[] | null;
+}
+
+type AjvConstructor = new (...args: [Options?]) => AjvInstance;
+
 const Ajv2020 = Ajv2020Import as unknown as AjvConstructor;
 
 export async function discoverSchemaFilePaths(rootDir: string = SCHEMAS_DIR): Promise<readonly string[]> {
