@@ -24,7 +24,7 @@ export interface SchemaValidationFailure {
 const MODULE_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(MODULE_DIR, "..", "..", "..");
 const SCHEMAS_DIR = resolve(REPO_ROOT, "schemas");
-type AjvConstructor = new (options?: Options) => Ajv;
+type AjvConstructor = new (...args: [Options?]) => Ajv;
 const Ajv2020 = Ajv2020Import as unknown as AjvConstructor;
 
 export async function discoverSchemaFilePaths(rootDir: string = SCHEMAS_DIR): Promise<readonly string[]> {
