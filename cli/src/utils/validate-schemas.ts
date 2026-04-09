@@ -23,6 +23,7 @@ export interface SchemaValidationFailure {
 const MODULE_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(MODULE_DIR, "..", "..", "..");
 const SCHEMAS_DIR = resolve(REPO_ROOT, "schemas");
+const IS_DIRECT_EXECUTION = process.argv[1] !== undefined && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 
 /* eslint-disable no-unused-vars */
 interface AjvInstance {
@@ -95,12 +96,14 @@ async function main(): Promise<void> {
   console.log(`Validated ${schemaFilePaths.length} schema files against the JSON Schema metaschema.`);
 }
 
-main().catch((error: unknown) => {
-  console.error("Failed to validate toolkit schemas:");
-  if (error instanceof Error) {
-    console.error(error.message);
-  } else {
-    console.error(String(error));
-  }
-  process.exit(1);
-});
+if (IS_DIRECT_EXECUTION) {
+  main().catch((error: unknown) => {
+    console.error("Failed to validate toolkit schemas:");
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else {
+      console.error(String(error));
+    }
+    process.exit(1);
+  });
+}

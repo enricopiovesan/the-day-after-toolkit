@@ -34,6 +34,7 @@ const MODULE_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(MODULE_DIR, "..", "..", "..");
 const WORKED_EXAMPLES_ROOT = resolve(REPO_ROOT, "templates", "worked-examples");
 const STABLE_SYNC_DATE = new Date("2024-01-15T00:00:00.000Z");
+const IS_DIRECT_EXECUTION = process.argv[1] !== undefined && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 
 export async function generateWorkedExamples(
   options: GenerateExamplesOptions = {}
@@ -167,12 +168,14 @@ async function main(): Promise<void> {
   console.log(`Processed ${result.processed} worked examples and refreshed ${result.drifts.length} generated artifacts.`);
 }
 
-main().catch((error: unknown) => {
-  console.error("Failed to synchronize worked examples:");
-  if (error instanceof Error) {
-    console.error(error.message);
-  } else {
-    console.error(String(error));
-  }
-  process.exit(1);
-});
+if (IS_DIRECT_EXECUTION) {
+  main().catch((error: unknown) => {
+    console.error("Failed to synchronize worked examples:");
+    if (error instanceof Error) {
+      console.error(error.message);
+    } else {
+      console.error(String(error));
+    }
+    process.exit(1);
+  });
+}

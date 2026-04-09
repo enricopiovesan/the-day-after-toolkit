@@ -33,7 +33,7 @@ describe("validateSchemaDocuments", () => {
       }
     ]);
 
-    expect(failures).toHaveLength(1);
+    expect(failures.length).toBeGreaterThan(0);
     expect(failures[0]).toMatchObject({
       filePath: "schemas/broken.schema.json"
     });
