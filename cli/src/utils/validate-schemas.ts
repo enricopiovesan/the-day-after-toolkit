@@ -24,6 +24,7 @@ export interface SchemaValidationFailure {
 const MODULE_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(MODULE_DIR, "..", "..", "..");
 const SCHEMAS_DIR = resolve(REPO_ROOT, "schemas");
+// eslint-disable-next-line no-unused-vars
 type AjvConstructor = new (...args: [Options?]) => Ajv;
 const Ajv2020 = Ajv2020Import as unknown as AjvConstructor;
 
