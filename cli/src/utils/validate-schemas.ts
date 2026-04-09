@@ -24,12 +24,14 @@ const MODULE_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(MODULE_DIR, "..", "..", "..");
 const SCHEMAS_DIR = resolve(REPO_ROOT, "schemas");
 
+/* eslint-disable no-unused-vars */
 interface AjvInstance {
   validateSchema(schema: unknown): boolean;
   readonly errors?: readonly ErrorObject[] | null;
 }
 
 type AjvConstructor = new (...args: [Options?]) => AjvInstance;
+/* eslint-enable no-unused-vars */
 
 const Ajv2020 = Ajv2020Import as unknown as AjvConstructor;
 
