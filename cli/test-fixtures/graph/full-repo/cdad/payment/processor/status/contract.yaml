@@ -1,0 +1,13 @@
+id: payment/processor/status
+version: 1.0.0
+owner: payments-team
+state: active
+name: Processor Status
+description: Report whether the processor still considers a payment in flight.
+inputs: []
+outputs: []
+non_goals:
+  - This capability does not mutate processor state.
+use_cases:
+  - As payments, I need processor status to avoid unsafe retries.
+open_questions: []

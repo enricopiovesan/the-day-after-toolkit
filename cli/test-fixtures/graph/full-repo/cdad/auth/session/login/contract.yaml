@@ -1,0 +1,40 @@
+id: auth/session/login
+version: 1.0.0
+owner: auth-team
+state: draft
+name: Session Login
+description: Establish a session after validating credentials and downstream safety checks.
+inputs: []
+outputs: []
+non_goals:
+  - This capability does not issue long-term credentials.
+use_cases:
+  - As auth, I need a reliable login path.
+open_questions:
+  - Resolve whether MFA belongs in this capability.
+dependencies:
+  - id: payment/retry
+    version: ">=0.1.0"
+    rationale: Payment retry state must be visible during certain payment-linked logins.
+  - id: payment/processor/status
+    version: ">=1.0.0"
+    rationale: Processor state is checked when login must unblock payment recovery.
+performance:
+  response_time_p99_ms: 200
+  throughput_rps: 50
+  notes: Login must stay responsive during peak traffic.
+error_handling: []
+trust_zone: internal
+rate_limits:
+  requests_per_minute: 100
+  burst_allowance: 10
+  notes: Limit abusive retries.
+inherited_constraints: []
+constraint_history: []
+deprecation_timeline: null
+migration_path: null
+versioning_strategy: Major versions cover breaking session changes.
+version_history:
+  - version: 1.0.0
+    date: 2026-04-03
+    changed: Initial contract.

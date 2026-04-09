@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { createCapabilityAssessment, createQuestionnaireSummary } from "./questionnaire.js";
 import {
   createCheckReport,
+  renderCheckReportJson,
   renderCheckReportMarkdown,
   renderCheckTerminalSummary
 } from "./report.js";
@@ -80,6 +81,60 @@ describe("report generator", () => {
     expect(terminal).toContain("cdad check — Agent Readiness Report");
     expect(terminal).toContain("Next step: Run `cdad roadmap` to generate your transformation plan based on this report.");
     expect(terminal).toContain("Full report saved to: cdad-report.md");
+  });
+
+  it("renders json output with the same frontmatter-derived score data", () => {
+    const questionnaire = createQuestionnaireSummary([
+      createCapabilityAssessment("payment/retry", {
+        businessRules: "yes",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      })
+    ]);
+
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    const rendered = JSON.parse(renderCheckReportJson(report)) as {
+      overallScore: number;
+      band: string;
+      gapInventory: unknown[];
+    };
+
+    expect(rendered.overallScore).toBe(10);
+    expect(rendered.band).toBe("green");
+    expect(rendered.gapInventory).toHaveLength(0);
+  });
+
+  it("renders the no-gap summary path when a capability is fully legible", () => {
+    const questionnaire = createQuestionnaireSummary([
+      createCapabilityAssessment("auth/session/login", {
+        businessRules: "yes",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      })
+    ]);
+
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    const markdown = renderCheckReportMarkdown(report);
+    const terminal = renderCheckTerminalSummary(report);
+
+    expect(markdown).toContain("**Risk:** An agent has enough legibility here to move with minimal supervision.");
+    expect(terminal).toContain("The report does not show any remaining legibility gaps.");
   });
 });
 

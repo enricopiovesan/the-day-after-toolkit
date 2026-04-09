@@ -1,0 +1,14 @@
+id: payment/retry
+version: 0.1.0
+owner: payments-team
+state: draft
+name: Payment Retry
+description: Decide whether a failed payment can be retried safely.
+inputs: []
+outputs: []
+non_goals:
+  - This capability does not execute the retry itself.
+use_cases:
+  - Preserve payment safety when transient processor errors occur.
+open_questions:
+  - Capture the processor in-flight rule before activation.

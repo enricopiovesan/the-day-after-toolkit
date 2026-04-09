@@ -1,6 +1,7 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { cp, mkdir, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { describe, expect, it } from "vitest";
 
@@ -8,9 +9,7 @@ import { executeValidateCommand } from "./validate.js";
 
 describe("executeValidateCommand", () => {
   it("returns a json-rendered validation report for a valid contract", async () => {
-    const repoRoot = await createRepoFixture({
-      "cdad/payment/retry/contract.yaml": VALID_CONTRACT
-    });
+    const repoRoot = await copyFixtureRepo("valid-repo");
 
     const contractPath = join(repoRoot, "cdad/payment/retry/contract.yaml");
     const execution = await executeValidateCommand(
@@ -32,9 +31,10 @@ describe("executeValidateCommand", () => {
   });
 
   it("prefers yaml over generated json siblings when validating a directory", async () => {
-    const repoRoot = await createRepoFixture({
-      "cdad/payment/retry/contract.yaml": VALID_CONTRACT,
-      "cdad/payment/retry/contract.json": `{
+    const repoRoot = await copyFixtureRepo("valid-repo");
+    await writeFile(
+      join(repoRoot, "cdad/payment/retry/contract.json"),
+      `{
   "_comment": "Auto-generated from payment/retry contract.yaml.",
   "id": "payment/retry",
   "version": "0.1.0",
@@ -47,8 +47,9 @@ describe("executeValidateCommand", () => {
   "non_goals": [],
   "use_cases": [],
   "open_questions": []
-}`
-    });
+}`,
+      "utf8"
+    );
 
     const execution = await executeValidateCommand(
       {
@@ -64,37 +65,92 @@ describe("executeValidateCommand", () => {
     expect(execution.report.files).toHaveLength(1);
     expect(execution.report.files[0]?.filePath).toContain("contract.yaml");
   });
+
+  it("returns validation failures for a checked-in invalid fixture repo", async () => {
+    const repoRoot = await copyFixtureRepo("invalid-repo");
+
+    const execution = await executeValidateCommand(
+      {
+        path: join(repoRoot, "cdad/payment/retry/contract.yaml"),
+        format: "json"
+      },
+      {
+        cwd: repoRoot
+      }
+    );
+
+    const parsed = JSON.parse(execution.output) as {
+      totals: { errors: number; warnings: number };
+      files: Array<{ issues: Array<{ code: string; severity: string; message: string }> }>;
+    };
+
+    expect(execution.report.exitCode).toBe(2);
+    expect(parsed.totals.errors).toBeGreaterThan(0);
+    expect(parsed.totals.warnings).toBeGreaterThan(0);
+    expect(parsed.files[0]?.issues.some((issue) => issue.code === "schema" && issue.severity === "error")).toBe(true);
+    expect(
+      parsed.files[0]?.issues.some((issue) => issue.code === "anti-pattern" && issue.severity === "warning")
+    ).toBe(true);
+  });
+
+  it("validates every checked-in fixture contract when --all is set", async () => {
+    const repoRoot = await copyFixtureRepo("all-repo");
+
+    const execution = await executeValidateCommand(
+      {
+        all: true,
+        format: "json"
+      },
+      {
+        cwd: repoRoot
+      }
+    );
+
+    const parsed = JSON.parse(execution.output) as { files: Array<{ filePath: string }> };
+
+    expect(execution.report.exitCode).toBe(0);
+    expect(execution.report.totals.files).toBe(2);
+    expect(parsed.files).toHaveLength(2);
+  });
+
+  it("reports dependency cycle failures from a checked-in fixture repo", async () => {
+    const repoRoot = await copyFixtureRepo("cycle-repo");
+
+    const execution = await executeValidateCommand(
+      {
+        all: true,
+        format: "json"
+      },
+      {
+        cwd: repoRoot
+      }
+    );
+
+    const parsed = JSON.parse(execution.output) as {
+      totals: { errors: number };
+      files: Array<{ issues: Array<{ code: string; message: string }> }>;
+    };
+
+    expect(execution.report.exitCode).toBe(2);
+    expect(parsed.totals.errors).toBeGreaterThan(0);
+    expect(
+      parsed.files.some((file) =>
+        file.issues.some((issue) => issue.code === "dependency" && issue.message.includes("Circular dependency detected"))
+      )
+    ).toBe(true);
+  });
 });
 
-async function createRepoFixture(
-  files: Record<string, string> = {}
+async function copyFixtureRepo(
+  name: "valid-repo" | "invalid-repo" | "all-repo" | "cycle-repo"
 ): Promise<string> {
-  const repoRoot = join(tmpdir(), `cdad-validate-command-${Date.now()}-${Math.random().toString(16).slice(2)}`);
-  await mkdir(repoRoot, { recursive: true });
-  await writeFile(
-    join(repoRoot, "package.json"),
-    JSON.stringify({ name: "cdad", private: true }, null, 2),
-    "utf8"
-  );
+  const fixtureRoot = fileURLToPath(new URL(`../../test-fixtures/validate/${name}`, import.meta.url));
+  const sandboxRoot = join(tmpdir(), `cdad-validate-fixture-${name}-${Date.now()}-${Math.random().toString(16).slice(2)}`);
+  await mkdir(sandboxRoot, { recursive: true });
+  const workingDir = join(sandboxRoot, "repo");
 
-  for (const [relativePath, contents] of Object.entries(files)) {
-    const filePath = join(repoRoot, relativePath);
-    await mkdir(join(filePath, ".."), { recursive: true });
-    await writeFile(filePath, contents, "utf8");
-  }
+  await cp(fixtureRoot, workingDir, { recursive: true });
+  await writeFile(join(workingDir, "package.json"), JSON.stringify({ name: "cdad", private: true }, null, 2), "utf8");
 
-  return repoRoot;
+  return workingDir;
 }
-
-const VALID_CONTRACT = `id: payment/retry
-version: 0.1.0
-owner: Payments
-state: active
-name: Payment Retry
-description: Keep the payment flow moving when a transient failure occurs.
-inputs: []
-outputs: []
-non_goals: []
-use_cases: []
-open_questions: []
-`;

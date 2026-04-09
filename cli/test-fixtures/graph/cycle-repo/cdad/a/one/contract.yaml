@@ -1,0 +1,34 @@
+id: a/one
+version: 1.0.0
+owner: team-a
+state: active
+name: A One
+description: First node in a cycle.
+inputs: []
+outputs: []
+non_goals: []
+use_cases: []
+open_questions: []
+dependencies:
+  - id: b/two
+    version: ">=1.0.0"
+    rationale: Depends on B.
+performance:
+  response_time_p99_ms: 1
+  throughput_rps: 1
+  notes: Minimal.
+error_handling: []
+trust_zone: internal
+rate_limits:
+  requests_per_minute: 1
+  burst_allowance: 1
+  notes: Minimal.
+inherited_constraints: []
+constraint_history: []
+deprecation_timeline: null
+migration_path: null
+versioning_strategy: Standard.
+version_history:
+  - version: 1.0.0
+    date: 2026-04-03
+    changed: Initial.

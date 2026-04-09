@@ -1,0 +1,11 @@
+id: payment/retry
+version: 0.1.0
+owner: Payments
+state: active
+name: Payment Retry
+description: Keep the payment flow moving when a transient failure occurs.
+inputs: []
+outputs: []
+non_goals: []
+use_cases: []
+open_questions: []
