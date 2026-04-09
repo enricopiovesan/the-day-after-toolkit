@@ -12,3 +12,4 @@ The documentation set mirrors the toolkit spec and the book's appendix structure
 - `semver-for-contracts.md` summarizes how contract versioning works
 - `anti-patterns.md` calls out the most common ways contracts drift from intent
 - `example-cdad-report.md` shows the shape of a real `cdad check` output
+- `launch-readiness-checklist.md` captures the last manual repo and release checks before public launch
