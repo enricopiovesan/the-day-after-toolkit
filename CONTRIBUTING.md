@@ -21,6 +21,7 @@ Please read:
 Before a pull request merges, it must pass the required build, lint, test, schema validation, and contract validation checks.
 Deterministic business logic is expected to maintain 100% unit test coverage.
 Implementation must stay aligned to the governing spec.
+Contributors should run `npm run validate-schemas` after editing files under `schemas/` and `npm run generate-examples -- --check` after editing worked-example YAML or generated artifacts under `templates/worked-examples/`.
 
 ## The Contract for This Repo
 
