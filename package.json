@@ -2,19 +2,23 @@
   "name": "cdad",
   "version": "0.1.0",
   "private": false,
-  "description": "Is your codebase ready for AI agents? The Day After toolkit.",
+  "description": "CLI toolkit for checking agent readiness, scaffolding capability contracts, and mapping dependency graphs.",
   "bin": {
     "cdad": "./cli/dist/index.js"
   },
   "keywords": [
     "ai-agents",
+    "agent-readiness",
+    "capability-contracts",
+    "capability-graph",
+    "codebase-legibility",
+    "developer-tooling",
     "software-architecture",
     "contracts",
     "legibility",
     "cdad",
     "the-day-after",
-    "capability-graph",
-    "agent-readiness"
+    "documentation"
   ],
   "homepage": "https://github.com/enricopiovesan/the-day-after-toolkit",
   "repository": {
