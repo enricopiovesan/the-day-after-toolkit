@@ -13,15 +13,7 @@ import { renderContractMarkdown, syncGeneratedArtifacts } from "../contracts/con
 import type { ContractDocument } from "../contracts/scaffolder.js";
 import { pathExists } from "./file.js";
 
-interface WorkedExampleContract extends ContractDocument {
-  readonly dependencies?: unknown;
-  readonly performance?: unknown;
-  readonly error_handling?: unknown;
-  readonly trust_zone?: unknown;
-  readonly rate_limits?: unknown;
-  readonly constraint_history?: unknown;
-  readonly version_history?: unknown;
-}
+type WorkedExampleContract = ContractDocument;
 
 export interface GenerateExamplesOptions {
   readonly rootDir?: string;

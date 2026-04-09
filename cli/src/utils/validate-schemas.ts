@@ -7,7 +7,9 @@ import { readdir, readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import Ajv2020 from "ajv/dist/2020.js";
+import type Ajv from "ajv";
+import { type ErrorObject, type Options } from "ajv";
+import Ajv2020Import from "ajv/dist/2020.js";
 
 export interface NamedSchemaDocument {
   readonly filePath: string;
@@ -22,6 +24,8 @@ export interface SchemaValidationFailure {
 const MODULE_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(MODULE_DIR, "..", "..", "..");
 const SCHEMAS_DIR = resolve(REPO_ROOT, "schemas");
+type AjvConstructor = new (options?: Options) => Ajv;
+const Ajv2020 = Ajv2020Import as unknown as AjvConstructor;
 
 export async function discoverSchemaFilePaths(rootDir: string = SCHEMAS_DIR): Promise<readonly string[]> {
   const fileNames = await readdir(rootDir);
@@ -56,7 +60,7 @@ export function validateSchemaDocuments(documents: readonly NamedSchemaDocument[
       return [];
     }
 
-    return (ajv.errors ?? []).map((error) => ({
+    return (ajv.errors ?? []).map((error: ErrorObject) => ({
       filePath: document.filePath,
       message: `${error.instancePath || "/"} ${error.message ?? "Schema is invalid."}`.trim()
     }));
