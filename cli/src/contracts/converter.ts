@@ -140,21 +140,23 @@ function renderBehavioralRules(contract: ContractDocument): string {
     return "Not declared in the minimum viable contract.";
   }
 
+  const errorHandling = contract.error_handling ?? [];
+  const inheritedConstraints = contract.inherited_constraints ?? [];
   const lines = [
     `- Performance target: p99 ${contract.performance.response_time_p99_ms} ms, throughput ${contract.performance.throughput_rps} rps. ${normalizeSentence(contract.performance.notes)}`,
     `- Trust zone: ${contract.trust_zone}.`,
     `- Rate limits: ${contract.rate_limits.requests_per_minute} requests per minute with burst allowance ${contract.rate_limits.burst_allowance}. ${normalizeSentence(contract.rate_limits.notes)}`
   ];
 
-  if (contract.error_handling.length > 0) {
-    lines.push(...contract.error_handling.map((entry) => `- Error ${entry.error}: ${normalizeSentence(entry.required_response)}`));
+  if (errorHandling.length > 0) {
+    lines.push(...errorHandling.map((entry) => `- Error ${entry.error}: ${normalizeSentence(entry.required_response)}`));
   } else {
     lines.push("- No error-handling rules declared yet.");
   }
 
-  if (contract.inherited_constraints.length > 0) {
+  if (inheritedConstraints.length > 0) {
     lines.push(
-      ...contract.inherited_constraints.map(
+      ...inheritedConstraints.map(
         (entry) => `- Inherited from ${entry.source}: ${normalizeSentence(entry.constraint)}`
       )
     );

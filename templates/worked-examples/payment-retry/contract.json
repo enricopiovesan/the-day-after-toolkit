@@ -5,31 +5,31 @@
   "owner": "payments-team",
   "state": "active",
   "name": "Payment Retry",
-  "description": "Retries a failed payment attempt only after confirming the upstream payment processor has not yet received or is not currently processing the original request. This capability exists because the payment processor used in production does not honor idempotency keys until after a transaction has completed processing — meaning a naive retry during processing will result in a duplicate charge. The constraint is not in the processor documentation; it was discovered in a production incident in March 2022.",
+  "description": "Retries a failed payment attempt only after confirming the upstream payment\nprocessor has not yet received or is not currently processing the original\nrequest. This capability exists because the payment processor used in production\ndoes not honor idempotency keys until after a transaction has completed\nprocessing — meaning a naive retry during processing will result in a duplicate\ncharge. The constraint is not in the processor documentation; it was discovered\nin a production incident in March 2022.\n",
   "inputs": [
     {
       "name": "payment_id",
       "type": "string",
       "required": true,
-      "constraints": "Must be the original payment_id from the failed attempt. Do not generate a new payment_id for a retry — the processor uses this field to detect duplicate attempts when idempotency keys are active."
+      "constraints": "Must be the original payment_id from the failed attempt. Do not generate\na new payment_id for a retry — the processor uses this field to detect\nduplicate attempts when idempotency keys are active.\n"
     },
     {
       "name": "retry_reason",
       "type": "string",
       "required": true,
-      "constraints": "Must be one of: network_timeout, processor_unavailable, rate_limited. This capability does not handle retries for declined payments — that is a separate capability (payment/retry/declined)."
+      "constraints": "Must be one of: network_timeout, processor_unavailable, rate_limited.\nThis capability does not handle retries for declined payments — that is\na separate capability (payment/retry/declined).\n"
     }
   ],
   "outputs": [
     {
       "name": "retry_status",
       "type": "string",
-      "guarantees": "Returns confirmed_safe_to_retry only after receiving explicit confirmation from the processor status endpoint that the original request is not in flight. Never inferred from timeout behavior."
+      "guarantees": "Returns confirmed_safe_to_retry only after receiving explicit confirmation\nfrom the processor status endpoint that the original request is not in\nflight. Never inferred from timeout behavior.\n"
     },
     {
       "name": "retry_id",
       "type": "string",
-      "guarantees": "A new identifier for the retry attempt, distinct from payment_id. Used for audit trail only — do not pass this to the processor as the payment identifier."
+      "guarantees": "A new identifier for the retry attempt, distinct from payment_id.\nUsed for audit trail only — do not pass this to the processor as the\npayment identifier.\n"
     }
   ],
   "non_goals": [
@@ -38,7 +38,9 @@
     "This capability does not modify the original payment record."
   ],
   "use_cases": [
-    "As the payment processing system, I need to determine whether a failed payment attempt can be safely retried so that I can recover from transient failures without charging customers twice."
+    "As the payment processing system, I need to determine whether a failed\npayment attempt can be safely retried so that I can recover from transient\nfailures without charging customers twice.\n"
   ],
-  "open_questions": []
+  "open_questions": [
+
+  ]
 }
