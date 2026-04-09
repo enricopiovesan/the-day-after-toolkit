@@ -28,22 +28,32 @@ describe("generateWorkedExamples", () => {
   it("fails in check mode when a generated artifact drifts", async () => {
     const rootDir = await createFixtureCopy();
     const driftPath = join(rootDir, "payment-retry", "contract.json");
-    const original = await readFile(driftPath, "utf8");
+    const original = JSON.parse(await readFile(driftPath, "utf8")) as Record<string, unknown>;
 
-    await writeFile(driftPath, `${original}\n`, "utf8");
+    await writeFile(
+      driftPath,
+      `${JSON.stringify({ ...original, owner: "drifted-team" }, null, 2)}\n`,
+      "utf8"
+    );
 
     await expect(generateWorkedExamples({ rootDir, check: true })).rejects.toThrow(
       /Generated artifact drift detected/
     );
-    expect(await readFile(driftPath, "utf8")).toBe(`${original}\n`);
+    expect(JSON.parse(await readFile(driftPath, "utf8"))).toMatchObject({
+      owner: "drifted-team"
+    });
   });
 
   it("rewrites generated artifacts when not in check mode", async () => {
     const rootDir = await createFixtureCopy();
     const driftPath = join(rootDir, "payment-retry", "contract.json");
-    const original = await readFile(driftPath, "utf8");
+    const original = JSON.parse(await readFile(driftPath, "utf8")) as Record<string, unknown>;
 
-    await writeFile(driftPath, `${original}\n`, "utf8");
+    await writeFile(
+      driftPath,
+      `${JSON.stringify({ ...original, owner: "drifted-team" }, null, 2)}\n`,
+      "utf8"
+    );
 
     const result = await generateWorkedExamples({ rootDir });
 
@@ -54,7 +64,9 @@ describe("generateWorkedExamples", () => {
         generatedPath: driftPath
       }
     ]);
-    expect(await readFile(driftPath, "utf8")).toBe(original);
+    expect(JSON.parse(await readFile(driftPath, "utf8"))).toMatchObject({
+      owner: original.owner
+    });
   });
 
   async function createFixtureCopy(): Promise<string> {

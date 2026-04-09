@@ -54,7 +54,7 @@ export async function generateWorkedExamples(
     const expectedJson = renderGeneratedJson(contract, capabilityId, extended);
     const expectedMarkdown = `${renderContractMarkdown(contract, STABLE_SYNC_DATE)}\n`;
 
-    if (beforeJson !== expectedJson) {
+    if (hasJsonDrift(beforeJson, expectedJson)) {
       drifts.push({ yamlPath, generatedPath: jsonPath });
     }
 
@@ -84,6 +84,18 @@ export async function generateWorkedExamples(
     processed: yamlPaths.length,
     drifts
   };
+}
+
+function hasJsonDrift(currentJson: string | null, expectedJson: string): boolean {
+  if (currentJson === null) {
+    return true;
+  }
+
+  try {
+    return JSON.stringify(JSON.parse(currentJson)) !== JSON.stringify(JSON.parse(expectedJson));
+  } catch {
+    return currentJson !== expectedJson;
+  }
 }
 
 async function discoverWorkedExampleYamlPaths(rootDir: string): Promise<string[]> {
