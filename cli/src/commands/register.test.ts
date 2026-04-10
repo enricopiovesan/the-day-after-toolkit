@@ -101,7 +101,7 @@ describe("command registration", () => {
 });
 
 function createProgramStub() {
-  const actions: Record<string, (...args: unknown[]) => Promise<void> | void> = {};
+  const actions: Record<string, (..._args: unknown[]) => Promise<void> | void> = {};
 
   return {
     actions,
@@ -110,7 +110,7 @@ function createProgramStub() {
         description: () => chain,
         option: () => chain,
         argument: () => chain,
-        action: (handler: (...args: unknown[]) => Promise<void> | void) => {
+        action: (handler: (..._args: unknown[]) => Promise<void> | void) => {
           actions[name] = handler;
           return chain;
         }
