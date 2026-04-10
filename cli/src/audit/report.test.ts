@@ -136,6 +136,83 @@ describe("report generator", () => {
     expect(markdown).toContain("**Risk:** An agent has enough legibility here to move with minimal supervision.");
     expect(terminal).toContain("The report does not show any remaining legibility gaps.");
   });
+
+  it("sorts capability summaries, quotes complex gap inventory values, and truncates the top risk list", () => {
+    const questionnaire = createQuestionnaireSummary([
+      createCapabilityAssessment("zeta/one", {
+        businessRules: "partially",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      }),
+      createCapabilityAssessment("beta/two", {
+        businessRules: "no",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      }),
+      createCapabilityAssessment("alpha/three", {
+        businessRules: "yes",
+        constraintHistory: "no",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      }),
+      createCapabilityAssessment("quoted capability", {
+        businessRules: "yes",
+        constraintHistory: "yes",
+        dependencyRationale: "no",
+        exceptionLogic: "yes"
+      })
+    ]);
+
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    const terminal = renderCheckTerminalSummary(report);
+    const markdown = renderCheckReportMarkdown(report);
+
+    expect(report.capabilitySummaries.map((summary) => summary.capability)).toEqual([
+      "alpha/three",
+      "beta/two",
+      "quoted capability",
+      "zeta/one"
+    ]);
+    expect(report.capabilitySummaries.map((summary) => summary.severity)).toEqual([
+      "high",
+      "critical",
+      "critical",
+      "medium"
+    ]);
+    expect(terminal).toContain("  ✗ alpha/three");
+    expect(terminal).toContain("  ✗ beta/two");
+    expect(terminal).toContain("  ✗ quoted capability");
+    expect(terminal).not.toContain("zeta/one");
+    expect(markdown).toContain('  - capability: "quoted capability"');
+    expect(markdown).toContain("    gap_type: dependencyRationale");
+  });
+
+  it("renders the empty capability path without a top risk entry", () => {
+    const questionnaire = createQuestionnaireSummary([]);
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    const terminal = renderCheckTerminalSummary(report);
+    const markdown = renderCheckReportMarkdown(report);
+
+    expect(report.capabilitySummaries).toHaveLength(0);
+    expect(terminal).toContain("The report does not show any remaining legibility gaps.");
+    expect(markdown).toContain("The report does not show any remaining legibility gaps.");
+  });
 });
 
 function buildPositiveFindings(): StaticScanSignal[] {
