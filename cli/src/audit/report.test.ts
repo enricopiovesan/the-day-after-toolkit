@@ -265,8 +265,8 @@ describe("report generator", () => {
     const table = renderStaticScanTable(summarizeStaticScan(buildPositiveFindings()));
 
     expect(table).toContain("| Signal | Found | Score |");
-    expect(table).toContain("| CLAUDE.md or .cursorrules present | Yes | 2 |");
-    expect(table).toContain("| No documentation directory | No | 0 |");
+    expect(table).toContain("| CLAUDE.md or .cursorrules present | Yes | 1 |");
+    expect(table).toContain("| No tests found | No | 0 |");
   });
 
   it("renders the empty capability path without a top risk entry", () => {
