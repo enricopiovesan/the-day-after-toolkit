@@ -1,0 +1,22 @@
+- title: Docs Home
+  url: /docs/
+- title: Concepts
+  url: /docs/concepts/
+- title: Adoption Journey
+  url: /docs/adoption-journey/
+- title: CLI Reference
+  url: /docs/cli-reference/
+- title: Contract Schema Reference
+  url: /docs/contract-schema-reference/
+- title: Legibility Audit Guide
+  url: /docs/legibility-audit-guide/
+- title: Extraction Priority Guide
+  url: /docs/extraction-priority-guide/
+- title: Anti-Patterns
+  url: /docs/anti-patterns/
+- title: SemVer for Contracts
+  url: /docs/semver-for-contracts/
+- title: Example cdad Report
+  url: /docs/example-cdad-report/
+- title: Launch Readiness Checklist
+  url: /docs/launch-readiness-checklist/

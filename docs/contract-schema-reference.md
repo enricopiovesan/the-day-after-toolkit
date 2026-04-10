@@ -1,3 +1,8 @@
+---
+title: Contract Schema Reference
+permalink: /docs/contract-schema-reference/
+---
+
 # Contract Schema Reference
 
 The minimum viable contract and extended contract share the same core structure. Both are written so a practitioner can navigate the capability without reverse-engineering the implementation.

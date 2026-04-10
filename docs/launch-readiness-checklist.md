@@ -1,3 +1,8 @@
+---
+title: Launch Readiness Checklist
+permalink: /docs/launch-readiness-checklist/
+---
+
 # Launch Readiness Checklist
 
 This checklist captures the final manual steps required before sharing the repository publicly. It separates one-time launch work from recurring maintenance checks so the repo does not depend on memory or tribal knowledge.
