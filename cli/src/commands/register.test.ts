@@ -13,7 +13,7 @@ describe("command registration", () => {
 
     registerCheckCommand(program as never);
 
-    await (program.actions.check as any)?.({
+    await invoke(program.actions.check, {
       output: "cdad-report.md",
       capabilities: "11",
       skipScan: true,
@@ -34,7 +34,7 @@ describe("command registration", () => {
 
     registerRoadmapCommand(program as never);
 
-    await (program.actions.roadmap as any)?.({
+    await invoke(program.actions.roadmap, {
       input: "missing-report.md",
       output: "cdad-roadmap.md",
       format: "markdown"
@@ -53,7 +53,7 @@ describe("command registration", () => {
 
     registerInitCommand(program as never);
 
-    await (program.actions.init as any)?.("Bad Capability", {
+    await invoke(program.actions.init, "Bad Capability", {
       noPrompts: true,
       output: "cdad"
     });
@@ -71,7 +71,7 @@ describe("command registration", () => {
 
     registerValidateCommand(program as never);
 
-    await (program.actions.validate as any)?.("/definitely/missing/contract.yaml", {
+    await invoke(program.actions.validate, "/definitely/missing/contract.yaml", {
       format: "json"
     });
 
@@ -88,7 +88,7 @@ describe("command registration", () => {
 
     registerGraphCommand(program as never);
 
-    await (program.actions.graph as any)?.(undefined, {
+    await invoke(program.actions.graph, undefined, {
       state: "bogus"
     });
 
@@ -101,7 +101,7 @@ describe("command registration", () => {
 });
 
 function createProgramStub() {
-  const actions: Record<string, any> = {};
+  const actions: Record<string, unknown> = {};
 
   return {
     actions,
@@ -110,7 +110,7 @@ function createProgramStub() {
         description: () => chain,
         option: () => chain,
         argument: () => chain,
-        action: (handler: any) => {
+        action: (handler: unknown) => {
           actions[name] = handler;
           return chain;
         }
@@ -119,4 +119,10 @@ function createProgramStub() {
       return chain;
     }
   };
+}
+
+async function invoke(action: unknown, ...args: unknown[]): Promise<void> {
+  if (typeof action === "function") {
+    await action(...args);
+  }
 }
