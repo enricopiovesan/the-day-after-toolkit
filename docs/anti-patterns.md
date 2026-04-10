@@ -1,3 +1,8 @@
+---
+title: Anti-Patterns
+permalink: /docs/anti-patterns/
+---
+
 # Anti-Patterns
 
 These are the common ways a contract drifts away from the toolkit's intent.

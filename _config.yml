@@ -1,0 +1,33 @@
+title: The Day After Toolkit Docs
+description: Public documentation for the cdad CLI and contract-first AI-agent workflow.
+baseurl: "/the-day-after-toolkit"
+url: "https://enricopiovesan.github.io"
+markdown: kramdown
+kramdown:
+  input: GFM
+permalink: pretty
+exclude:
+  - cli
+  - node_modules
+  - openspec
+  - templates
+  - claude-configs
+  - agent-configs
+  - coverage
+  - dist
+  - .git
+  - .github
+  - package-lock.json
+  - README.md
+  - CONTRIBUTING.md
+  - SECURITY.md
+  - SUPPORT.md
+  - NOTICE
+  - LICENSE
+  - CITATION.cff
+defaults:
+  - scope:
+      path: "docs"
+      type: "pages"
+    values:
+      layout: "default"

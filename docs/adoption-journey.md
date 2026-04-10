@@ -1,3 +1,8 @@
+---
+title: Adoption Journey
+permalink: /docs/adoption-journey/
+---
+
 # Adoption Journey
 
 The Day After Toolkit turns one diagnostic into a workflow. The path is `check` to `roadmap` to `init` to `validate` to `graph`, then back to `check` as the repo improves.

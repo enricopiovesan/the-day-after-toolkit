@@ -1,3 +1,8 @@
+---
+title: Extraction Priority Guide
+permalink: /docs/extraction-priority-guide/
+---
+
 # Extraction Priority Guide
 
 Use this guide after a legibility audit when you need to decide what to extract first.

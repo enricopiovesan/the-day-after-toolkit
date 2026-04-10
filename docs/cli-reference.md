@@ -1,3 +1,8 @@
+---
+title: CLI Reference
+permalink: /docs/cli-reference/
+---
+
 # CLI Reference
 
 The `cdad` CLI is the executable layer of the toolkit. Each command follows the same output contract: a command header, a divider, the content block, generated file paths when applicable, and a `Next step` line.
