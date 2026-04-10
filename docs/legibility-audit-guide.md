@@ -1,3 +1,8 @@
+---
+title: Legibility Audit Guide
+permalink: /docs/legibility-audit-guide/
+---
+
 # Legibility Audit Guide
 
 Use this guide when you want to score how safely a capability can be navigated by someone who did not live through its history.
