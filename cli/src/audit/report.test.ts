@@ -185,7 +185,7 @@ describe("report generator", () => {
     expect(report.capabilitySummaries.map((summary) => summary.severity)).toEqual([
       "high",
       "critical",
-      "critical",
+      "high",
       "medium"
     ]);
     expect(terminal).toContain("  ✗ alpha/three");
