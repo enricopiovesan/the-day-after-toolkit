@@ -7,7 +7,8 @@ import {
   renderCapabilitySection,
   renderCheckReportJson,
   renderCheckReportMarkdown,
-  renderCheckTerminalSummary
+  renderCheckTerminalSummary,
+  renderStaticScanTable
 } from "./report.js";
 import {
   STATIC_SCAN_SIGNAL_DEFINITIONS,
@@ -217,6 +218,19 @@ describe("report generator", () => {
     expect(section).toContain("| Exception Logic Legibility | No | Exception logic absent |");
   });
 
+  it("renders the partial exception logic gap label", () => {
+    const section = renderCapabilitySection(
+      createCapabilityAssessment("payment/retry", {
+        businessRules: "yes",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "partially"
+      })
+    );
+
+    expect(section).toContain("| Exception Logic Legibility | Partially | Exception logic partial |");
+  });
+
   it("sorts equal-score capability summaries by capability name", () => {
     const questionnaire = createQuestionnaireSummary([
       createCapabilityAssessment("zeta/one", {
@@ -245,6 +259,14 @@ describe("report generator", () => {
       "alpha/two",
       "zeta/one"
     ]);
+  });
+
+  it("renders the static scan table", () => {
+    const table = renderStaticScanTable(summarizeStaticScan(buildPositiveFindings()));
+
+    expect(table).toContain("| Signal | Found | Score |");
+    expect(table).toContain("| CLAUDE.md or .cursorrules present | Yes | 2 |");
+    expect(table).toContain("| No documentation directory | No | 0 |");
   });
 
   it("renders the empty capability path without a top risk entry", () => {
