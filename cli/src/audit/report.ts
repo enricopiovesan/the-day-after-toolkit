@@ -313,10 +313,6 @@ function getGapLabel(
   gapType: CapabilityGap["gapType"],
   answer: CapabilityAssessment["answers"][keyof CapabilityAssessment["answers"]]
 ): string {
-  if (answer === "yes") {
-    return "None";
-  }
-
   if (gapType === "businessRules") {
     return answer === "partially"
       ? LEGIBILITY_GAP_LABELS.businessRulesPartial

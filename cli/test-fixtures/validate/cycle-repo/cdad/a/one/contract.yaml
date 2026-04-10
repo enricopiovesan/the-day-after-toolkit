@@ -1,0 +1,13 @@
+id: a/one
+version: 0.1.0
+owner: Team A
+state: active
+name: One
+description: Coordinate one side of the cyclic dependency example.
+inputs: []
+outputs: []
+non_goals: []
+use_cases: []
+open_questions: []
+dependencies:
+  - id: b/two

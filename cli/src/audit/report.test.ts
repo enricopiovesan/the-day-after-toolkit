@@ -4,8 +4,11 @@ import { describe, expect, it } from "vitest";
 import { createCapabilityAssessment, createQuestionnaireSummary } from "./questionnaire.js";
 import {
   createCheckReport,
+  renderCapabilitySection,
+  renderCheckReportJson,
   renderCheckReportMarkdown,
-  renderCheckTerminalSummary
+  renderCheckTerminalSummary,
+  renderStaticScanTable
 } from "./report.js";
 import {
   STATIC_SCAN_SIGNAL_DEFINITIONS,
@@ -80,6 +83,208 @@ describe("report generator", () => {
     expect(terminal).toContain("cdad check — Agent Readiness Report");
     expect(terminal).toContain("Next step: Run `cdad roadmap` to generate your transformation plan based on this report.");
     expect(terminal).toContain("Full report saved to: cdad-report.md");
+  });
+
+  it("renders json output with the same frontmatter-derived score data", () => {
+    const questionnaire = createQuestionnaireSummary([
+      createCapabilityAssessment("payment/retry", {
+        businessRules: "yes",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      })
+    ]);
+
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    const rendered = JSON.parse(renderCheckReportJson(report)) as {
+      overallScore: number;
+      band: string;
+      gapInventory: unknown[];
+    };
+
+    expect(rendered.overallScore).toBe(10);
+    expect(rendered.band).toBe("green");
+    expect(rendered.gapInventory).toHaveLength(0);
+  });
+
+  it("renders the no-gap summary path when a capability is fully legible", () => {
+    const questionnaire = createQuestionnaireSummary([
+      createCapabilityAssessment("auth/session/login", {
+        businessRules: "yes",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      })
+    ]);
+
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    const markdown = renderCheckReportMarkdown(report);
+    const terminal = renderCheckTerminalSummary(report);
+
+    expect(markdown).toContain("**Risk:** An agent has enough legibility here to move with minimal supervision.");
+    expect(terminal).toContain("The report does not show any remaining legibility gaps.");
+  });
+
+  it("sorts capability summaries, quotes complex gap inventory values, and truncates the top risk list", () => {
+    const questionnaire = createQuestionnaireSummary([
+      createCapabilityAssessment("zeta/one", {
+        businessRules: "partially",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      }),
+      createCapabilityAssessment("beta/two", {
+        businessRules: "no",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      }),
+      createCapabilityAssessment("alpha/three", {
+        businessRules: "yes",
+        constraintHistory: "no",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      }),
+      createCapabilityAssessment("quoted capability", {
+        businessRules: "yes",
+        constraintHistory: "yes",
+        dependencyRationale: "no",
+        exceptionLogic: "yes"
+      })
+    ]);
+
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    const terminal = renderCheckTerminalSummary(report);
+    const markdown = renderCheckReportMarkdown(report);
+
+    expect(report.capabilitySummaries.map((summary) => summary.capability)).toEqual([
+      "alpha/three",
+      "beta/two",
+      "quoted capability",
+      "zeta/one"
+    ]);
+    expect(report.capabilitySummaries.map((summary) => summary.severity)).toEqual([
+      "high",
+      "critical",
+      "high",
+      "medium"
+    ]);
+    expect(terminal).toContain("  ✗ alpha/three");
+    expect(terminal).toContain("  ✗ beta/two");
+    expect(terminal).toContain("  ✗ quoted capability");
+    expect(terminal).not.toContain("zeta/one");
+    expect(markdown).toContain('  - capability: "quoted capability"');
+    expect(markdown).toContain("    gap_type: dependencyRationale");
+  });
+
+  it("renders every gap label branch in a capability section", () => {
+    const section = renderCapabilitySection(
+      createCapabilityAssessment("payment/retry", {
+        businessRules: "no",
+        constraintHistory: "partially",
+        dependencyRationale: "no",
+        exceptionLogic: "no"
+      })
+    );
+
+    expect(section).toContain("Business rules absent");
+    expect(section).toContain("Constraint history partial");
+    expect(section).toContain("Dependency rationale absent");
+    expect(section).toContain("Exception logic absent");
+    expect(section).toContain("| Business Rules Legibility | No | Business rules absent |");
+    expect(section).toContain("| Constraint History Legibility | Partially | Constraint history partial |");
+    expect(section).toContain("| Dependency Rationale Legibility | No | Dependency rationale absent |");
+    expect(section).toContain("| Exception Logic Legibility | No | Exception logic absent |");
+  });
+
+  it("renders the partial exception logic gap label", () => {
+    const section = renderCapabilitySection(
+      createCapabilityAssessment("payment/retry", {
+        businessRules: "yes",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "partially"
+      })
+    );
+
+    expect(section).toContain("| Exception Logic Legibility | Partially | Exception logic partial |");
+  });
+
+  it("sorts equal-score capability summaries by capability name", () => {
+    const questionnaire = createQuestionnaireSummary([
+      createCapabilityAssessment("zeta/one", {
+        businessRules: "no",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      }),
+      createCapabilityAssessment("alpha/two", {
+        businessRules: "no",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      })
+    ]);
+
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    expect(report.capabilitySummaries.map((summary) => summary.capability)).toEqual([
+      "alpha/two",
+      "zeta/one"
+    ]);
+  });
+
+  it("renders the static scan table", () => {
+    const table = renderStaticScanTable(summarizeStaticScan(buildPositiveFindings()));
+
+    expect(table).toContain("| Signal | Found | Score |");
+    expect(table).toContain("| CLAUDE.md or .cursorrules present | Yes | 1 |");
+    expect(table).toContain("| No tests found | No | 0 |");
+  });
+
+  it("renders the empty capability path without a top risk entry", () => {
+    const questionnaire = createQuestionnaireSummary([]);
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    const terminal = renderCheckTerminalSummary(report);
+    const markdown = renderCheckReportMarkdown(report);
+
+    expect(report.capabilitySummaries).toHaveLength(0);
+    expect(terminal).toContain("The report does not show any remaining legibility gaps.");
+    expect(markdown).toContain("The report does not show any remaining legibility gaps.");
   });
 });
 

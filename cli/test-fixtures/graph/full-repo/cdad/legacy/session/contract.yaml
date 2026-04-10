@@ -1,0 +1,33 @@
+id: legacy/session
+version: 2.0.0
+owner: auth-team
+state: deprecated
+name: Legacy Session
+description: Support a shrinking set of legacy session consumers during migration.
+inputs: []
+outputs: []
+non_goals:
+  - This capability does not accept new integrations.
+use_cases:
+  - As auth, I need a temporary bridge for migrating clients.
+open_questions: []
+dependencies: []
+performance:
+  response_time_p99_ms: 150
+  throughput_rps: 20
+  notes: Legacy traffic should continue working during migration.
+error_handling: []
+trust_zone: internal
+rate_limits:
+  requests_per_minute: 40
+  burst_allowance: 5
+  notes: Keep enough headroom for migration traffic.
+inherited_constraints: []
+constraint_history: []
+deprecation_timeline: null
+migration_path: Use auth/session/login instead.
+versioning_strategy: Major versions cover legacy client compatibility changes.
+version_history:
+  - version: 2.0.0
+    date: 2026-04-03
+    changed: Marked deprecated during migration.
