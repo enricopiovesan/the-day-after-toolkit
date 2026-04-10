@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { createCapabilityAssessment, createQuestionnaireSummary } from "./questionnaire.js";
 import {
   createCheckReport,
+  renderCapabilitySection,
   renderCheckReportJson,
   renderCheckReportMarkdown,
   renderCheckTerminalSummary
@@ -194,6 +195,56 @@ describe("report generator", () => {
     expect(terminal).not.toContain("zeta/one");
     expect(markdown).toContain('  - capability: "quoted capability"');
     expect(markdown).toContain("    gap_type: dependencyRationale");
+  });
+
+  it("renders every gap label branch in a capability section", () => {
+    const section = renderCapabilitySection(
+      createCapabilityAssessment("payment/retry", {
+        businessRules: "no",
+        constraintHistory: "partially",
+        dependencyRationale: "no",
+        exceptionLogic: "no"
+      })
+    );
+
+    expect(section).toContain("Business rules absent");
+    expect(section).toContain("Constraint history partial");
+    expect(section).toContain("Dependency rationale absent");
+    expect(section).toContain("Exception logic absent");
+    expect(section).toContain("| Business Rules Legibility | No | Business rules absent |");
+    expect(section).toContain("| Constraint History Legibility | Partially | Constraint history partial |");
+    expect(section).toContain("| Dependency Rationale Legibility | No | Dependency rationale absent |");
+    expect(section).toContain("| Exception Logic Legibility | No | Exception logic absent |");
+  });
+
+  it("sorts equal-score capability summaries by capability name", () => {
+    const questionnaire = createQuestionnaireSummary([
+      createCapabilityAssessment("zeta/one", {
+        businessRules: "no",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      }),
+      createCapabilityAssessment("alpha/two", {
+        businessRules: "no",
+        constraintHistory: "yes",
+        dependencyRationale: "yes",
+        exceptionLogic: "yes"
+      })
+    ]);
+
+    const staticScan = summarizeStaticScan(buildPositiveFindings());
+    const report = createCheckReport({
+      repo: "example/repo",
+      generatedAt: "2026-04-01T12:00:00.000Z",
+      staticScan,
+      questionnaire
+    });
+
+    expect(report.capabilitySummaries.map((summary) => summary.capability)).toEqual([
+      "alpha/two",
+      "zeta/one"
+    ]);
   });
 
   it("renders the empty capability path without a top risk entry", () => {
