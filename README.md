@@ -83,3 +83,12 @@ GitHub repository topics are still a manual step. Before public launch, align th
 - Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
 - Specs: [openspec/README.md](openspec/README.md)
 - Author: Enrico Piovesan
+
+
+## Related Work
+
+- [Contract-Driven AI Development (C-DAD) — White Paper](https://drive.google.com/file/d/1HC_ZWJl9aYaMeN78qiL3ZYBVY7mAGl3f/view)
+- [Mastering Software Architecture for the AI Era — Medium series](https://medium.com/software-architecture-in-the-age-of-ai)
+- [Universal Microservices Architecture — Book](https://www.amazon.com/dp/B0GTTTTQH4)
+- [Speaking](https://enricopiovesan.github.io/enricopiovesan/)
+- [github.com/enricopiovesan](https://github.com/enricopiovesan)
