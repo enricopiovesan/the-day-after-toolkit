@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
 ---
 
 <BaseLayout
@@ -47,8 +48,8 @@ import BuyLinks from "../components/BuyLinks.astro";
       <BuyLinks />
 
       <nav class="chapter-nav" aria-label="Chapter navigation">
-        <a href="/about-the-book/">&larr; Table of contents</a>
-        <a href="/contracts/">Chapter 3 &mdash; Contracts Are the Answer &rarr;</a>
+        <a href={withBase("/about-the-book/")}>&larr; Table of contents</a>
+        <a href={withBase("/contracts/")}>Chapter 3 &mdash; Contracts Are the Answer &rarr;</a>
       </nav>
     </div>
   </section>

@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../utils/url";
+
 const tiles = [
   { title: "Software\nDevelopers", tag: "SOFTWARE ENGINEERS", color: "pink", image: "/images/team-developers.jpg" },
   { title: "Project\nManagers", tag: "PROJECT OWNERS", color: "sage", image: "/images/team-project-managers.jpg" },
@@ -27,7 +29,7 @@ const tiles = [
             ))}
           </h3>
         </div>
-        <img class="tile__image" src={tile.image} alt="" loading="lazy" />
+        <img class="tile__image" src={withBase(tile.image)} alt="" loading="lazy" />
       </div>
     ))
   }

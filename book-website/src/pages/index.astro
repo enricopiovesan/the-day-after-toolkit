@@ -6,6 +6,7 @@ import PanelSection from "../components/PanelSection.astro";
 import CardRow from "../components/CardRow.astro";
 import AudienceGrid from "../components/AudienceGrid.astro";
 import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
 
 // Section copy is written from the book's own manuscript (Chapters 1–5),
 // kept to non-spoiler summary and thesis statements — no plot points or
@@ -61,8 +62,8 @@ const extractionCards = [
 // Sunrise sequence, first to last. Drop extra frames (e.g. a dawn shot)
 // between night and day and the timing/zoom adjusts automatically.
 const heroStages = [
-  "/images/hero-night.jpg",
-  "/images/hero.jpg",
+  withBase("/images/hero-night.jpg"),
+  withBase("/images/hero.jpg"),
 ];
 
 // Each stage except the last fades out in turn, revealing the next one,
@@ -143,7 +144,7 @@ const heroTiming = `
         {tribalKnowledgeCopy.map((p) => <p>{p}</p>)}
       </div>
       <PanelSection eyebrow="Use Cases" color="sage" columns={tribalKnowledgeCards} />
-      <a class="chapter-link" href="/tribal-knowledge/">Read the chapter &rarr;</a>
+      <a class="chapter-link" href={withBase("/tribal-knowledge/")}>Read the chapter &rarr;</a>
     </div>
   </section>
 
@@ -154,7 +155,7 @@ const heroTiming = `
         {contractsCopy.map((p) => <p>{p}</p>)}
       </div>
       <CardRow color="cream" cards={contractsCards} />
-      <a class="chapter-link" href="/contracts/">Read the chapter &rarr;</a>
+      <a class="chapter-link" href={withBase("/contracts/")}>Read the chapter &rarr;</a>
     </div>
   </section>
 
@@ -165,7 +166,7 @@ const heroTiming = `
         {capabilitiesCopy.map((p) => <p>{p}</p>)}
       </div>
       <PanelSection eyebrow="The Graph" color="pink" columns={capabilitiesCards} />
-      <a class="chapter-link" href="/capabilities-graph/">Read the chapter &rarr;</a>
+      <a class="chapter-link" href={withBase("/capabilities-graph/")}>Read the chapter &rarr;</a>
     </div>
   </section>
 
@@ -176,7 +177,7 @@ const heroTiming = `
         {extractionCopy.map((p) => <p>{p}</p>)}
       </div>
       <CardRow color="tan" cards={extractionCards} />
-      <a class="chapter-link" href="/extraction-over-refactoring/">Read the chapter &rarr;</a>
+      <a class="chapter-link" href={withBase("/extraction-over-refactoring/")}>Read the chapter &rarr;</a>
     </div>
   </section>
 
