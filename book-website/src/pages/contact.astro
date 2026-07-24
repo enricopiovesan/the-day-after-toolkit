@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// TODO: replace with a real contact address before launch.
+const contactEmail = "hello@example.com";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch about The Day After AI, press, speaking, or the companion toolkit."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Get in touch</p>
+      <h1>Contact</h1>
+      <p>
+        Press, speaking, or general questions about the book &mdash; reach out
+        directly.
+      </p>
+      <p>
+        <a class="btn btn--coral" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+      </p>
+
+      <!--
+        TODO: this page has no working newsletter signup yet. Wiring one up
+        needs a form-handling or email-list service (e.g. Mailchimp,
+        ConvertKit, Buttondown, or a static-friendly form host like
+        Formspree) since this is a static Astro site with no backend.
+      -->
+      <h2>Stay updated</h2>
+      <p class="muted">Newsletter signup coming soon.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .muted {
+    color: var(--text-muted);
+  }
+</style>

@@ -1,0 +1,245 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import PanelSection from "../components/PanelSection.astro";
+import CardRow from "../components/CardRow.astro";
+import AudienceGrid from "../components/AudienceGrid.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+
+// TODO: all Lorem ipsum body copy and "Sub Title" / "NEW TITLE" card labels
+// below are placeholders carried over from the Figma design — replace with
+// real copy before launch.
+const lorem = [
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultrices tincidunt ante vel condimentum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti.",
+  "Curabitur ut orci lobortis, dignissim est ac, scelerisque diam. Nulla aliquet turpis vitae risus dapibus tincidunt. Integer in tempus mi. In posuere dolor turpis, eget pretium mi blandit sed.",
+  "Aenean vel nisi ante. Phasellus auctor erat ipsum, at finibus mauris facilisis non. Integer commodo venenatis nisi, faucibus condimentum nec.",
+];
+
+const threeCols = [
+  { title: "Sub Title 1", body: lorem[0] },
+  { title: "Sub Title 1", body: lorem[0] },
+  { title: "Sub Title 1", body: lorem[0] },
+];
+---
+
+<BaseLayout title="The Day After AI" hideHeader>
+  <div class="hero-wrap">
+    <section class="hero">
+      <Header overlay />
+      <img class="hero__image" src="/images/hero.jpg" alt="" />
+      <div class="hero__text">
+        <h1>The Day After AI</h1>
+        <p class="hero__subtitle">Making Software Companies<br />Legible to AI Agents.</p>
+      </div>
+      <a class="btn btn--coral hero__scroll" href="#tribal-knowledge">Scroll down</a>
+    </section>
+  </div>
+
+  <section class="section" id="tribal-knowledge">
+    <div class="wrap wrap--wide">
+      <SectionHeading align="right">Tribal Knowledge<br />Is the Bottleneck.</SectionHeading>
+      <div class="section__body">
+        {lorem.map((p) => <p>{p}</p>)}
+      </div>
+      <PanelSection eyebrow="Use Cases" color="sage" columns={threeCols} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--wide">
+      <SectionHeading align="left">Contracts Are<br />the Answer.</SectionHeading>
+      <div class="section__body">
+        {lorem.map((p) => <p>{p}</p>)}
+      </div>
+      <CardRow
+        color="cream"
+        cards={threeCols.map((c) => ({ title: "SUB TITLE 1", body: c.body }))}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--wide">
+      <SectionHeading align="right">The Capabilities<br />Graph.</SectionHeading>
+      <div class="section__body">
+        {lorem.map((p) => <p>{p}</p>)}
+      </div>
+      <PanelSection eyebrow="New Title" color="pink" columns={threeCols} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--wide">
+      <SectionHeading align="left">Extraction Over<br />Refactoring.</SectionHeading>
+      <div class="section__body">
+        {lorem.map((p) => <p>{p}</p>)}
+      </div>
+      <CardRow
+        color="tan"
+        cards={threeCols.map((c) => ({ title: "SUB TITLE 1", body: c.body }))}
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--wide">
+      <h2 class="audience-heading">
+        <span class="tick" aria-hidden="true" />
+        Who is this book for?
+        <span class="tick tick--end" aria-hidden="true" />
+      </h2>
+      <AudienceGrid />
+    </div>
+  </section>
+
+  <section class="section quote">
+    <div class="wrap">
+      <!-- TODO: replace with a real endorsement/testimonial quote -->
+      <p class="quote__text">&hellip;put here a quote about the positive change of AI impact&hellip;</p>
+      <hr class="divider quote__divider" />
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <!-- TODO: this block was left as an empty color panel in the Figma
+           design — replace with real launch copy once available. -->
+      <h2>Get the book.</h2>
+      <BuyLinks />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-wrap {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .hero {
+    position: relative;
+    margin-top: 1.5rem;
+    aspect-ratio: 1624 / 896;
+    overflow: hidden;
+    border-radius: 2rem;
+    height: 100%;
+  }
+
+  .hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__text {
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    color: #1a1a1a;
+    padding: 0 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero__subtitle {
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--pink);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      aspect-ratio: 9 / 16;
+    }
+  }
+
+  .section__body {
+    display: grid;
+    gap: 1rem;
+    max-width: 40rem;
+    margin: 0 0 2.5rem auto;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .section__body p {
+    margin: 0;
+  }
+
+  .audience-heading {
+    text-align: center;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .tick {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1px;
+    background: var(--text-muted);
+    transform: rotate(-55deg);
+  }
+
+  section.quote {
+    text-align: center;
+    padding: 7rem 0 5rem;
+  }
+
+  .quote__text {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    max-width: 32rem;
+    margin: 0 auto 1.5rem;
+  }
+
+  .quote__divider {
+    width: 3rem;
+    margin: 0 auto;
+  }
+
+  .cta {
+    background: var(--coral);
+    color: #201008;
+    text-align: center;
+    padding: 6rem 0;
+  }
+
+  .cta h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .cta :global(.btn--coral) {
+    background: #201008;
+    color: #f5f3ee;
+  }
+
+  .cta :global(.btn--outline) {
+    border-color: rgba(32, 16, 8, 0.4);
+  }
+</style>
