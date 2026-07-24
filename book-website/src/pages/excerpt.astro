@@ -5,24 +5,59 @@ import BuyLinks from "../components/BuyLinks.astro";
 
 <BaseLayout
   title="Excerpt"
-  description="Read a sample chapter from The Day After AI: Making Software Companies Legible to AI Agents."
+  description="Read the opening scene from The Day After: an AI agent ships a clean, fast, correct-looking change — and production breaks anyway. Free excerpt."
 >
   <section class="section">
     <div class="wrap">
-      <p class="eyebrow">Sample chapter</p>
-      <h1>Excerpt</h1>
+      <p class="eyebrow">Opening scene</p>
+      <h1>Monday Morning</h1>
 
-      <!-- TODO: replace this placeholder with the real excerpt text -->
       <div class="excerpt">
-        <p><em>Chapter 1: Why "the day after" matters</em></p>
+        <p>The agent finished in four minutes.</p>
         <p>
-          Sample chapter text goes here. Drop in a few hundred words that give
-          readers a real feel for the book's voice and argument &mdash; not a
-          summary, an actual passage.
+          The developer leaned back and read through the output. It was
+          clean. Cleaner than clean, actually, the kind of code that makes
+          you wonder, briefly, why you spent the last decade learning to
+          write it yourself. Proper error handling. Sensible variable
+          names. The retry logic followed the pattern used everywhere else
+          in the payment service, which meant it would pass review without
+          a comment.
         </p>
+        <p>
+          The ticket had been sitting in the backlog for three weeks. A
+          straightforward extension to the payment retry flow: handle a new
+          failure code from the upstream processor, add it to the retry
+          sequence, and make sure the response gets logged correctly. Two
+          hours of work, maybe three if the tests needed coaxing. The agent
+          had done it in the time it took to get coffee.
+        </p>
+        <p>
+          The developer read through it again. Not because anything looked
+          wrong. Because something that fast, that tidy, deserves a second
+          look. <em>Read everything. Trust nothing unread.</em>
+        </p>
+        <p>
+          Nothing wrong. The logic was sound. The new failure code was
+          handled. The retry sequence was extended correctly. The tests
+          covered the new path and passed locally.
+        </p>
+        <p>The PR went up at <strong>9:47&nbsp;AM</strong>.</p>
+        <p>
+          By <strong>10:15&nbsp;AM</strong>, the PR had two approvals. One
+          reviewer left a single comment: "nice." In this codebase, that
+          meant something. The developer merged it before the design
+          review.
+        </p>
+        <p>It was a normal morning. Productive, even.</p>
+        <p>The merge happened before lunch.</p>
+        <p class="excerpt__beat">Staging broke at <strong>2:11&nbsp;PM</strong>.</p>
       </div>
 
-      <p class="excerpt__cta">Want the rest?</p>
+      <p class="excerpt__cta">
+        The agent did everything right. So did the developer. What broke
+        wasn't the code &mdash; it's the reason the book exists. Keep
+        reading in <em>The Day After</em>.
+      </p>
       <BuyLinks />
     </div>
   </section>
@@ -43,6 +78,10 @@ import BuyLinks from "../components/BuyLinks.astro";
 
   .excerpt p:last-child {
     margin-bottom: 0;
+  }
+
+  .excerpt__beat {
+    font-weight: 600;
   }
 
   .excerpt__cta {
