@@ -116,6 +116,30 @@ a {
   padding: 4rem 0;
 }
 
+/* Homepage sunrise: while the hero plays its night-to-day sequence, the
+   page around it lightens in sync — deep night blue (sampled from the
+   night frame's sky) warming up to the theme background. Classes are set
+   by the homepage's sunrise scripts; timing vars are copied from the
+   hero so the two animations can never drift apart. */
+html.sunrise-pending body {
+  background: #0c1017;
+}
+
+html.sunrise-play body {
+  animation: sunrise-bg
+    calc(var(--hero-zoom, 5.7s) - var(--hero-first-hold, 1.2s)) ease-in-out
+    var(--hero-first-hold, 1.2s) both;
+}
+
+@keyframes sunrise-bg {
+  from {
+    background-color: #0c1017;
+  }
+  to {
+    background-color: var(--bg);
+  }
+}
+
 .divider {
   height: 1px;
   background: var(--border);

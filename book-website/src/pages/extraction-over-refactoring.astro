@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+---
+
+<BaseLayout
+  title="Extraction Over Refactoring"
+  description="Why the instinctive fix for a legacy system — a full refactor — is the expensive trap, and what to do instead: extract one capability at a time."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Chapter 5 &middot; Part II: The Architecture</p>
+      <h1>Extraction Over Refactoring</h1>
+
+      <p>
+        Code is cheap. Alignment is not. Chapter 5 opens on the response
+        most organizations reach for once they recognize the legibility
+        problem: schedule a refactor. Clean up the accumulation, and the
+        navigation problem resolves &mdash; or so the reasoning goes.
+      </p>
+      <p>
+        The chapter makes the case that this is a trap, not a fix. A
+        refactor consumes an organization's most senior engineers for
+        months, and produces cleaner services, better names, a codebase a
+        new developer can read without flinching. What it does not produce
+        is a system that declares what it knows. Point an agent at the
+        refactored system, and it fails for the exact same reasons it
+        failed before the first planning meeting &mdash; because legibility
+        is a property of declared contracts, not clean code.
+      </p>
+      <p>
+        Extraction is the alternative: pull one capability out of the
+        legacy system, contract it properly, and leave the rest untouched
+        until it's its turn. The chapter lays out how to prioritize what
+        gets extracted first, and why progress that compounds beats a
+        rewrite that has to finish before it pays off.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a href="/capabilities-graph/">&larr; Chapter 4 &mdash; The Capabilities Graph</a>
+        <a href="/about-the-book/">Full table of contents &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>
