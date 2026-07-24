@@ -34,28 +34,31 @@ Run from `book-website/`:
 
 Search the codebase for `TODO` to find every placeholder:
 
-- **Body copy** — every section on the homepage (`src/pages/index.astro`) still carries the Lorem ipsum and "Sub Title 1" / "New Title" placeholder labels from the Figma design. Replace before launch.
 - **Buy links** — `src/components/BuyLinks.astro` and the header's "Pre-order on Amazon" link (`src/components/Header.astro`) have `href="#"` placeholders.
-- **Book synopsis & table of contents** — `src/pages/about-the-book.astro`.
-- **Sample chapter text** — `src/pages/excerpt.astro`.
 - **Contact email** — `src/pages/contact.astro` (`hello@example.com` placeholder).
 - **Newsletter signup** — no form-handling service is wired up yet (this is a static site with no backend); pick one (Mailchimp, ConvertKit, Buttondown, Formspree, etc.) before advertising it.
-- **Photos** — `public/images/` was exported directly from the Figma file's stock placeholders (hero landscape + 6 "who is this book for" portraits). Two of the team photos (`team-project-managers.jpg`, `team-leadership.jpg`, `team-engineering-managers.jpg`) are low-resolution crops (~250–390px wide) — replace all of these with real or licensed photography before launch.
-- **CTA section** — the coral "Get the book" block at the bottom of the homepage was an empty color panel in the Figma design; the current heading/buttons are a reasonable placeholder, not final copy.
-- **`site` / `base` in `astro.config.mjs`** — set `site` to the real deployed origin. Only set `base` if deploying as a GitHub Pages *project* site without a custom domain (see comments in the file); if you do, also prefix the nav links in `src/components/Header.astro` with `import.meta.env.BASE_URL`.
+- **Photos** — `public/images/` was exported directly from the Figma file's stock placeholders (hero landscape + 6 "who is this book for" portraits). Three of the team photos (`team-project-managers.jpg`, `team-leadership.jpg`, `team-engineering-managers.jpg`) are low-resolution crops (~250–390px wide) — replace all of these with real or licensed photography before launch.
+
+Body copy, the synopsis/table of contents, the sample chapter, and the four
+chapter landing pages (`/tribal-knowledge/`, `/contracts/`,
+`/capabilities-graph/`, `/extraction-over-refactoring/`) are drawn from the
+real manuscript, kept to non-spoiler summaries.
 
 ## Deployment
 
+Live at **https://enricopiovesan.github.io/the-day-after-toolkit/**.
+
 A GitHub Actions workflow at `.github/workflows/book-website-deploy.yml`
 builds this site and deploys it to GitHub Pages on every push to `main`
-that touches `book-website/**`. To enable it:
-
-1. In the repo's GitHub Settings → Pages, set the source to "GitHub Actions".
-2. Set `site` (and `base`, if needed) in `astro.config.mjs` as described above.
+that touches `book-website/**`. `astro.config.mjs` sets `site` and `base`
+for this deployment; every internal link and asset reference goes through
+`src/utils/url.ts`'s `withBase()` helper so they resolve correctly under
+the `/the-day-after-toolkit/` path — use it for any new internal
+`href`/`src` rather than a bare `/...` string.
 
 **Note:** GitHub Pages serves only one site per repository. If this repo's
 GitHub Pages is later used for the toolkit's own docs site (see issue #44),
-it will conflict with deploying the book site the same way from this repo.
-Options if that happens: put the book site on a custom domain (works
-regardless of where Pages points), or move `book-website/` to its own
-repository.
+it will conflict with this deployment. Options if that happens: put the
+book site on a custom domain (drop `base` in `astro.config.mjs` — every
+link already routes through `withBase()`, so that's the only change
+needed), or move `book-website/` to its own repository.

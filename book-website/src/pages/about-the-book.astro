@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
 ---
 
 <BaseLayout
@@ -46,10 +47,10 @@ import BuyLinks from "../components/BuyLinks.astro";
       <ol class="toc">
         <li>Opening Scene &mdash; Monday Morning</li>
         <li>The Day After</li>
-        <li><a href="/tribal-knowledge/">Tribal Knowledge Is the Bottleneck</a></li>
-        <li><a href="/contracts/">Contracts Are the Answer</a></li>
-        <li><a href="/capabilities-graph/">The Capabilities Graph</a></li>
-        <li><a href="/extraction-over-refactoring/">Extraction Over Refactoring</a></li>
+        <li><a href={withBase("/tribal-knowledge/")}>Tribal Knowledge Is the Bottleneck</a></li>
+        <li><a href={withBase("/contracts/")}>Contracts Are the Answer</a></li>
+        <li><a href={withBase("/capabilities-graph/")}>The Capabilities Graph</a></li>
+        <li><a href={withBase("/extraction-over-refactoring/")}>Extraction Over Refactoring</a></li>
         <li>The Contract Lifecycle</li>
         <li>The Architect</li>
         <li>The Developer</li>
