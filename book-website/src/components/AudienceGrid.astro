@@ -1,0 +1,105 @@
+---
+const tiles = [
+  { title: "Software\nDevelopers", tag: "SOFTWARE ENGINEERS", color: "pink", image: "/images/team-developers.jpg" },
+  { title: "Project\nManagers", tag: "PROJECT OWNERS", color: "sage", image: "/images/team-project-managers.jpg" },
+  { title: "Software\nArchitects", tag: "TECH LEADS", color: "gray", image: "/images/team-architects.jpg" },
+  { title: "UI/XD\nDesigners", tag: "SOFTWARE ENGINEERS", color: "tan", image: "/images/team-designers.jpg" },
+  { title: "Leadership\nTeams", tag: "CEOs, CTOs", color: "coral", image: "/images/team-leadership.jpg" },
+  { title: "Engineering\nManagers", tag: "ENGINEERING DIRECTORS", color: "pink", image: "/images/team-engineering-managers.jpg" },
+];
+---
+
+<div class="audience-grid">
+  {
+    tiles.map((tile) => (
+      <div class="tile">
+        <div class={`tile__header tile__header--${tile.color}`}>
+          <p class="tile__tag">
+            <span class="tick" aria-hidden="true" />
+            {tile.tag}
+          </p>
+          <h3 class="tile__title">
+            {tile.title.split("\n").map((line) => (
+              <>
+                {line}
+                <br />
+              </>
+            ))}
+          </h3>
+        </div>
+        <img class="tile__image" src={tile.image} alt="" loading="lazy" />
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .tile {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tile__header {
+    padding: 1.25rem;
+    color: var(--card-text);
+  }
+
+  .tile__header--pink { background: var(--pink); }
+  .tile__header--sage { background: var(--sage); }
+  .tile__header--gray { background: var(--gray-light); }
+  .tile__header--tan { background: var(--tan); }
+  .tile__header--coral { background: var(--coral); }
+
+  .tile__tag {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.65rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    opacity: 0.75;
+  }
+
+  .tick {
+    display: inline-block;
+    width: 0.7rem;
+    height: 1px;
+    background: currentColor;
+    transform: rotate(-55deg);
+  }
+
+  .tile__title {
+    text-align: right;
+    font-size: 1.1rem;
+    line-height: 1.2;
+  }
+
+  .tile__image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 720px) {
+    .audience-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .audience-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

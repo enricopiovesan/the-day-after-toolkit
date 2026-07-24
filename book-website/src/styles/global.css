@@ -1,0 +1,124 @@
+:root {
+  --bg: #f7f5f0;
+  --bg-elev: #efece3;
+  --text: #1a1a1a;
+  --text-muted: #5c5648;
+  --border: rgba(0, 0, 0, 0.12);
+  --pill-bg: rgba(255, 255, 255, 0.6);
+
+  --coral: #ed6f61;
+  --sage: #9cb2af;
+  --cream: #ebecdc;
+  --pink: #eabebb;
+  --tan: #b79782;
+  --gray-light: #e4e3df;
+  --card-text: #201d18;
+
+  --font-heading: "Poppins", "Segoe UI", var(--font-body);
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Roboto Mono", monospace;
+  --content-width: 46rem;
+}
+
+:root[data-theme="dark"] {
+  --bg: #1a1a1a;
+  --bg-elev: #232323;
+  --text: #f5f3ee;
+  --text-muted: #a8a29b;
+  --border: rgba(255, 255, 255, 0.12);
+  --pill-bg: rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1a1a;
+    --bg-elev: #232323;
+    --text: #f5f3ee;
+    --text-muted: #a8a29b;
+    --border: rgba(255, 255, 255, 0.12);
+    --pill-bg: rgba(255, 255, 255, 0.08);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  line-height: 1.15;
+  font-weight: 700;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+.wrap {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.wrap--wide {
+  max-width: 72rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+}
+
+.btn--coral {
+  background: var(--coral);
+  color: #201008;
+}
+
+.btn--sage {
+  background: var(--sage);
+  color: var(--card-text);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: var(--coral);
+  font-weight: 700;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  border: none;
+  margin: 0;
+}

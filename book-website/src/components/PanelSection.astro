@@ -1,0 +1,90 @@
+---
+interface Column {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  eyebrow: string;
+  color: "sage" | "pink";
+  columns: Column[];
+}
+
+const { eyebrow, color, columns } = Astro.props;
+---
+
+<div class={`panel panel--${color}`}>
+  <p class="panel__eyebrow">
+    <span class="tick" aria-hidden="true"></span>
+    {eyebrow}
+  </p>
+  <div class="panel__columns">
+    {
+      columns.map((col) => (
+        <div class="panel__column">
+          <p class="panel__column-title">{col.title}</p>
+          <p class="panel__column-body">{col.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .panel {
+    border-radius: 1rem;
+    padding: 2.5rem 2.75rem;
+    color: var(--card-text);
+  }
+
+  .panel--sage {
+    background: var(--sage);
+  }
+
+  .panel--pink {
+    background: var(--pink);
+  }
+
+  .panel__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin: 0 0 1.75rem;
+  }
+
+  .tick {
+    display: inline-block;
+    width: 0.9rem;
+    height: 1px;
+    background: currentColor;
+    transform: rotate(-55deg);
+  }
+
+  .panel__columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .panel__column-title {
+    font-weight: 600;
+    margin: 0 0 0.6rem;
+  }
+
+  .panel__column-body {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 720px) {
+    .panel__columns {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

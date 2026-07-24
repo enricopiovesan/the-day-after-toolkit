@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+---
+
+<BaseLayout
+  title="Excerpt"
+  description="Read a sample chapter from The Day After AI: Making Software Companies Legible to AI Agents."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Sample chapter</p>
+      <h1>Excerpt</h1>
+
+      <!-- TODO: replace this placeholder with the real excerpt text -->
+      <div class="excerpt">
+        <p><em>Chapter 1: Why "the day after" matters</em></p>
+        <p>
+          Sample chapter text goes here. Drop in a few hundred words that give
+          readers a real feel for the book's voice and argument &mdash; not a
+          summary, an actual passage.
+        </p>
+      </div>
+
+      <p class="excerpt__cta">Want the rest?</p>
+      <BuyLinks />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .excerpt {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 1.5rem 1.75rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .excerpt p:first-child {
+    margin-top: 0;
+  }
+
+  .excerpt p:last-child {
+    margin-bottom: 0;
+  }
+
+  .excerpt__cta {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+</style>

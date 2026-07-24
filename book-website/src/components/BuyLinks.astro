@@ -1,0 +1,28 @@
+---
+// TODO: replace "#" with real retailer URLs once the book is listed.
+const links = [
+  { label: "Amazon", href: "#" },
+  { label: "Kindle", href: "#" },
+];
+---
+
+<div class="buy-links">
+  {
+    links.map((link, i) => (
+      <a
+        class={`btn ${i === 0 ? "btn--coral" : "btn--outline"}`}
+        href={link.href}
+      >
+        {link.href === "#" ? `${link.label} (coming soon)` : link.label}
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .buy-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+</style>

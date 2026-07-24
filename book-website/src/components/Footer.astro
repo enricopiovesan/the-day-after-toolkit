@@ -1,0 +1,51 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap wrap--wide site-footer__inner">
+    <p>&copy; {year} Enrico Piovesan. All rights reserved.</p>
+    <ul>
+      <li><a href="https://github.com/enricopiovesan">GitHub</a></li>
+      <li><a href="https://medium.com/software-architecture-in-the-age-of-ai">Medium</a></li>
+      <li><a href="https://github.com/enricopiovesan/the-day-after-toolkit">Companion Toolkit</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding: 2rem 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .site-footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .site-footer p {
+    margin: 0;
+  }
+
+  .site-footer ul {
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .site-footer a:hover {
+    color: var(--coral);
+  }
+</style>

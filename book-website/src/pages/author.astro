@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Author"
+  description="Enrico Piovesan, author of The Day After and Universal Microservices Architecture."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">About the author</p>
+      <h1>Enrico Piovesan</h1>
+
+      <!-- TODO: swap in a real author photo at /public/author.jpg -->
+      <!-- TODO: replace with the real author bio -->
+      <p>
+        Enrico Piovesan writes about software architecture in the age of AI
+        agents. <em>The Day After AI</em> is his second book, following
+        <a href="https://www.amazon.com/dp/B0GTTTTQH4">Universal Microservices
+        Architecture</a>, and continues in the <a
+          href="https://medium.com/software-architecture-in-the-age-of-ai"
+          >Mastering Software Architecture for the AI Era</a
+        > series on Medium.
+      </p>
+      <p>
+        He is also the author of the open-source <a
+          href="https://github.com/enricopiovesan/the-day-after-toolkit"
+          >Day After Toolkit</a
+        >, the companion CLI that turns the book's operating model into
+        executable checks and scaffolding.
+      </p>
+
+      <h2>Elsewhere</h2>
+      <ul class="links">
+        <li><a href="https://github.com/enricopiovesan">GitHub</a></li>
+        <li><a href="https://medium.com/software-architecture-in-the-age-of-ai">Medium series</a></li>
+        <li><a href="https://enricopiovesan.github.io/enricopiovesan/">Speaking</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .links {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+</style>

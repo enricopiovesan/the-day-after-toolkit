@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+---
+
+<BaseLayout
+  title="About the Book"
+  description="What The Day After covers: agent-readiness, legibility, and the operating model for restructuring software companies around AI agents."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">About the book</p>
+      <h1>The Day After AI</h1>
+      <p class="lede">
+        How to Restructure Your Software Company for the Age of AI Agents.
+      </p>
+
+      <!-- TODO: replace with the real back-cover synopsis -->
+      <p>
+        AI coding agents are no longer a novelty &mdash; they read code, propose
+        changes, and increasingly ship them. Most organizations weren't built
+        for that. Decisions live in Slack threads, architecture lives in one
+        engineer's head, and "how this system actually works" is tribal
+        knowledge instead of something a machine (or a new hire) can read.
+      </p>
+      <p>
+        <em>The Day After AI</em> argues that the companies who benefit most from
+        AI agents won't be the ones who buy the best tools &mdash; they'll be the
+        ones who make their systems <strong>legible</strong>: navigable,
+        contract-driven, and safe for both agents and humans to act on. The book
+        lays out the operating model for that shift, from assessing where a
+        codebase stands today to prioritizing what to fix first and how to keep
+        it trustworthy as it evolves.
+      </p>
+
+      <h2>Who it's for</h2>
+      <ul>
+        <li>Engineering leaders deciding how much autonomy to hand to AI agents.</li>
+        <li>Architects who need a shared vocabulary for "agent-ready" systems.</li>
+        <li>Teams already using coding agents who want fewer surprises in production.</li>
+      </ul>
+
+      <h2>Table of contents</h2>
+      <!-- TODO: replace with the real chapter list -->
+      <ol class="toc">
+        <li>Why "the day after" matters</li>
+        <li>What makes a codebase legible</li>
+        <li>Assessing agent-readiness</li>
+        <li>Prioritizing what to extract first</li>
+        <li>Writing contracts agents can trust</li>
+        <li>Restructuring teams around agentic execution</li>
+        <li>Keeping the system honest as it changes</li>
+      </ol>
+
+      <BuyLinks />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lede {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+  }
+
+  .toc {
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.4rem;
+  }
+</style>

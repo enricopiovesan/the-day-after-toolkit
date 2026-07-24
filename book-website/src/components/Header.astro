@@ -1,0 +1,252 @@
+---
+interface Props {
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/about-the-book/", label: "About the Book" },
+  { href: "/author/", label: "Author" },
+  { href: "/excerpt/", label: "Excerpt" },
+  { href: "/contact/", label: "Contact" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header" class:list={[{ "site-header--overlay": overlay }]}>
+  <div class:list={["site-header__inner", { "wrap wrap--wide": !overlay }]}>
+    <div class="site-header__group">
+      <a href="/" class="logo-tab">
+        <img src="/logo.svg" alt="The Day After AI" class="logo-tab__image" />
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          {
+            navItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={currentPath === item.href ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <div class="action-tab">
+      <button
+        type="button"
+        class="theme-toggle"
+        id="theme-toggle"
+        aria-label="Toggle light and dark theme"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+        </svg>
+      </button>
+      <a class="action-tab__link" href="https://github.com/enricopiovesan/the-day-after-toolkit">GitHub</a>
+      <a class="action-tab__link" href="https://medium.com/software-architecture-in-the-age-of-ai">Blog</a>
+      <!-- TODO: replace with the real retailer URL once the book is listed -->
+      <a class="btn btn--sage action-tab__cta" href="#">Pre-order on Amazon</a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const toggle = document.getElementById("theme-toggle");
+  toggle?.addEventListener("click", () => {
+    const root = document.documentElement;
+    const current =
+      root.getAttribute("data-theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const next = current === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
+</script>
+
+<style>
+  .site-header {
+    padding: 1.5rem 0;
+  }
+
+  .site-header--overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 0;
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .site-header__group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo-tab,
+  .action-tab {
+    position: relative;
+    background: #1e1e1e;
+    color: #f5f3ee;
+    height: 94px;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+  }
+
+  /* The tabs themselves are plain rectangles. At the top, where each tab
+     meets the open gap toward the nav pill, a separate small patch sits
+     just outside it and curves away to transparent, revealing the photo
+     through a concave notch. At the bottom, it's the other way around:
+     the inner corner (facing the gap) is a plain rounded corner on the
+     tab itself, and the outer corner (true page edge) gets the notch
+     patch, positioned below the tab instead of beside it. */
+  .logo-tab {
+    border-radius: 0 0 2rem 0;
+  }
+
+  .action-tab {
+    border-radius: 0 0 0 2rem;
+  }
+
+  .logo-tab::before,
+  .logo-tab::after,
+  .action-tab::before,
+  .action-tab::after {
+    content: "";
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .logo-tab::after {
+    top: 0;
+    left: 100%;
+    background: radial-gradient(circle at bottom right, transparent 2rem, #1e1e1e 2rem);
+  }
+
+  .logo-tab::before {
+    top: 100%;
+    left: 0;
+    background: radial-gradient(circle at bottom right, transparent 2rem, #1e1e1e 2rem);
+  }
+
+  .action-tab::after {
+    top: 0;
+    right: 100%;
+    background: radial-gradient(circle at bottom left, transparent 2rem, #1e1e1e 2rem);
+  }
+
+  .action-tab::before {
+    top: 100%;
+    right: 0;
+    background: radial-gradient(circle at bottom left, transparent 2rem, #1e1e1e 2rem);
+  }
+
+  .logo-tab__image {
+    display: block;
+    width: 126px;
+    height: 31px;
+  }
+
+  .site-nav {
+    margin-top: 0.4rem;
+  }
+
+  .site-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0.3rem;
+    background: #c9c6c5;
+    border-radius: 999px;
+    flex-wrap: wrap;
+  }
+
+  .site-nav a {
+    display: block;
+    text-decoration: none;
+    color: #201d18;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .site-nav a:hover,
+  .site-nav a[aria-current="page"] {
+    background: #fff;
+  }
+
+  .action-tab {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: #f5f3ee;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .theme-toggle:hover {
+    color: var(--coral);
+  }
+
+  .action-tab__link {
+    text-decoration: none;
+    color: #f5f3ee;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .action-tab__link:hover {
+    color: var(--coral);
+  }
+
+  .action-tab__cta {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 860px) {
+    .site-header__inner {
+      flex-wrap: wrap;
+      row-gap: 0.75rem;
+    }
+
+    .site-header__group {
+      flex-wrap: wrap;
+    }
+  }
+</style>
