@@ -46,7 +46,7 @@ real manuscript, kept to non-spoiler summaries.
 
 ## Deployment
 
-Live at **https://enricopiovesan.github.io/the-day-after-toolkit/**.
+Live at **https://thedayafteraibook.com**.
 
 A GitHub Actions workflow at `.github/workflows/book-website-deploy.yml`
 builds this site and deploys it to GitHub Pages on every push to `main`
