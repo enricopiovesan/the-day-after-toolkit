@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="GitHub Repository"
+  description="The cdad CLI, its contract schemas, and its documentation are open source. The companion GitHub repository is where to check the current source instead of taking this site's word for it."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Toolkit</p>
+      <h1>GitHub Repository</h1>
+
+      <p>
+        Everything this site says about the CLI, the commands, the
+        contract schemas, the validation rules, is backed by real,
+        published source. The toolkit lives in the companion GitHub
+        repository, out in the open, where anyone evaluating it can read
+        the code instead of relying on a description of it.
+      </p>
+      <p>
+        That's where the current, authoritative version of everything
+        lives. The contract schemas that <code>cdad init</code> scaffolds
+        and <code>cdad validate</code> checks against. The CLI source
+        itself, command by command. The documentation covering concepts,
+        anti-patterns, the full command reference, and the adoption
+        journey this site's toolkit pages summarize. Pages here aim to
+        stay accurate to that source, but the repository is the one that
+        updates first when the tool changes.
+      </p>
+      <p>
+        If you're deciding whether to adopt this in your own repository,
+        that's the right place to look before committing anything. Read
+        the schemas, read the validation logic, try the CLI against a
+        throwaway repo if you want to see the output shape before running
+        it somewhere that matters.
+      </p>
+      <p>
+        For an overview of what the toolkit actually does before you go
+        digging through source, start with the
+        <a href={withBase("/toolkit/")}>toolkit overview</a> and work
+        outward from there.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/toolkit/cli-reference/")}>&larr; CLI Reference</a>
+        <a href={withBase("/toolkit/")}>Toolkit overview &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

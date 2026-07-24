@@ -8,55 +8,55 @@ import AudienceGrid from "../components/AudienceGrid.astro";
 import BuyLinks from "../components/BuyLinks.astro";
 import { withBase } from "../utils/url";
 
-// Section copy is written from the book's own manuscript (Chapters 1–5),
-// kept to non-spoiler summary and thesis statements — no plot points or
+// Section copy is written from the book's own manuscript (Chapters 1-5),
+// kept to non-spoiler summary and thesis statements, no plot points or
 // worked examples from the text itself.
 const tribalKnowledgeCopy = [
-  "Every software organization has the same hidden liability: the reasoning behind its own decisions lives in people's heads, in Slack threads that decay within months, in commit messages that record what changed but never why. AI agents can read an entire codebase in seconds — they can't ask a senior engineer what a payment constraint actually means, or why a service calls another out of the “obvious” order.",
-  "That gap isn't a documentation problem you can wiki your way out of. It's structural. The knowledge that keeps a system safe was never designed to be found by anything that can't tap someone on the shoulder — and every constraint that exists only in someone's memory is a constraint an agent will walk straight past.",
-  "The Day After opens on a single incident: a clean, fast, technically correct AI-generated change that breaks production hours later — not because the agent did anything wrong, but because the system never told it what it needed to know. It's the pattern already playing out on every team pointing agents at a real codebase, and it's where the book begins.",
+  "Every software organization has the same hidden liability: the reasoning behind its own decisions lives in people's heads, in Slack threads that decay within months, in commit messages that record what changed but never why. AI agents can read an entire codebase in seconds, but they can't ask a senior engineer what a payment constraint actually means, or why a service calls another out of the “obvious” order.",
+  "That gap isn't a documentation problem you can wiki your way out of. It's structural. The knowledge that keeps a system safe was never designed to be found by anything that can't tap someone on the shoulder, and every constraint that exists only in someone's memory is a constraint an agent will walk straight past.",
+  "The Day After opens on a single incident: a clean, fast, technically correct AI-generated change that breaks production hours later, not because the agent did anything wrong, but because the system never told it what it needed to know. It's the pattern already playing out on every team pointing agents at a real codebase, and it's where the book begins.",
 ];
 
 const tribalKnowledgeCards = [
-  { title: "The Onboarding Tax", body: "New hires spend weeks reconstructing context that already existed — just nowhere they could find it." },
+  { title: "The Onboarding Tax", body: "New hires spend weeks reconstructing context that already existed, just nowhere they could find it." },
   { title: "The Departure Risk", body: "When a senior engineer leaves, years of undeclared context leave with them." },
-  { title: "The Agent Blind Spot", body: "Coding agents read your files, not your Slack history — so tribal knowledge is invisible to exactly the tool you're betting on." },
+  { title: "The Agent Blind Spot", body: "Coding agents read your files, not your Slack history, so tribal knowledge is invisible to exactly the tool you're betting on." },
 ];
 
 const contractsCopy = [
-  "Contracts aren't more documentation, and they aren't a better wiki. A contract is a structured, machine-readable declaration of what a piece of business logic does, why it does it, and what would break if it changed — written once, in a form both humans and agents can act on.",
-  "Every fix teams normally reach for — documentation sprints, tighter prompts, more supervision — treats the symptom. Each one makes an illegible system slightly less illegible for a while. None of them change the underlying condition: the system still doesn't declare what it knows.",
+  "Contracts aren't more documentation, and they aren't a better wiki. A contract is a structured, machine-readable declaration of what a piece of business logic does, why it does it, and what would break if it changed, written once, in a form both humans and agents can act on.",
+  "Every fix teams normally reach for, documentation sprints, tighter prompts, more supervision, treats the symptom. Each one makes an illegible system slightly less illegible for a while. None of them change the underlying condition: the system still doesn't declare what it knows.",
   "Chapter 3 makes the case for contracts as the structural fix, not a documentation exercise: what a contract has to capture, and why “good enough” documentation was never going to be enough for agents that can't ask a follow-up question.",
 ];
 
 const contractsCards = [
-  { title: "Not Documentation", body: "A wiki page describes a system. A contract declares it — in a form an agent can act on without a human translating first." },
+  { title: "Not Documentation", body: "A wiki page describes a system. A contract declares it, in a form an agent can act on without a human translating first." },
   { title: "Machine-Readable", body: "Contracts are structured enough for an agent to parse, and specific enough for a human to trust." },
-  { title: "Built to Survive Turnover", body: "Contracts outlive the engineer who wrote them — the way a Slack thread never does." },
+  { title: "Built to Survive Turnover", body: "Contracts outlive the engineer who wrote them, the way a Slack thread never does." },
 ];
 
 const capabilitiesCopy = [
-  "Contracts describe individual pieces of logic. The capabilities graph is what happens when you connect them: a map of every capability in a system, its dependencies, its owner, and the contract that governs it — legible to a new hire and an AI agent in exactly the same way.",
-  "Chapter 4 introduces the capability as a new atomic unit of software design: headless, portable, and contract-defined — a different way of decomposing a system than the service boundaries most teams already have.",
-  "The result isn't a diagram for a slide deck. It's a structure a coding agent can actually navigate — the difference between an agent guessing at your architecture and an agent reading it.",
+  "Contracts describe individual pieces of logic. The capabilities graph is what happens when you connect them: a map of every capability in a system, its dependencies, its owner, and the contract that governs it, legible to a new hire and an AI agent in exactly the same way.",
+  "Chapter 4 introduces the capability as a new atomic unit of software design: headless, portable, and contract-defined, a different way of decomposing a system than the service boundaries most teams already have.",
+  "The result isn't a diagram for a slide deck. It's a structure a coding agent can actually navigate, the difference between an agent guessing at your architecture and an agent reading it.",
 ];
 
 const capabilitiesCards = [
-  { title: "Headless", body: "A capability doesn't know or care how it's presented — no UI assumptions baked into the logic." },
+  { title: "Headless", body: "A capability doesn't know or care how it's presented, no UI assumptions baked into the logic." },
   { title: "Portable", body: "The same capability runs wherever it's called from, without dragging its old service along." },
-  { title: "Contract-Defined", body: "Every capability's boundaries, dependencies, and rules are declared — not inferred from reading the code." },
+  { title: "Contract-Defined", body: "Every capability's boundaries, dependencies, and rules are declared, not inferred from reading the code." },
 ];
 
 const extractionCopy = [
   "The instinctive response to an illegible codebase is a refactor. Chapter 5 argues that's the expensive trap: a months-long cleanup that consumes an organization's most senior engineers and, at the end, produces cleaner code that still can't explain itself to an agent.",
-  "Refactoring makes code easier to read. It doesn't make a system declare what it knows — and legibility is a property of declared contracts, not clean code. An agent pointed at a beautifully refactored system fails for the exact same reasons it failed before.",
-  "Extraction is the alternative this chapter lays out: pull capabilities out of the legacy system one at a time, contract them properly, and leave the rest of the codebase untouched until it's its turn — progress that compounds instead of a rewrite that has to finish before it pays off.",
+  "Refactoring makes code easier to read. It doesn't make a system declare what it knows, and legibility is a property of declared contracts, not clean code. An agent pointed at a beautifully refactored system fails for the exact same reasons it failed before.",
+  "Extraction is the alternative this chapter lays out: pull capabilities out of the legacy system one at a time, contract them properly, and leave the rest of the codebase untouched until it's its turn, progress that compounds instead of a rewrite that has to finish before it pays off.",
 ];
 
 const extractionCards = [
   { title: "Code Is Cheap", body: "Rewriting a service is the easy part. Capturing why it works the way it does is what refactors skip." },
-  { title: "Ship the Slice", body: "Extract one capability, contract it, move on — value lands after the first slice, not after the whole system is done." },
-  { title: "Senior Time, Spent Once", body: "The knowledge in your senior engineers' heads gets captured in the contract — not burned re-implementing what already worked." },
+  { title: "Ship the Slice", body: "Extract one capability, contract it, move on, value lands after the first slice, not after the whole system is done." },
+  { title: "Senior Time, Spent Once", body: "The knowledge in your senior engineers' heads gets captured in the contract, not burned re-implementing what already worked." },
 ];
 
 // Sunrise sequence, first to last. Drop extra frames (e.g. a dawn shot)
@@ -194,8 +194,8 @@ const heroTiming = `
 
   <section class="section quote">
     <div class="wrap">
-      <!-- Pull-quote from the book itself (Ch. 1) — no reader testimonials
-           exist yet; swap this for a real endorsement once one does. -->
+      <!-- Pull-quote from the book itself (Ch. 1), no reader testimonials
+           exist yet. Swap this for a real endorsement once one does. -->
       <p class="quote__text">"A system that cannot make its intent legible to an AI agent is a system that will be navigated by competitors who can."</p>
       <hr class="divider quote__divider" />
     </div>
@@ -204,7 +204,7 @@ const heroTiming = `
   <section class="cta">
     <div class="wrap">
       <h2>Get the book.</h2>
-      <p class="cta__subtitle">A concrete recipe for every role in a software organization — read the opening chapter free.</p>
+      <p class="cta__subtitle">A concrete recipe for every role in a software organization, read the opening chapter free.</p>
       <BuyLinks />
     </div>
   </section>
@@ -269,7 +269,7 @@ const heroTiming = `
      blurred and enlarged so the blur's own soft edge never shows, sitting
      behind the hero and bleeding a little past its edges. It cross-fades
      night-to-day on the same schedule as the sharp images (same keyframe,
-     same delays), just softened and kept faint — real photo color (night
+     same delays), just softened and kept faint. Real photo color (night
      blue warming to sunrise gold), not a synthetic tint. */
   .hero__ambient {
     position: absolute;

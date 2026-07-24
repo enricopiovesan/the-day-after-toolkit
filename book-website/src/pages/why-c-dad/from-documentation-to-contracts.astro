@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="From Documentation to Contracts"
+  description="A wiki describes a system in prose a person has to translate. A contract declares it in a structured form an agent can act on directly. That distinction is the whole argument for C-DAD."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Why C-DAD</p>
+      <h1>From documentation to contracts</h1>
+
+      <p>
+        The instinctive fix for tribal knowledge is to write more of it
+        down. A better wiki. Clearer onboarding docs. A documentation
+        sprint every quarter to catch up on what's drifted. All of this is
+        a genuine, well-intentioned response, and none of it solves the
+        actual problem, because it treats a structural gap as a writing
+        gap.
+      </p>
+      <p>
+        Documentation has a ceiling that has nothing to do with how well
+        it's written. It's prose, meant for a person to read and
+        interpret, and interpretation is exactly the step an AI agent
+        can't reliably do. A wiki page can say "retries are capped to
+        avoid overloading the payment processor during an outage" and a
+        human reads that and understands the intent behind it. An agent
+        reads the same sentence and has to guess how that intent
+        translates into a specific number, a specific exception case, a
+        specific piece of code it's allowed to touch. Guessing is where
+        things go wrong.
+      </p>
+      <p>
+        A contract closes that gap by being structured instead of
+        narrative. It doesn't just describe a capability, it declares
+        what the capability does, why it does it that way, what it
+        depends on, and what would break if you changed it, in a format
+        specific enough for a human to trust and consistent enough for a
+        machine to parse without translation. The difference isn't
+        polish. It's that a contract is built to be acted on, not just
+        read.
+      </p>
+      <p>
+        This is why C-DAD treats contracts as a structural fix rather than
+        better documentation with a new name. Once a capability has a
+        contract, the tribal knowledge that used to live in one person's
+        head is available to the next engineer, the next hire, and the
+        next agent, on equal footing, and it stays available after that
+        person leaves the team.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/why-c-dad/the-cost-of-tribal-knowledge/")}>&larr; The cost of tribal knowledge</a>
+        <a href={withBase("/core-model/")}>The core model &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

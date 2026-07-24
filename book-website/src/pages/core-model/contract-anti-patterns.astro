@@ -1,0 +1,147 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Contract Anti-Patterns"
+  description="Five specific, recognizable ways a contract drifts away from what it's supposed to do, each with a real bad example, a better rewrite, and why it matters."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Core Model</p>
+      <h1>Contract Anti-Patterns</h1>
+
+      <p>
+        A schema tells you which fields a contract needs. It doesn't
+        stop someone from filling those fields in badly. Contracts drift
+        away from their intent for a small number of specific, recurring
+        reasons, and recognizing them by name is a lot faster than
+        rediscovering each one the hard way during a review.
+      </p>
+      <p>
+        The first is writing implementation language into the
+        description. A bad description reads something like "retries
+        using exponential backoff until the gateway responds," which
+        sounds precise but is actually describing a mechanism, one that
+        might get swapped out next sprint without the business rule
+        behind it changing at all. The better version says "retries only
+        after the upstream system has confirmed the original request is
+        safe to repeat." That sentence survives a rewrite of the retry
+        logic because it isn't describing the logic, it's describing the
+        constraint the logic exists to satisfy. Contracts should declare
+        behavior and guarantees, not freeze one implementation detail
+        that's likely to change later anyway.
+      </p>
+      <p>
+        Notice what these two bad examples have in common: they both
+        read as complete sentences. Nothing about "retries using
+        exponential backoff until the gateway responds" looks
+        unfinished on the page. That's what makes implementation
+        language a slippery anti-pattern to catch in review. It doesn't
+        look broken, it looks specific, and specific often gets mistaken
+        for good. The tell isn't how the sentence reads. It's whether
+        the sentence would still be true after someone swapped the
+        retry mechanism for a different one next quarter.
+      </p>
+      <p>
+        The second is leaving `non_goals` empty because the scope feels
+        obvious to whoever's writing the contract. It rarely feels
+        obvious to the next person, and it definitely doesn't feel
+        obvious to an agent with no memory of the conversation where the
+        scope got decided. The fix is just saying it: state plainly what
+        the capability does not do, so the next change doesn't expand it
+        by accident. A blank non-goals field doesn't mean the boundary
+        doesn't exist. It means the boundary is unenforced, and review
+        of anything that crosses it turns subjective instead of being a
+        quick check against a written line.
+      </p>
+      <p>
+        The third is recording history without the lesson it produced.
+        An incident note that just says an outage happened, or that a
+        limit got changed on a certain date, tells a future reader that
+        something occurred without telling them what they're now
+        required to preserve. The better version captures the
+        constraint the incident created: not "we had an outage in
+        March" but "the retry cap must not go above this value without
+        confirming the processor's idempotency window first, because
+        raising it caused duplicate charges in March." Incident notes
+        are only useful when they carry the lesson forward, not just the
+        event.
+      </p>
+      <p>
+        The fourth is treating generated artifacts as hand-edited
+        source. A contract is a triple: `contract.yaml` as the
+        authored source, `contract.json` and `contract.md` generated
+        from it. Editing the JSON or the Markdown directly and leaving
+        the YAML untouched creates a fork nobody asked for, one file
+        says one thing and the source of truth says another. The fix is
+        procedural discipline: treat the YAML as authoritative and use
+        validation or regeneration to keep the derived files aligned,
+        every time, not just when someone remembers to.
+      </p>
+      <p>
+        The fifth is using graph output as the only place dependency
+        relationships get recorded. It's tempting to update a
+        dependency in a design doc or a Slack thread and consider it
+        done, but `cdad graph` doesn't read prose. It reads contracts.
+        If the contract's dependency data doesn't change, the graph
+        won't either, no matter how thoroughly the change got described
+        somewhere else. The better order is contract first, graph
+        second: update the contract, then regenerate the graph from it,
+        so the rendered output stays trustworthy instead of becoming
+        commentary that quietly stopped matching reality.
+      </p>
+      <p>
+        None of these five are exotic mistakes. They're the ordinary way
+        a contract degrades when it's written under deadline pressure by
+        someone who understands the capability well enough to skip
+        steps mentally. That's actually the trap: the person writing a
+        rushed contract usually does know why the retry logic works the
+        way it does, which is exactly why they don't feel the gap they
+        just left for the next reader. The five patterns are worth
+        naming because a checklist catches what expertise quietly skips
+        past.
+      </p>
+      <p>
+        `cdad validate` catches some of this automatically, mainly the
+        structural violations like a missing field or a state that
+        can't legally be active yet. It won't catch a description that's
+        technically present but written as implementation detail, or a
+        non-goal that's too vague to mean anything. That part still
+        takes a reviewer who knows what these five patterns look like on
+        sight.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/core-model/minimum-viable-contract/")}>&larr; Minimum Viable Contract</a>
+        <a href={withBase("/core-model/capability-lifecycle-states/")}>Capability Lifecycle States &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

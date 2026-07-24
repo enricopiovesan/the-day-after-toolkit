@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="C-DAD vs. A Full Rewrite"
+  description="A full rewrite is the instinctive fix for a legacy system nobody trusts. It's also months of senior engineering time spent producing cleaner code that still can't explain itself. Extraction is the alternative."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Comparisons</p>
+      <h1>C-DAD vs. A Full Rewrite</h1>
+
+      <p>
+        At some point, every team staring at an old, tangled system has
+        the same conversation: what if we just rewrote it. New framework,
+        new patterns, a clean slate free of the workarounds that
+        accumulated over a decade of shipping under deadline. It's a
+        tempting plan, and it's not an unreasonable one. Sometimes a
+        system really is beyond salvaging and a rewrite is the honest
+        answer.
+      </p>
+      <p>
+        The trap is more specific than "rewrites are bad," which isn't
+        true. It's that a rewrite gets sold as a fix for the wrong
+        problem. Teams reach for it once they notice a system has become
+        unnavigable, expecting that cleaner code will also make the system
+        legible. It usually doesn't. A rewrite consumes an organization's
+        most senior engineers for months and produces better names, tidier
+        services, a codebase a new hire can read without wincing. What it
+        doesn't produce is a system that declares what it knows about
+        itself. Point an agent at the freshly rewritten service, and it
+        runs into the same wall it hit before the project started, because
+        legibility comes from what's declared, not from how clean the code
+        reads.
+      </p>
+      <p>
+        Extraction takes a narrower, slower-looking path that pays off
+        faster in practice: pull one capability out, contract it properly,
+        leave the rest of the legacy system alone until its turn comes.
+        <code>cdad check</code> gives you a baseline score for where the
+        legibility gaps actually are. <code>cdad roadmap</code> takes that
+        report and ranks which capabilities are worth extracting first,
+        based on how critical and how frequently touched they are.
+        <code>cdad init</code> scaffolds the contract for whichever one
+        comes up top. None of it requires freezing feature work for a
+        quarter while the rewrite catches up to where the old system
+        already was.
+      </p>
+      <p>
+        The honest tradeoff: a rewrite, if it succeeds, gives you a system
+        that's uniformly clean. Extraction gives you a system that's
+        unevenly legible for a while, some capabilities contracted and
+        safe to hand to an agent, others still exactly as opaque as they
+        were yesterday. But extraction produces value on the first
+        capability you finish, not on the day the whole project ships, and
+        it's the approach that actually targets the problem instead of
+        hoping cleaner code solves it as a side effect.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/comparisons/c-dad-vs-adrs/")}>&larr; C-DAD vs. Architecture Decision Records</a>
+        <a href={withBase("/comparisons/")}>Comparisons &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Onboarding New Engineers"
+  description="A new hire's first months usually go to reconstructing tribal knowledge one Slack question at a time. A contract turns that reconstruction into something they can just read."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Use Cases</p>
+      <h1>Onboarding New Engineers</h1>
+
+      <p>
+        Ask any engineer what their first three months at a new job
+        actually involved and the honest answer is rarely "reading
+        documentation." It's asking a teammate why a service behaves a
+        certain way, getting a half-remembered answer, and slowly building
+        a mental map of the parts of the system that don't work the way
+        the code alone suggests they should. That process has a name in
+        most engineering orgs: ramp-up time. It's expensive, it's slow,
+        and it depends entirely on which teammates happen to be around and
+        willing to answer questions that day.
+      </p>
+      <p>
+        The knowledge a new engineer is reconstructing during that period
+        is exactly the tribal knowledge a contract is built to capture,
+        not what the code does, which they can read for themselves, but
+        why it does it, what would break if they changed it, and what got
+        tried before and didn't work. None of that is visible from the
+        implementation alone, and none of it shows up reliably in a wiki
+        that hasn't been updated since the person who wrote it moved
+        teams.
+      </p>
+      <p>
+        A capability with a contract gives a new engineer something closer
+        to a conversation with whoever built it, minus the wait for that
+        person to have time. They can read the non-goals and immediately
+        know what not to touch. They can read the history and understand
+        why the retry policy looks unusual instead of assuming it's a bug
+        worth fixing. <code>cdad graph</code> shows them how the
+        capability connects to the rest of the system, so their first
+        change doesn't quietly break something three services away that
+        nobody mentioned in their onboarding doc.
+      </p>
+      <p>
+        This doesn't eliminate the need for a real onboarding process,
+        pairing sessions, or a manager checking in during week two. What
+        it does is take the highest-risk, least-documented parts of the
+        system, the ones a new hire is most likely to break by accident,
+        and make them legible before the new hire ever has to guess.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/use-cases/legacy-codebase-modernization/")}>&larr; Legacy Codebase Modernization</a>
+        <a href={withBase("/use-cases/preparing-for-ai-coding-agents/")}>Preparing for AI Coding Agents &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="C-DAD vs. OpenAPI"
+  description="OpenAPI is a real and useful artifact for describing what a request and response look like. It was never designed to say why a business rule exists, and a contract fills exactly that gap."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Comparisons</p>
+      <h1>C-DAD vs. OpenAPI</h1>
+
+      <p>
+        OpenAPI does its job well, and this comparison isn't an argument
+        for dropping it. If you need to know the shape of a request, the
+        fields a response returns, or the status codes an endpoint can
+        hand back, an OpenAPI document is the right place to look, and
+        generating client code or validating a payload against it is
+        exactly what it was designed for.
+      </p>
+      <p>
+        What it was never designed to answer is why. An OpenAPI spec can
+        tell you that a discount field accepts a value between zero and
+        thirty percent. It can't tell you that the thirty percent ceiling
+        exists because of a contractual obligation to a specific partner
+        tier, or that raising it silently breaks a downstream
+        reconciliation job that assumes the old maximum. That information
+        usually lives nowhere written down at all, which is exactly the
+        gap that causes trouble once an agent starts proposing changes to
+        the field on its own.
+      </p>
+      <p>
+        A contract is behavioral and intent-focused where OpenAPI is
+        structural. It captures non-goals, the constraints a change would
+        violate, and the history that explains why the current rule exists
+        instead of the more obvious alternative someone probably tried
+        first. That's a different axis entirely from request and response
+        shape, which is why the two are complementary rather than
+        competing. A capability can reference its OpenAPI schema for the
+        wire format while the contract carries the reasoning that schema
+        was never built to hold.
+      </p>
+      <p>
+        If your team already maintains solid OpenAPI documentation, keep
+        it. C-DAD isn't asking you to replace a working spec with a
+        contract that also tries to describe field types and response
+        codes. It's pointing at the layer above that, the layer OpenAPI
+        was never scoped to cover, where the actual risk of an agent
+        making an unsafe change tends to live.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/comparisons/c-dad-vs-code-comments/")}>&larr; C-DAD vs. Code Comments</a>
+        <a href={withBase("/comparisons/c-dad-vs-adrs/")}>C-DAD vs. Architecture Decision Records &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

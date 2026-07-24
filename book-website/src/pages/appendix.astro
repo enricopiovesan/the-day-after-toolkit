@@ -1,0 +1,103 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<BaseLayout
+  title="Appendix"
+  description="Understanding what a contract is and knowing how to write one are different things. The appendix is where the book hands over the actual artifacts: schemas, an audit framework, and a priority matrix."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Part IV &middot; The Toolkit</p>
+      <h1>Appendix</h1>
+
+      <p>
+        Understanding what a contract is and knowing how to write one are
+        different things. The twelve chapters before this build the
+        argument with precision: what a contract declares, why it fixes
+        the legibility problem, how it composes into a graph, what each
+        role in an organization owes to it and reads from it. A reader
+        who's worked through those chapters understands the model. What
+        they don't have yet is the artifact.
+      </p>
+      <p>
+        The appendix hands over three of them, each built against the same
+        running example from the book, the payment retry policy from
+        Meridian's payments domain, the capability that opens the book and
+        never really leaves it.
+      </p>
+
+      <ul class="appendix-list">
+        <li>
+          <a href={withBase("/appendix/contract-schema-reference/")}>Contract Schema Reference</a>
+          <p>The minimum viable contract and the extended contract, shown fully filled in, so the first one you write doesn't start from a blank page.</p>
+        </li>
+        <li>
+          <a href={withBase("/appendix/legibility-audit-framework/")}>Legibility Audit Framework</a>
+          <p>How to score what your system currently makes legible, and what it doesn't, before you decide what to extract first.</p>
+        </li>
+        <li>
+          <a href={withBase("/appendix/extraction-priority-matrix/")}>Extraction Priority Matrix</a>
+          <p>A way to rank which capabilities are worth contracting first, based on risk and how often they actually get touched.</p>
+        </li>
+      </ul>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a href={withBase("/company-that-gets-there-first/")}>&larr; Chapter 12: The Company That Gets There First</a>
+        <a href={withBase("/about-the-book/")}>Full table of contents &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .appendix-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+
+  .appendix-list a {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 0.15em;
+  }
+
+  .appendix-list a:hover {
+    color: var(--coral);
+    text-decoration-color: currentColor;
+  }
+
+  .appendix-list p {
+    margin: 0.35rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

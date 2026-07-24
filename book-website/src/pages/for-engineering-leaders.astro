@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<BaseLayout
+  title="The Leadership Team"
+  description="Every other chapter in the book is about the work. Chapter 11 is about the decision that has to happen before any of that work is possible: how much autonomy to hand to agents, and how to restructure for it."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Chapter 11 &middot; Part III: The Transformation</p>
+      <h1>The Leadership Team</h1>
+
+      <p>
+        Every other role in this book gets a chapter about how their daily
+        work changes once contracts exist. Leadership's chapter is
+        different, because leadership's job is deciding whether the rest
+        of this happens at all. How much autonomy an agent actually earns
+        on a given system. Whether extraction gets funded as a real
+        program or squeezed into whatever time is left after the roadmap.
+        Whether the engineers whose tribal knowledge is quietly holding
+        the company together see the shift as a threat to their value or
+        a way to make it permanent.
+      </p>
+      <p>
+        Chapter 11 doesn't treat that as a soft, cultural problem separate
+        from the technical one. The two are the same problem. A capability
+        graph that nobody funded the time to build doesn't exist no matter
+        how sound the argument for it is. A senior engineer who reads the
+        extraction program as "tell us everything you know so we need you
+        less" will, understandably, slow-walk it. The chapter is about
+        making the restructuring case in terms a leadership team actually
+        has to weigh: what it costs to do this, what it costs not to, and
+        why the second number grows every quarter the decision gets
+        deferred.
+      </p>
+      <p>
+        It ends where a leadership chapter has to end: with what to
+        actually do Monday morning, at whatever scale you're operating at,
+        whether that's a two-hundred-person engineering org or a team of
+        twelve trying to get ahead of a problem before it's load-bearing.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a href={withBase("/for-designers/")}>&larr; Chapter 10: The Designer</a>
+        <a href={withBase("/company-that-gets-there-first/")}>Chapter 12: The Company That Gets There First &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

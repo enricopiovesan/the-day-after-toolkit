@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<BaseLayout
+  title="The Day After"
+  description="The developer did everything right. The agent did everything right. The system failed them both. Chapter 1 names the structural shift behind that failure, and why it's not a tooling problem."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Chapter 1 &middot; Part I: The Problem</p>
+      <h1>The Day After</h1>
+
+      <p>
+        The developer did everything right. The agent did everything right.
+        The system failed them both. That's not an edge case or an
+        early-adopter growing pain. It's the pattern showing up on every
+        team that has pointed an AI agent at a real codebase and waited for
+        a productivity gain that never fully arrived. The agent generated
+        code. The code compiled. The code passed the linter. Then it failed
+        in staging because the constraint it broke didn't exist anywhere in
+        the repository. It lived in the memory of a developer who left, in
+        a Slack thread from three years back, in a decision that got made
+        in a meeting and never written down.
+      </p>
+      <p>
+        Most organizations are treating this as a tooling problem. They're
+        adjusting prompts, switching agents, widening context windows,
+        hiring prompt engineers. Chapter 1 argues the diagnosis is wrong.
+        The problem isn't the agent. It's the system the agent has been
+        asked to work inside, a system that was never designed to be
+        navigated by anything that couldn't just ask a person for help.
+        Humans have always been able to compensate for a confusing codebase
+        by talking to each other. Agents can't do that. So every gap in
+        what the system makes legible, every piece of knowledge that never
+        got written down, becomes something an agent runs straight into.
+      </p>
+      <p>
+        This is the chapter that names the shift and lays out the
+        competitive map forming around it. Some companies are already
+        pulling ahead because they understood what actually changed.
+        Others are still tuning their prompts, solving a problem that isn't
+        the one in front of them. What separates those two groups is the
+        subject of everything that follows.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a href={withBase("/about-the-book/")}>&larr; Table of contents</a>
+        <a href={withBase("/tribal-knowledge/")}>Chapter 2: Tribal Knowledge Is the Bottleneck &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

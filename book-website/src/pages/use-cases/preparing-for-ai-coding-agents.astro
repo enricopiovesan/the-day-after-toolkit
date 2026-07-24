@@ -1,0 +1,88 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Preparing for AI Coding Agents"
+  description="Pointing an agent at a codebase before the codebase can explain itself is how agents make confident, wrong changes. Legibility has to come first."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Use Cases</p>
+      <h1>Preparing for AI Coding Agents</h1>
+
+      <p>
+        This is the use case the rest of the site keeps circling back to,
+        because it's the one that made the other four visible in the
+        first place. An organization decides to let an AI agent make
+        changes in production code, points it at the repository, and
+        discovers within a week that the agent is fast, confident, and
+        occasionally catastrophically wrong in ways a human engineer with
+        the same tenure never would have been.
+      </p>
+      <p>
+        The agent isn't making a technical mistake. It's making a
+        knowledge mistake. It sees code that looks like it does one thing,
+        reasons from that surface, and has no way to know that a business
+        rule buried three functions deep exists because of a regulatory
+        requirement, or that the obvious refactor it's about to propose
+        was already tried and reverted for reasons nobody wrote down where
+        the agent could find them. A human engineer with tenure would have
+        absorbed that context by osmosis. An agent starts every session
+        with none of it.
+      </p>
+      <p>
+        Legibility, in the sense this toolkit uses the word, is the degree
+        to which a capable engineer or agent can understand why a
+        capability behaves the way it does without relying on tribal
+        knowledge. That's the property that has to exist before an agent
+        touches production code safely, and it's a property of the
+        system, not of the agent. No amount of prompting fixes a codebase
+        that has never declared its own reasoning anywhere an agent can
+        read it.
+      </p>
+      <p>
+        The path here is the same <code>check</code>, <code>roadmap</code>,
+        <code>init</code>, <code>validate</code>, <code>graph</code> cycle
+        used everywhere else in the toolkit, run specifically against the
+        capabilities you're about to let an agent operate on first. Score
+        them, extract the riskiest ones, contract what the agent needs to
+        know, and validate that the contract stays true before you widen
+        the agent's scope. It's a smaller, less exciting step than "turn
+        the agent loose and see what happens," and it's the one that
+        actually holds up once the agent starts making real changes.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/use-cases/onboarding-new-engineers/")}>&larr; Onboarding New Engineers</a>
+        <a href={withBase("/use-cases/microservices-with-many-owners/")}>Microservices with Many Owners &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

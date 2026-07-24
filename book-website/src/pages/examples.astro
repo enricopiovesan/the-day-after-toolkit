@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<BaseLayout
+  title="Examples"
+  description="A contract, a graph, an audit, and a report, walked through concretely instead of described in the abstract. This is what the methodology looks like once it's applied to something specific."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Examples</p>
+      <h1>Examples</h1>
+
+      <p>
+        Concepts like "contract" and "capability graph" are easy to nod
+        along to and hard to picture. This section exists to fix that.
+        Each page below takes one piece of the methodology and shows it
+        applied to something concrete, a real running example, a real
+        graph shape, a real report structure, instead of leaving it at the
+        level of definition.
+      </p>
+      <p>
+        Read these in order if you want the full arc: what a contract
+        actually contains, how to read the graph those contracts build,
+        what changes about a capability once it has one, and what a
+        <code>cdad check</code> report looks like when you run it for
+        real.
+      </p>
+
+      <ul class="cluster-list">
+        <li>
+          <a href={withBase("/examples/payment-retry-policy-contract/")}>Payment Retry Policy Contract</a>
+          <p>What a real contract for a real capability actually contains, walked through field by field.</p>
+        </li>
+        <li>
+          <a href={withBase("/examples/reading-a-capability-graph/")}>Reading a Capability Graph</a>
+          <p>Nodes are capabilities, edges are dependencies. How to read what the shape of a graph is telling you.</p>
+        </li>
+        <li>
+          <a href={withBase("/examples/before-and-after-a-legibility-audit/")}>Before and After a Legibility Audit</a>
+          <p>What changes about a capability once it stops relying on guesswork and starts declaring itself.</p>
+        </li>
+        <li>
+          <a href={withBase("/examples/cdad-check-output-walkthrough/")}>cdad check Output Walkthrough</a>
+          <p>What the report actually looks like: the score, the band, the findings, and the next step.</p>
+        </li>
+      </ul>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/proof/")}>&larr; Proof</a>
+        <a href={withBase("/toolkit/")}>Toolkit &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .cluster-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+
+  .cluster-list a {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 0.15em;
+  }
+
+  .cluster-list a:hover {
+    color: var(--coral);
+    text-decoration-color: currentColor;
+  }
+
+  .cluster-list p {
+    margin: 0.35rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>
