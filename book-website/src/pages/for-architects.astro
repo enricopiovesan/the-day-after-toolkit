@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<BaseLayout
+  title="The Architect"
+  description="The architect's role didn't get more important when AI agents showed up. It was always this important. Chapter 7 is about what finally lets the system carry an architect's judgment at scale."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Chapter 7 &middot; Part III: The Transformation</p>
+      <h1>The Architect</h1>
+
+      <p>
+        For years, the real limit on an architect's influence wasn't the
+        quality of their thinking. It was the size of their calendar. One
+        person holding a system's coherence across dozens of teams can only
+        be in so many rooms. Whatever judgment lived in their head reached
+        the rest of the org through meetings, reviews, and documents that
+        described intent without ever enforcing it. Chapter 7 argues that
+        contracts change the mechanics of that entirely: a constraint
+        written into a contract travels with its capability into every
+        pipeline check, every agent session, every pull request that
+        touches it, without needing the architect in the room.
+      </p>
+      <p>
+        The chapter opens with something a lot of architects have felt
+        before they had a name for it. The RFC an agent produced in forty
+        minutes that would've taken two days. The proof of concept that
+        showed up fully built in standup, against a codebase it took six
+        months to make coherent. The review where the change was already
+        scoped and its impact already traced three layers deep, work
+        that used to be the architect's alone. Each moment on its own is
+        impressive. Stacked up, they raise a question most architects
+        haven't said out loud: if execution is what agents do now, what's
+        actually left for me?
+      </p>
+      <p>
+        Chapter 7 answers that directly, not with reassurance but with a
+        real account of what expands in an architect's daily practice, and
+        what the shift demands from everyone they work with.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a href={withBase("/contract-lifecycle/")}>&larr; Chapter 6: The Contract Lifecycle</a>
+        <a href={withBase("/for-developers/")}>Chapter 8: The Developer &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<BaseLayout
+  title="The Designer"
+  description="A designer can explain forty minutes of decisions a Figma file will never show. Chapter 10 is about what happens when that reasoning has to become something an agent can read."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Chapter 10 &middot; Part III: The Transformation</p>
+      <h1>The Designer</h1>
+
+      <p>
+        The design review just ended. Laptops are closing. Over the last
+        forty minutes, the designer explained things that live in no file
+        the company keeps. Why a component is named for what it does
+        instead of where it sits on the screen. Why a destructive action
+        renders differently on mobile, not as a style choice but because
+        the confirmation behavior has to change and that rule has never
+        been written down anywhere but her head. Why a verification flow
+        has three steps instead of one, a decision made two years ago with
+        legal, for a reason she's now the only person left who remembers.
+      </p>
+      <p>
+        Everyone in that room understood what to build. Chapter 10 points
+        out that none of the reasoning that produced that understanding
+        exists in an artifact anyone else can open. The Figma file shows
+        what things look like. The design system documents tokens and
+        components. Neither one was built to carry a behavioral rule
+        forward, let alone hand it to an agent generating a new surface
+        six months later.
+      </p>
+      <p>
+        This is the chapter about what it means to design an interaction
+        contract instead of just a screen. Not a new set of Figma layers,
+        but a way of writing down the behavioral logic a designer already
+        holds, so the decision doesn't quietly disappear the day she's not
+        in the room to explain it again.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <a href={withBase("/for-product-managers/")}>&larr; Chapter 9: The PM / PO</a>
+        <a href={withBase("/for-engineering-leaders/")}>Chapter 11: The Leadership Team &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

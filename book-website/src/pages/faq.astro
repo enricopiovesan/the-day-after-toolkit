@@ -1,0 +1,188 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<BaseLayout
+  title="FAQ"
+  description="Answers to the questions that come up most about the book, The Day After, and its companion open source toolkit, cdad."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h1>Frequently Asked Questions</h1>
+
+      <p>
+        <a href={withBase("/")}>&larr; Back to home</a>
+      </p>
+
+      <p>
+        Straight answers to the questions that come up most, about the
+        book and about the toolkit it ships alongside.
+      </p>
+
+      <div class="faq-item">
+        <h2>What is The Day After actually about?</h2>
+        <p>
+          It's about why AI coding agents keep making unsafe changes to
+          real codebases, and it argues the cause isn't the agents. It's
+          that most software never wrote down why it works the way it
+          does. The book calls that missing layer tribal knowledge, and
+          walks through a methodology, contracts, capabilities, and a
+          capability graph, for making it explicit instead of leaving it
+          in people's heads.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>Who is the book for?</h2>
+        <p>
+          Engineers, architects, and engineering leaders working in
+          codebases that are starting to have AI agents open pull requests
+          against them. It's also written with product managers and
+          designers in mind, since a few chapters address what this shift
+          means for their side of the work, not just the code itself.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>Is it a technical book or a business book?</h2>
+        <p>
+          Both, on purpose. The core argument is technical, contracts,
+          graphs, extraction priority, but it's written so a
+          non-engineering reader in the same organization can follow the
+          reasoning and understand what's being asked of their team.
+          Nobody needs a computer science degree to get through it, and
+          nobody working in code will find it thin.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>Where can I buy the book?</h2>
+        <p>
+          Links to the current retailers are on the homepage and repeated
+          at the bottom of every page on this site, right below the main
+          content.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>Do I need to be an AI or machine learning expert to read it?</h2>
+        <p>
+          No. The book isn't about how models work internally. It's about
+          how to make a codebase safe for an agent, or a new hire, to
+          operate in without tribal knowledge. If you've worked on a
+          production codebase, you already have the background it assumes.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>Is the cdad CLI free?</h2>
+        <p>
+          Yes. It's an open source command-line tool you install and run
+          against your own repository. There's no paid tier gating the
+          commands described on this site.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>Is the toolkit actually open source?</h2>
+        <p>
+          Yes, the CLI, the contract schemas, and the validation logic are
+          all public in the companion GitHub repository. You can read
+          exactly how a report gets scored or a contract gets validated
+          instead of taking a description of it on faith.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>What languages or stacks does the toolkit work with?</h2>
+        <p>
+          Conceptually, any codebase organized around business capabilities
+          rather than a specific framework. The methodology, and the
+          contract format it produces, isn't tied to one language. The
+          questionnaire in <code>cdad check</code> asks about behavior and
+          exception paths, not syntax, so it applies whether the
+          capability underneath is written in one language or several.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>Do I need to read the book to use the toolkit?</h2>
+        <p>
+          No. You can install <code>cdad</code>, run <code>cdad check</code>
+          against a repository, and follow the reports it produces without
+          having read a page of the book first. The book is what explains
+          the reasoning behind why the tool asks the questions it asks, and
+          most people find that context makes the later steps, especially
+          prioritizing extraction, easier to trust.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>How is a contract different from documentation?</h2>
+        <p>
+          Documentation describes a system and drifts out of date the
+          moment the code changes underneath it. A contract is validated,
+          versioned, and machine-readable, so <code>cdad validate</code>
+          can catch it when the contract and the code it describes fall out
+          of sync. Documentation is a description. A contract is closer to
+          a checked promise.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>What does legibility mean in this context?</h2>
+        <p>
+          It's the degree to which a capable engineer, or an agent, can
+          understand why a capability behaves the way it does without
+          relying on tribal knowledge nobody wrote down. It's measured
+          with a short questionnaire covering four questions, and the
+          resulting score is what the toolkit uses to find where the risk
+          actually sits.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h2>Does adopting this mean rewriting our codebase?</h2>
+        <p>
+          No, and that's a deliberate part of the argument. The
+          methodology is built around extraction, contracting one
+          capability at a time inside the codebase you already have,
+          rather than a rewrite that consumes months of senior engineering
+          time and still doesn't declare what the new code knows.
+        </p>
+      </div>
+
+      <BuyLinks />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .faq-item {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-item h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+  }
+
+  .faq-item p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+</style>

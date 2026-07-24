@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Payment Retry Policy Contract"
+  description="The payment retry policy from Meridian's payments domain is the example that runs through the whole book. Here's what a real contract for it would actually need to say."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Examples</p>
+      <h1>Payment Retry Policy Contract</h1>
+
+      <p>
+        The running example throughout the book, and in the appendix's
+        schema reference, is the payment retry policy from Meridian's
+        payments domain. It's a good example precisely because it's not
+        exotic. Every team with a payments surface has some version of it:
+        code that decides whether to try charging a customer again after a
+        failure, and how many times, and under what conditions it should
+        stop trying.
+      </p>
+      <p>
+        A contract for that capability doesn't start with implementation
+        detail. It starts with what the capability does, described in
+        plain language a new engineer or an agent can act on without
+        reading the retry loop line by line: it decides whether and when
+        to retry a failed payment attempt, and what happens once retries
+        are exhausted.
+      </p>
+      <p>
+        Then it says why. This is the part most codebases never write
+        down. Retries aren't attempted on every failure the same way,
+        because some failures mean the card was declined and trying again
+        immediately just annoys the customer, while others mean the
+        gateway timed out and the original charge may or may not have gone
+        through. The contract states that distinction instead of leaving
+        it as something only the engineer who wrote the original ticket
+        remembers.
+      </p>
+      <p>
+        It also declares what the capability needs: which upstream signal
+        tells it a charge is safe to retry, what idempotency guarantee it
+        depends on so a retry can't double-charge someone, and what
+        configuration or account state it reads before deciding to try
+        again. It declares what it promises: a bounded number of attempts,
+        a predictable backoff shape, a final state the rest of the system
+        can rely on once retries stop. And it declares what it explicitly
+        doesn't do, which matters just as much. It doesn't decide refund
+        policy, it doesn't touch dispute handling, and it doesn't retry
+        past the point where the payment provider has told it to stop.
+        Leaving that boundary unstated is exactly how a capability quietly
+        grows scope nobody signed up for.
+      </p>
+      <p>
+        None of that requires reproducing a full schema here. The point of
+        walking through it in prose is to show that a contract isn't
+        paperwork bolted onto working code. It's the part of the
+        capability that was always true, made readable to whoever, or
+        whatever, has to change it next.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/examples/")}>&larr; Examples</a>
+        <a href={withBase("/examples/reading-a-capability-graph/")}>Reading a Capability Graph &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

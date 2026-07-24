@@ -1,0 +1,148 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Capability Lifecycle States"
+  description="How a capability actually moves through a codebase: undiscovered, prioritized, extracted, and contracted, and why that arc keeps repeating instead of finishing once."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Core Model</p>
+      <h1>Capability Lifecycle States</h1>
+
+      <p>
+        There are two different things this toolkit calls a "state," and
+        it's worth separating them before going further. One is the
+        formal field on a contract itself, draft, active, deprecated, or
+        retired, covered on the Minimum Viable Contract page. The other
+        is the bigger arc a capability travels before any contract
+        exists for it at all, which is what this page is about: how a
+        piece of business logic goes from invisible to something the
+        graph and an agent can both rely on.
+      </p>
+      <p>
+        Most capabilities in a real codebase start out undiscovered.
+        They're running correctly in production, embedded inside a
+        service or a script, doing real work with no agreed-on boundary
+        and no name anyone outside the immediate team would recognize.
+        A discount calculator threaded through three modules. A payment
+        retry policy wired into the payment service alongside a dozen
+        other responsibilities. None of that is broken. It's just
+        invisible to anything that isn't a person who happens to
+        remember it's there, which is exactly the condition `cdad check`
+        exists to surface, by combining a static scan with the
+        legibility questionnaire and scoring the result.
+      </p>
+      <p>
+        It's worth sitting with how much of a codebase this first stage
+        usually covers. Undiscovered isn't a rare edge case reserved for
+        one neglected corner of a repo, in most organizations it's the
+        default condition of nearly everything, because writing a
+        contract has never been the fast path and nobody gets rewarded
+        for naming a boundary that already works fine without one. The
+        toolkit doesn't treat that as a moral failing on any team's
+        part. It treats it as the normal starting condition and builds
+        the rest of the workflow to move a system out of it gradually,
+        one capability at a time, rather than expecting a team to
+        contract everything at once.
+      </p>
+      <p>
+        Discovery alone doesn't tell you what to do first. That's the
+        job of the next stage, where `cdad roadmap` reads the check
+        report, adds two more axes, criticality and how often agents
+        would actually touch a given capability, multiplies the factors
+        together, and produces an ordered list. Not every undiscovered
+        capability needs extraction on day one. Roadmap is what turns a
+        pile of findings into a queue with an actual first item, so a
+        team isn't stuck deciding by gut feeling which of forty gaps to
+        close first.
+      </p>
+      <p>
+        Extraction is where a capability gets named and bounded for the
+        first time. `cdad init &lt;capability-id&gt;` validates that the id
+        follows the domain/subdomain/action convention and scaffolds the
+        contract triple around it. At this point the capability has an
+        identity and a boundary, but the contract fields underneath it
+        are placeholders, not yet earned answers. This is the moment
+        Chapter 5 is built around, and it's worth being precise that
+        extraction isn't the same operation as refactoring the
+        underlying code. The logic itself doesn't have to move for a
+        capability to go from undiscovered to extracted. It just has to
+        get a name, a boundary, and a scaffold.
+      </p>
+      <p>
+        Contracted is the last stage, and it's where the real work
+        happens. The placeholder fields get replaced with honest
+        answers: a description written as business intent instead of
+        implementation mechanics, non-goals that actually say something,
+        inputs and outputs carrying real constraints and guarantees,
+        open questions either resolved or left explicitly open rather
+        than papered over. `cdad validate` checks the schema, the
+        versioning, and whether the generated artifacts still match the
+        source before any of this can move to `state: active`. Once a
+        capability clears that bar, `cdad graph` renders it as a real
+        node with real edges, something other people and other agents
+        can navigate instead of merely being told exists.
+      </p>
+      <p>
+        It's worth noticing that this arc mirrors how the toolkit itself
+        got built, in three phases rather than four stages, but the same
+        underlying shape. Phase one was the foundation: repo structure,
+        schemas, templates, the pieces that have to exist before
+        anything else can earn trust. Phase two was the core workflow,
+        check, roadmap, init, validate, graph, the commands that
+        actually move a capability through undiscovered, prioritized,
+        extracted, and contracted. Phase three was polish, agent
+        configs, finished docs, the work that makes the whole thing easy
+        to hand to someone else. A capability moving through its own
+        lifecycle follows a smaller version of the same pattern: get the
+        boundary right first, then fill in the substance, then make sure
+        it's actually usable by the next person who finds it.
+      </p>
+      <p>
+        None of this is a one-way trip you take once and forget. A
+        contracted capability can slide backward if the underlying logic
+        changes and nobody updates the contract to match, which is how
+        tribal knowledge creeps back into a system that used to be
+        legible. Running `cdad check` again is literally the last stage
+        in the toolkit's recommended workflow, and it closes the loop:
+        the same command that found the undiscovered work at the start
+        is the one that tells you, later, whether the repo is actually
+        getting easier to navigate or just looks that way from the
+        outside.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/core-model/contract-anti-patterns/")}>&larr; Contract Anti-Patterns</a>
+        <a href={withBase("/core-model/")}>The core model &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

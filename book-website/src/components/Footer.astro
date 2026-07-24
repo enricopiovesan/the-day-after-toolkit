@@ -1,23 +1,118 @@
 ---
+import { withBase } from "../utils/url";
+
 const year = new Date().getFullYear();
+
+const sitemapColumns = [
+  {
+    heading: "The Book",
+    links: [
+      { href: withBase("/about-the-book/"), label: "About the Book" },
+      { href: withBase("/excerpt/"), label: "Free Excerpt" },
+      { href: withBase("/author/"), label: "Author" },
+      { href: withBase("/why-c-dad/"), label: "Why C-DAD" },
+    ],
+  },
+  {
+    heading: "The Model",
+    links: [
+      { href: withBase("/core-model/"), label: "Core Model" },
+      { href: withBase("/how-c-dad-works/"), label: "How C-DAD Works" },
+      { href: withBase("/glossary/"), label: "Glossary" },
+      { href: withBase("/appendix/"), label: "Appendix" },
+    ],
+  },
+  {
+    heading: "The Case",
+    links: [
+      { href: withBase("/comparisons/"), label: "Comparisons" },
+      { href: withBase("/use-cases/"), label: "Use Cases" },
+      { href: withBase("/proof/"), label: "Proof" },
+      { href: withBase("/examples/"), label: "Examples" },
+    ],
+  },
+  {
+    heading: "The Toolkit",
+    links: [
+      { href: withBase("/toolkit/"), label: "Toolkit Overview" },
+      { href: withBase("/toolkit/installation/"), label: "Installation" },
+      { href: withBase("/faq/"), label: "FAQ" },
+      { href: withBase("/contact/"), label: "Contact" },
+    ],
+  },
+];
 ---
 
 <footer class="site-footer">
-  <div class="wrap wrap--wide site-footer__inner">
-    <p>&copy; {year} Enrico Piovesan. All rights reserved.</p>
-    <ul>
-      <li><a href="https://github.com/enricopiovesan">GitHub</a></li>
-      <li><a href="https://medium.com/software-architecture-in-the-age-of-ai">Medium</a></li>
-      <li><a href="https://github.com/enricopiovesan/the-day-after-toolkit">Companion Toolkit</a></li>
-    </ul>
+  <div class="wrap wrap--wide">
+    <div class="site-footer__sitemap">
+      {
+        sitemapColumns.map((column) => (
+          <div class="site-footer__column">
+            <p class="site-footer__heading">{column.heading}</p>
+            <ul class="site-footer__links">
+              {column.links.map((link) => (
+                <li>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="site-footer__inner">
+      <p>&copy; {year} Enrico Piovesan. All rights reserved.</p>
+      <ul class="site-footer__external">
+        <li><a href="https://github.com/enricopiovesan">GitHub</a></li>
+        <li><a href="https://medium.com/software-architecture-in-the-age-of-ai">Medium</a></li>
+        <li><a href="https://github.com/enricopiovesan/the-day-after-toolkit">Companion Toolkit</a></li>
+      </ul>
+    </div>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    padding: 2rem 0;
+    padding: 3rem 0 2rem;
     color: var(--text-muted);
     font-size: 0.9rem;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .site-footer__sitemap {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .site-footer__heading {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .site-footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .site-footer__links a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .site-footer__links a:hover {
+    color: var(--coral);
   }
 
   .site-footer__inner {
@@ -26,13 +121,15 @@ const year = new Date().getFullYear();
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
   }
 
   .site-footer p {
     margin: 0;
   }
 
-  .site-footer ul {
+  .site-footer__external {
     list-style: none;
     display: flex;
     gap: 1.25rem;
@@ -47,5 +144,11 @@ const year = new Date().getFullYear();
 
   .site-footer a:hover {
     color: var(--coral);
+  }
+
+  @media (max-width: 700px) {
+    .site-footer__sitemap {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 </style>

@@ -1,0 +1,130 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Writing Your First Contract"
+  description="A walkthrough of the cdad workflow end to end: run check, rank with roadmap, scaffold with init, keep it honest with validate, and see it land in graph."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">How C-DAD Works</p>
+      <h1>Writing Your First Contract</h1>
+
+      <p>
+        The five commands make more sense as a sequence than as a
+        reference list, so here's what running them actually looks like
+        on a repo that has never seen cdad before.
+      </p>
+      <p>
+        Start in the repo root with <code>cdad check</code>. It runs its
+        static scan, then walks you through the legibility questionnaire
+        for a handful of capabilities it found, four questions each. A
+        couple of minutes later you have a score, a band, and
+        <code>cdad-report.md</code> sitting in the repo. Don't worry if the
+        score is low. A low score is just an accurate starting point, and
+        most first runs land somewhere in the middle.
+      </p>
+      <p>
+        Next, <code>cdad roadmap</code>. It reads that same report and asks
+        two more questions per capability: how critical is it, and how
+        often does it actually get touched. Multiply those against the
+        tribal knowledge density the check step already surfaced and you
+        get a ranked list in <code>cdad-roadmap.md</code>. Whatever lands at
+        the top is usually the capability where nobody quite remembers why
+        a certain edge case exists, which is exactly the kind of thing
+        worth writing down before it's forgotten entirely.
+      </p>
+      <p>
+        Take that top capability and hand its ID to <code>cdad init</code>.
+        If it's <code>payments/retries/schedule-retry</code>, that's what you
+        type, and the command scaffolds <code>contract.yaml</code>,
+        <code>contract.json</code>, and <code>contract.md</code> under
+        <code>cdad/payments/retries/schedule-retry/</code>, prompting you for
+        the details as it goes. This is where you write down what the
+        capability actually promises, what it needs to run, and just as
+        important, what it deliberately doesn't do. That last part is
+        often the piece nobody's written down anywhere else.
+      </p>
+      <p>
+        Before you commit any of it, run <code>cdad validate --all --strict</code>.
+        It checks the schema, the versioning, and whether the generated
+        files still line up with the contract itself. If this is your
+        first contract in the repo, it's also worth running
+        <code>cdad validate --install-hook</code> once, so every commit after
+        this one gets checked automatically instead of relying on someone
+        remembering to run it by hand.
+      </p>
+      <p>
+        Finally, <code>cdad graph</code>. On a repo with exactly one
+        contract, the graph won't look like much yet, and that's fine.
+        The value shows up as more contracts get added and you can
+        actually see how <code>payments/retries/schedule-retry</code> connects
+        to whatever calls it. Run <code>cdad check</code> again down the
+        road and you'll have a second score to compare against the first,
+        which is the real measure of whether any of this was worth doing.
+      </p>
+
+      <pre><code>cdad check
+cdad roadmap
+cdad init payments/retries/schedule-retry
+cdad validate --all --strict
+cdad graph</code></pre>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/how-c-dad-works/cdad-graph/")}>&larr; cdad graph</a>
+        <a href={withBase("/how-c-dad-works/")}>How C-DAD Works &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  pre {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 0.5em;
+    padding: 1em 1.25em;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.85em;
+    line-height: 1.6;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

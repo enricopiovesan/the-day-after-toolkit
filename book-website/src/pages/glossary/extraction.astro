@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Extraction: Glossary"
+  description="Extraction is the process of pulling a capability out of undocumented code and tribal knowledge and turning it into an explicit, legible contract."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Glossary</p>
+      <h1>Extraction</h1>
+
+      <p>
+        You can't contract everything on day one. Extraction is the
+        deliberate work of choosing which capability to pull out of
+        undocumented code first, writing its contract, and making its
+        behavior legible to the next reader, human or agent.
+      </p>
+      <p>
+        <code>cdad roadmap</code> is what turns extraction from a gut
+        call into a ranked list. It reads the baseline from
+        <code>cdad check</code>, asks for each capability's criticality
+        and how often it actually gets touched, and multiplies the three
+        axes together to produce an order.
+      </p>
+      <p>
+        The output is <code>cdad-roadmap.md</code>, the list you hand to
+        <code>cdad init</code> one capability at a time. See
+        <a href={withBase("/glossary/agent-readiness/")}>agent readiness</a>
+        for the score extraction is meant to move.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/glossary/")}>&larr; Glossary</a>
+        <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

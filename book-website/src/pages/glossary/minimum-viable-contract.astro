@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Minimum Viable Contract: Glossary"
+  description="The minimum viable contract is the smallest set of fields, name, inputs, outputs, and non-goals, a contract needs to make a capability legible."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Glossary</p>
+      <h1>Minimum Viable Contract</h1>
+
+      <p>
+        Not every capability needs the full extended contract on day
+        one. The minimum viable contract is the smaller version, just
+        enough fields to make a capability legible: a name, its inputs
+        and outputs, what it promises, and what it explicitly leaves
+        out.
+      </p>
+      <p>
+        It's the default <code>cdad init</code> scaffolds unless you pass
+        <code>--extended</code>. For a lot of capabilities it's also the
+        right stopping point. More fields don't automatically mean more
+        legibility, and a contract nobody finishes filling out is worse
+        than a short one that's actually complete.
+      </p>
+      <p>
+        The appendix's
+        <a href={withBase("/appendix/contract-schema-reference/")}>Contract Schema Reference</a>
+        shows both the minimum viable and extended versions filled in
+        side by side, so the first one you write doesn't start from a
+        blank page.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/glossary/")}>&larr; Glossary</a>
+        <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

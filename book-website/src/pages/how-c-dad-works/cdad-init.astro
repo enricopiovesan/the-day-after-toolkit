@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="cdad init"
+  description="cdad init scaffolds the contract triple for one capability, yaml, json, and markdown, under cdad in your repo, and can pull straight from the notes your roadmap step already gathered."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">How C-DAD Works</p>
+      <h1>cdad init</h1>
+
+      <p>
+        Once <code>cdad roadmap</code> tells you which capability to contract
+        first, <code>cdad init &lt;capability-id&gt;</code> is what actually
+        creates the files. Run it and you get a contract triple: a
+        <code>contract.yaml</code>, a <code>contract.json</code>, and a
+        <code>contract.md</code>, all written under
+        <code>cdad/&lt;capability-id&gt;/</code>.
+      </p>
+      <p>
+        The capability ID isn't a free-text label. It has to follow the
+        <code>domain/subdomain/action</code> shape, something like
+        <code>payments/retries/schedule-retry</code>, and <code>cdad init</code>
+        validates that shape before it writes anything. That structure is
+        what lets <code>cdad graph</code> later group and connect capabilities
+        sensibly instead of treating every contract as an unrelated island.
+      </p>
+      <p>
+        By default the command prompts you through the basics as it
+        scaffolds, but <code>--no-prompts</code> skips that and writes
+        placeholders instead, handy if you're generating several contracts
+        in a script and plan to fill them in by hand afterward. If the
+        capability needs more than the minimum fields, such as a longer
+        constraint history or a wider set of dependencies, <code>--extended</code>
+        scaffolds the extended template rather than the baseline one.
+        <code>--output &lt;dir&gt;</code> changes the base directory from the
+        default <code>cdad</code> if your repo keeps generated artifacts
+        somewhere else.
+      </p>
+      <p>
+        One detail worth knowing: if you ran <code>cdad roadmap</code> first,
+        <code>cdad init</code> can pull the notes it gathered about that
+        capability straight into the new contract, so the criticality and
+        frequency reasoning you already worked out doesn't have to get
+        retyped from scratch.
+      </p>
+
+      <pre><code>cdad init payments/retries/schedule-retry
+cdad init payments/retries/schedule-retry --extended</code></pre>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/how-c-dad-works/cdad-roadmap/")}>&larr; cdad roadmap</a>
+        <a href={withBase("/how-c-dad-works/cdad-validate/")}>cdad validate &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  pre {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 0.5em;
+    padding: 1em 1.25em;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.85em;
+    line-height: 1.6;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

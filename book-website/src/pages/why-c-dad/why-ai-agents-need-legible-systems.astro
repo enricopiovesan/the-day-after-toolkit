@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Why AI Agents Need Legible Systems"
+  description="Legibility is a property of the system, not the model. Here's why the smartest agent in the world still fails against a codebase that doesn't explain itself."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Why C-DAD</p>
+      <h1>Why AI agents need legible systems</h1>
+
+      <p>
+        Legibility is a specific claim, and it's worth being precise about
+        it: could a capable engineer who has never touched your team or
+        your codebase make a safe change to one piece of it, using only
+        what the system itself makes available? Not what's in someone's
+        head. Not what a senior engineer could explain in a five minute
+        conversation. Just what's actually there to read.
+      </p>
+      <p>
+        Most production systems fail that test constantly, and for years
+        that was fine, because the people making changes usually had the
+        missing context anyway. They'd worked there long enough, or they
+        knew who to ask. An AI agent doesn't have that option. It can't
+        tap someone on the shoulder. It can't sit in on the onboarding
+        conversation where a new hire learns which shortcuts are actually
+        landmines. It only has what's written down, and if the system
+        isn't legible, what's written down isn't enough.
+      </p>
+      <p>
+        This is why the size and capability of the underlying model
+        matters less than people expect. A more capable model is still
+        bounded by what the system tells it. Point the best coding agent
+        available at an illegible system and it will produce the same
+        class of confident, plausible, wrong changes that a less capable
+        model would, because the failure isn't in the reasoning. It's in
+        the input.
+      </p>
+      <p>
+        Legibility, in other words, is a property you build into the
+        system, not a capability you wait for a vendor to ship. A
+        capability graph and a set of contracts make a system legible on
+        purpose, which is the only way legibility reliably shows up at
+        all.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/why-c-dad/what-problem-does-c-dad-solve/")}>&larr; What problem does C-DAD solve?</a>
+        <a href={withBase("/why-c-dad/the-cost-of-tribal-knowledge/")}>The cost of tribal knowledge &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

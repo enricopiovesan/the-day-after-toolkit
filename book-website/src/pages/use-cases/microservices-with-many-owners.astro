@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Microservices with Many Owners"
+  description="Once a microservices system outgrows any single team's full understanding, the capability graph becomes the shared map that lets people and agents see how the pieces actually connect."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Use Cases</p>
+      <h1>Microservices with Many Owners</h1>
+
+      <p>
+        Microservices architectures solve a real organizational problem:
+        they let teams ship independently without stepping on each
+        other's deploys. They also tend to solve that problem by creating
+        a new one, which is that after a few years and a few reorgs, no
+        single person, and often no single team, understands how the
+        whole system fits together anymore. Ownership moves, services get
+        inherited, and the dependency map that used to live in one
+        architect's head never made it anywhere durable.
+      </p>
+      <p>
+        That gap shows up constantly in incident reviews. A team changes a
+        field in a service they own, tests it thoroughly against their own
+        contract with the world, and ships it, only to discover an hour
+        later that three other services downstream were relying on
+        behavior nobody documented as a dependency. The service boundary
+        was clear. The knowledge boundary wasn't.
+      </p>
+      <p>
+        The capability graph is built for exactly this. <code>cdad graph</code>
+        renders the dependency map of every contracted capability in the
+        repo, as Mermaid diagrams for humans to read visually and as a
+        JSON adjacency list stable enough for other tooling to depend on.
+        It can be scoped to one capability, one domain, or filtered by
+        lifecycle state, so a team about to change something can actually
+        see what connects to it before they ship, instead of finding out
+        from an incident.
+      </p>
+      <p>
+        This doesn't require every team to agree on shared ownership of
+        the whole system, which was never realistic past a certain scale
+        anyway. It requires each team to contract the capabilities they
+        own well enough that the graph reflects reality, so that the next
+        team touching an adjacent service can see the connection instead
+        of learning about it the hard way.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/use-cases/preparing-for-ai-coding-agents/")}>&larr; Preparing for AI Coding Agents</a>
+        <a href={withBase("/use-cases/regulated-industries-and-compliance/")}>Regulated Industries and Compliance &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

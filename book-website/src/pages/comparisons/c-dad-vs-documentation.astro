@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="C-DAD vs. Documentation"
+  description="Documentation and contracts aren't competitors. One is prose written for a person to interpret, the other is structured enough for an agent to act on without a human translating first."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Comparisons</p>
+      <h1>C-DAD vs. Documentation</h1>
+
+      <p>
+        Every team building software already has documentation. READMEs,
+        wikis, onboarding guides, runbooks pinned in a Slack channel that
+        everyone means to migrate somewhere better. None of that goes away
+        when you adopt C-DAD, and nothing about a contract argues it
+        should. The comparison here isn't about which artifact is more
+        thorough. It's about what each one is actually built to do.
+      </p>
+      <p>
+        Documentation is written for a person. Even the best-maintained
+        wiki page assumes a reader who can hold ambiguity, notice when a
+        sentence is out of date, and fill in the gap between what's
+        written and what the system actually does today. That's a
+        reasonable assumption when the reader is a human with judgment and
+        the patience to ask a colleague when something doesn't add up.
+        It's a much worse assumption when the reader is an agent that has
+        to decide, on its own, whether a paragraph written two reorgs ago
+        is still true.
+      </p>
+      <p>
+        A contract is built around a narrower promise. It states what a
+        capability does, what it needs, what it explicitly does not do,
+        and it gets checked by <code>cdad validate</code> so the gap
+        between the artifact and the running system can't quietly widen
+        the way it can in a wiki. That structure is also what lets an
+        agent act on it directly, no person standing between the document
+        and the decision, translating intent into something machine-usable
+        on the fly.
+      </p>
+      <p>
+        None of this makes documentation obsolete. A contract has no
+        interest in replacing your architecture overview or your
+        onboarding guide, and trying to force every kind of knowledge into
+        contract form would just produce a worse version of both. C-DAD
+        targets a specific and narrower slice: the capabilities where
+        tribal knowledge is doing the load-bearing work, where the real
+        behavior lives in someone's head and not in anything a new hire or
+        an agent could find and trust. That's the gap documentation was
+        never really built to close.
+      </p>
+
+      <BuyLinks />
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/comparisons/")}>&larr; Comparisons</a>
+        <a href={withBase("/comparisons/c-dad-vs-code-comments/")}>C-DAD vs. Code Comments &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

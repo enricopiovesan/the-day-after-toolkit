@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../utils/url";
+---
+
+<BaseLayout
+  title="Capability Graph: Glossary"
+  description="The capability graph is the directed dependency map of every contract in a repo, showing how capabilities connect and where extraction work still remains."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Glossary</p>
+      <h1>Capability Graph</h1>
+
+      <p>
+        Once a handful of capabilities have contracts, a natural question
+        shows up: how do they depend on each other? The capability graph
+        answers it. <code>cdad graph</code> walks every contract in the
+        repo and renders the result as Mermaid, JSON, and Markdown, a
+        directed map of what calls what.
+      </p>
+      <p>
+        The JSON adjacency list is the one worth building tooling
+        against. It's intentionally stable and meant for agents to
+        consume directly, not just for humans skimming a diagram during
+        review.
+      </p>
+      <p>
+        A capability graph with large unlabeled gaps is really a map of
+        where <a href={withBase("/glossary/extraction/")}>extraction</a>
+        still needs to happen.
+      </p>
+
+      <nav class="chapter-nav" aria-label="Related pages">
+        <a href={withBase("/glossary/")}>&larr; Glossary</a>
+        <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>
