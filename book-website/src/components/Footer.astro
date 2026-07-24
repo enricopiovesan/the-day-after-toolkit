@@ -7,147 +7,324 @@ const sitemapColumns = [
   {
     heading: "The Book",
     links: [
-      { href: withBase("/about-the-book/"), label: "About the Book" },
-      { href: withBase("/excerpt/"), label: "Free Excerpt" },
-      { href: withBase("/author/"), label: "Author" },
-      { href: withBase("/why-c-dad/"), label: "Why C-DAD" },
+      { href: withBase("/about-the-book/"), label: "about the book" },
+      { href: withBase("/excerpt/"), label: "free excerpt" },
+      { href: withBase("/author/"), label: "author" },
+      { href: withBase("/why-c-dad/"), label: "why C-DAD" },
     ],
   },
   {
     heading: "The Model",
     links: [
-      { href: withBase("/core-model/"), label: "Core Model" },
-      { href: withBase("/how-c-dad-works/"), label: "How C-DAD Works" },
-      { href: withBase("/glossary/"), label: "Glossary" },
-      { href: withBase("/appendix/"), label: "Appendix" },
+      { href: withBase("/core-model/"), label: "core model" },
+      { href: withBase("/how-c-dad-works/"), label: "how C-DAD works" },
+      { href: withBase("/glossary/"), label: "glossary" },
+      { href: withBase("/appendix/"), label: "appendix" },
     ],
   },
   {
     heading: "The Case",
     links: [
-      { href: withBase("/comparisons/"), label: "Comparisons" },
-      { href: withBase("/use-cases/"), label: "Use Cases" },
-      { href: withBase("/proof/"), label: "Proof" },
-      { href: withBase("/examples/"), label: "Examples" },
+      { href: withBase("/comparisons/"), label: "comparisons" },
+      { href: withBase("/use-cases/"), label: "use cases" },
+      { href: withBase("/proof/"), label: "proof" },
+      { href: withBase("/examples/"), label: "examples" },
     ],
   },
   {
     heading: "The Toolkit",
     links: [
-      { href: withBase("/toolkit/"), label: "Toolkit Overview" },
-      { href: withBase("/toolkit/installation/"), label: "Installation" },
-      { href: withBase("/faq/"), label: "FAQ" },
-      { href: withBase("/contact/"), label: "Contact" },
+      { href: withBase("/toolkit/"), label: "toolkit overview" },
+      { href: withBase("/toolkit/installation/"), label: "installation" },
+      { href: withBase("/faq/"), label: "faq" },
+      { href: withBase("/contact/"), label: "contact" },
     ],
   },
+];
+
+const contactLinks = [
+  { href: "https://github.com/enricopiovesan", label: "github" },
+  { href: "https://medium.com/software-architecture-in-the-age-of-ai", label: "medium" },
+  { href: withBase("/contact/"), label: "contact" },
 ];
 ---
 
 <footer class="site-footer">
-  <div class="wrap wrap--wide">
-    <div class="site-footer__sitemap">
-      {
-        sitemapColumns.map((column) => (
-          <div class="site-footer__column">
-            <p class="site-footer__heading">{column.heading}</p>
-            <ul class="site-footer__links">
-              {column.links.map((link) => (
-                <li>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
+  <div class="footer-band">
+    <div class="footer-inner">
+      <div class="footer-book-featured">
+        <a class="footer-book-cover" href={withBase("/about-the-book/")} aria-label="About The Day After">
+          <span class="footer-book-cover__mark">AI</span>
+          <span class="footer-book-cover__title">The Day After</span>
+          <span class="footer-book-cover__author">Enrico Piovesan</span>
+        </a>
+        <div class="footer-book-copy">
+          <p class="footer-book-kicker">The book</p>
+          <h2 class="footer-book-title">The Day After</h2>
+          <p class="footer-book-desc">
+            A concrete recipe for making a codebase legible to your team and
+            to the AI agents changing it. Contracts, capabilities, and a
+            graph that replaces guesswork with something both humans and
+            agents can actually read.
+          </p>
+          <div class="footer-book-actions">
+            <a class="footer-book-button" href="#">Pre-order (coming soon)</a>
+            <a class="footer-book-link" href={withBase("/excerpt/")}>Read the excerpt &rarr;</a>
           </div>
-        ))
-      }
-    </div>
+        </div>
+      </div>
 
-    <div class="site-footer__inner">
-      <p>&copy; {year} Enrico Piovesan. All rights reserved.</p>
-      <ul class="site-footer__external">
-        <li><a href="https://github.com/enricopiovesan">GitHub</a></li>
-        <li><a href="https://medium.com/software-architecture-in-the-age-of-ai">Medium</a></li>
-        <li><a href="https://github.com/enricopiovesan/the-day-after-toolkit">Companion Toolkit</a></li>
-      </ul>
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <div class="footer-grid">
+          {
+            sitemapColumns.map((column) => (
+              <div class="footer-cluster">
+                <h3>{column.heading}</h3>
+                <nav class="footer-links">
+                  {column.links.map((link) => (
+                    <a href={link.href}>{link.label}</a>
+                  ))}
+                </nav>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="footer-meta">
+          <h2 class="footer-contact-heading">contact</h2>
+          <nav class="footer-contact-nav" aria-label="Contact">
+            {contactLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+          </nav>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="footer-copyright">
+    <p>&copy; {year} Enrico Piovesan. All rights reserved.</p>
   </div>
 </footer>
 
 <style>
-  .site-footer {
-    padding: 3rem 0 2rem;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    border-top: 1px solid var(--border);
-    margin-top: 3rem;
+  .footer-band {
+    background: var(--coral);
+    padding: 3.25rem 0 3rem;
   }
 
-  .site-footer__sitemap {
+  .footer-inner {
+    max-width: min(100% - 3.5rem, 74rem);
+    margin: 0 auto;
+  }
+
+  .footer-book-featured {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2rem;
-    padding-bottom: 2.5rem;
+    grid-template-columns: 200px 1fr;
+    gap: 2.25rem;
+    align-items: center;
   }
 
-  .site-footer__heading {
+  .footer-book-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    width: 200px;
+    height: 290px;
+    padding: 1.25rem;
+    background: #1e1e1e;
+    color: #f5f3ee;
+    text-decoration: none;
+    box-shadow: 0 8px 32px rgba(7, 7, 7, 0.22);
+  }
+
+  .footer-book-cover__mark {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--coral);
+    line-height: 1;
+  }
+
+  .footer-book-cover__title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .footer-book-cover__author {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: rgba(245, 243, 238, 0.65);
+  }
+
+  .footer-book-kicker {
+    margin: 0 0 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(32, 16, 8, 0.6);
+  }
+
+  .footer-book-title {
+    margin: 0 0 0.75rem;
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #201008;
+  }
+
+  .footer-book-desc {
+    margin: 0 0 1.25rem;
+    max-width: 30rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(32, 16, 8, 0.72);
+  }
+
+  .footer-book-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-book-button {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    background: #1e1e1e;
+    color: var(--coral);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .footer-book-link {
+    color: rgba(32, 16, 8, 0.72);
+    font-size: 0.9rem;
+    text-decoration: underline;
+  }
+
+  .footer-book-link:hover {
+    color: #201008;
+  }
+
+  .footer-divider {
+    height: 1px;
+    margin: 2.5rem 0;
+    background: rgba(32, 16, 8, 0.2);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 13rem));
+    gap: 2rem;
+  }
+
+  .footer-cluster h3 {
     margin: 0 0 0.75rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    letter-spacing: 0.04em;
+    font-weight: 500;
     text-transform: uppercase;
-    color: var(--text);
+    letter-spacing: 0.07em;
+    color: #201008;
   }
 
-  .site-footer__links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .footer-links {
     display: grid;
     gap: 0.5rem;
   }
 
-  .site-footer__links a {
-    color: var(--text-muted);
+  .footer-links a {
+    color: rgba(32, 16, 8, 0.75);
+    font-size: 0.85rem;
     text-decoration: none;
   }
 
-  .site-footer__links a:hover {
-    color: var(--coral);
+  .footer-links a:hover {
+    color: #201008;
+    text-decoration: underline;
   }
 
-  .site-footer__inner {
+  .footer-meta {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border);
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.85rem;
+    flex-shrink: 0;
   }
 
-  .site-footer p {
+  .footer-contact-heading {
     margin: 0;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #201008;
   }
 
-  .site-footer__external {
-    list-style: none;
+  .footer-contact-nav {
     display: flex;
-    gap: 1.25rem;
-    margin: 0;
-    padding: 0;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.6rem;
   }
 
-  .site-footer a {
-    color: var(--text-muted);
+  .footer-contact-nav a {
+    color: rgba(32, 16, 8, 0.72);
+    font-size: 0.9rem;
     text-decoration: none;
   }
 
-  .site-footer a:hover {
-    color: var(--coral);
+  .footer-contact-nav a:hover {
+    color: #201008;
+    text-decoration: underline;
   }
 
-  @media (max-width: 700px) {
-    .site-footer__sitemap {
+  .footer-copyright {
+    padding: 1.25rem 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .footer-copyright p {
+    margin: 0;
+  }
+
+  @media (max-width: 960px) {
+    .footer-book-featured {
+      grid-template-columns: 1fr;
+      justify-items: start;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .footer-meta {
+      align-items: flex-start;
+    }
+
+    .footer-contact-nav {
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .footer-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
