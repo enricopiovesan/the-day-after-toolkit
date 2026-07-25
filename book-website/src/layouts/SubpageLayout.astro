@@ -1,0 +1,275 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { SITE_SECTIONS } from "../data/siteSections";
+
+interface TocEntry {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  section: keyof typeof SITE_SECTIONS;
+  crumbLabel?: string;
+  toc?: TocEntry[];
+}
+
+const { title, description, section, crumbLabel = title, toc = [] } = Astro.props;
+const current = SITE_SECTIONS[section];
+const currentPath = Astro.url.pathname;
+const hasToc = toc.length > 0;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class:list={["page-shell", { "has-toc": hasToc }]}>
+    <aside class="section-nav" aria-label={`${current.label} navigation`}>
+      <a class="section-nav__label" href={current.href}>{current.label}</a>
+      <ul class="section-nav__links">
+        {
+          current.links.map((link) => (
+            <li>
+              <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </aside>
+
+    <main class="subpage-main">
+      <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href={current.href}>{current.label}</a></li>
+          <li><span aria-current="page">{crumbLabel}</span></li>
+        </ol>
+      </nav>
+
+      <details class="mobile-section-nav">
+        <summary>In this section: {current.label}</summary>
+        <ul>
+          {current.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+        </ul>
+      </details>
+
+      <div class="subpage-body">
+        <slot />
+      </div>
+    </main>
+
+    {
+      hasToc && (
+        <aside class="toc-rail" aria-label="On this page">
+          <p class="toc-rail__label">On this page</p>
+          <ol class="toc-rail__list">
+            {toc.map((entry) => (
+              <li>
+                <a href={entry.href}>{entry.label}</a>
+              </li>
+            ))}
+          </ol>
+        </aside>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .page-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 2.5rem;
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .page-shell {
+      grid-template-columns: 220px minmax(0, 1fr);
+    }
+
+    .page-shell.has-toc {
+      grid-template-columns: 220px minmax(0, 1fr) 200px;
+    }
+  }
+
+  .section-nav {
+    display: none;
+    position: sticky;
+    top: 6.5rem;
+    align-self: start;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+    padding: 1.5rem 1rem 1.5rem 0;
+    border-right: 1px solid var(--border);
+  }
+
+  .section-nav__label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .section-nav__label:hover {
+    color: var(--coral);
+  }
+
+  .section-nav__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .section-nav__links a {
+    display: block;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .section-nav__links a:hover,
+  .section-nav__links a[aria-current="page"] {
+    color: var(--coral);
+  }
+
+  .subpage-main {
+    min-width: 0;
+    padding: 1.25rem 0 3.5rem;
+  }
+
+  .page-breadcrumbs {
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  .page-breadcrumbs ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    color: var(--text-muted);
+  }
+
+  .page-breadcrumbs li:not(:last-child)::after {
+    content: "/";
+    margin-left: 0.4rem;
+    color: var(--border);
+  }
+
+  .page-breadcrumbs a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .page-breadcrumbs a:hover {
+    color: var(--coral);
+  }
+
+  .page-breadcrumbs span[aria-current="page"] {
+    color: var(--text);
+  }
+
+  .mobile-section-nav {
+    display: block;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .mobile-section-nav summary {
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+
+  .mobile-section-nav ul {
+    list-style: none;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .mobile-section-nav a {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .mobile-section-nav a:hover {
+    color: var(--coral);
+  }
+
+  .toc-rail {
+    display: none;
+    position: sticky;
+    top: 6.5rem;
+    align-self: start;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+    padding: 1.5rem 0 1.5rem 1rem;
+    border-left: 1px solid var(--border);
+  }
+
+  .toc-rail__label {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+
+  .toc-rail__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .toc-rail__list a {
+    font-size: 0.8rem;
+    line-height: 1.35;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .toc-rail__list a:hover {
+    color: var(--coral);
+  }
+
+  @media (min-width: 960px) {
+    .section-nav {
+      display: block;
+    }
+
+    .toc-rail {
+      display: block;
+    }
+
+    .mobile-section-nav {
+      display: none;
+    }
+  }
+</style>

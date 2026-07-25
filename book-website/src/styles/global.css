@@ -116,6 +116,32 @@ a {
   padding: 4rem 0;
 }
 
+/* Base typography for content pages rendered inside SubpageLayout. Lives
+   here (unscoped) rather than in the layout's own <style> because Astro
+   scopes a component's CSS to elements it renders directly, and this
+   needs to reach slotted content that pages pass in themselves. */
+.subpage-body h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.subpage-body h2 {
+  font-size: 1.5rem;
+  margin: 2.5rem 0 1rem;
+  scroll-margin-top: 6.5rem;
+}
+
+.subpage-body p {
+  margin: 0 0 1.25rem;
+  max-width: 42rem;
+}
+
+.subpage-body > p:first-of-type,
+.subpage-body h1 + p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
 /* Homepage sunrise: while the hero plays its night-to-day sequence, the
    page around it lightens in sync. Deep night blue (sampled from the
    night frame's sky) warms up to the theme background. Classes are set
