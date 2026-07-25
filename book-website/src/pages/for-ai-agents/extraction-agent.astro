@@ -1,0 +1,105 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="The Extraction Agent"
+  description="A role prompt that turns cdad check findings into a prioritized extraction sequence, weighing the legibility signal against business criticality and how often agents touch each capability."
+  section="for-ai-agents"
+>
+  <h1>The Extraction Agent</h1>
+
+  <p>
+    A legibility audit tells you which capabilities are illegible. It
+    doesn't tell you which one to fix first, and in a brownfield
+    codebase with dozens of low scores, that second question is the
+    one that actually blocks progress. The extraction agent's job is to
+    identify the capabilities that should be contracted first, explain
+    why each one is risky, and turn that into a sequencing plan a team
+    can act on instead of arguing about.
+  </p>
+  <p>
+    It always starts from the legibility signal, the scores coming out
+    of the audit or out of <code>cdad check</code>, and then layers in
+    two more inputs before it recommends anything: business criticality
+    and how often agents actually touch that capability. A capability
+    that scores badly but rarely gets touched, by a person or an agent,
+    is a different kind of risk than one that scores badly and sits in
+    the path of every third change anyone makes. The prompt works from
+    the toolkit's real flow: <code>cdad check</code> produces
+    <code>cdad-report.md</code>, <code>cdad roadmap</code> reads that
+    report and turns it into <code>cdad-roadmap.md</code>, and
+    <code>cdad init &lt;capability-id&gt;</code> scaffolds the first
+    contract for whichever capability comes out on top. For the shape
+    of a good handoff, it references
+    <code>templates/audit/legibility-audit.md</code>,
+    <code>templates/extraction-priority/extraction-priority-matrix.md</code>,
+    and the payment-retry worked example.
+  </p>
+  <p>
+    What it produces is a prioritized extraction plan with four parts:
+    the capability IDs that should be contracted first, the specific
+    risk or missing tribal knowledge that makes each one urgent, a
+    recommended phase ordering across the whole set, and the first
+    capture note the team should preserve while the contract gets
+    authored, so the knowledge doesn't evaporate between the audit and
+    the actual writing.
+  </p>
+  <p>
+    It's also built to prevent three specific mistakes. It won't
+    prioritize by code churn alone without legibility evidence backing
+    it up, because a file that changes often isn't automatically a file
+    nobody understands. It won't select a capability just because it
+    scored badly if there's no business criticality attached to it. And
+    it won't recommend extraction without naming what tribal knowledge
+    would otherwise be lost, because a recommendation without that
+    reasoning is just a ranking nobody can defend later.
+  </p>
+  <p>
+    In the workflow, this prompt runs right after <code>cdad
+    check</code> has produced its report, either before
+    <code>cdad roadmap</code> or alongside it. Its output is what a team
+    actually hands to the contract author: not a vague sense that
+    "the payments code is scary," but a specific capability ID, a
+    specific reason, and a place to start.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/for-ai-agents/legibility-auditor/")}>&larr; The Legibility Auditor</a>
+    <a href={withBase("/for-ai-agents/contract-maintenance-agent/")}>The Contract Maintenance Agent &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

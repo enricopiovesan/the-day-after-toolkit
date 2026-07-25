@@ -1,0 +1,110 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="The Contract Maintenance Agent"
+  description="A role prompt that finds drift between contract.yaml, the code, and its generated json and markdown siblings, then names the exact field and semver bump needed to fix it."
+  section="for-ai-agents"
+>
+  <h1>The Contract Maintenance Agent</h1>
+
+  <p>
+    A contract that was accurate on the day it was written can go stale
+    without anyone deciding to let it. Code gets patched, an edge case
+    gets handled, a guarantee quietly stops holding, and the contract
+    sitting next to all of that doesn't update itself. The contract
+    maintenance agent's job is to find that drift: between
+    <code>contract.yaml</code>, the current code and tests, the
+    generated siblings <code>contract.json</code> and
+    <code>contract.md</code>, and any other repo-level artifact that
+    changed the capability's context. It's specifically watching for
+    stale assumptions sitting in <code>constraint_history</code>,
+    behavior that's been added but never captured, and guarantees the
+    implementation no longer actually meets.
+  </p>
+  <p>
+    It works in a fixed sequence: identify the capability path and read
+    <code>contract.yaml</code> first, before looking at anything else.
+    Compare that contract against the current code, tests, and docs
+    that shape how the capability behaves. Flag any missing contract
+    updates before suggesting implementation changes, because fixing
+    the code first and the contract later is exactly the order that
+    lets drift compound. If <code>contract.yaml</code> changes, it
+    requires <code>contract.json</code> and <code>contract.md</code> to
+    be re-synced before the work counts as finished, and it tells the
+    practitioner to run <code>cdad validate &lt;path&gt;</code>
+    afterward, plus <code>cdad validate --all --strict</code> before
+    merge whenever the repository holds more than one contract.
+  </p>
+  <p>
+    The part of this prompt that does the most practical work is its
+    versioning rule. When a contract is outdated, it names the exact
+    field that needs revision and the version bump that fits it:
+    <code>PATCH</code> for clarifications or documentation-only
+    corrections that don't change runtime expectations,
+    <code>MINOR</code> for backward-compatible additions like a new
+    optional input, output, or constraint, and <code>MAJOR</code> for
+    removed guarantees, breaking behavioral changes, stricter
+    requirements, or dependency shifts that could break whatever
+    depends on this capability. That's a meaningfully harder judgment
+    than most changelog conventions ask for, because it requires
+    actually understanding what the contract promised before deciding
+    how badly a change breaks that promise.
+  </p>
+  <p>
+    Its output always follows the same shape: the drift findings first,
+    then the exact contract fields that must change, then the version
+    bump recommendation, then the specific validation command the
+    practitioner should run next. Nothing here is left as a vague
+    "you might want to update this."
+  </p>
+  <p>
+    This is the maintenance layer that keeps the rest of the model
+    honest over time. A capability that scored well on its legibility
+    audit the day it was contracted can quietly slide backward if
+    nobody's watching for drift, which is a large part of why
+    <code>cdad check</code> is meant to run again and again. The
+    contract maintenance agent is what closes that loop between one
+    check and the next, before the gap gets big enough to matter.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/for-ai-agents/extraction-agent/")}>&larr; The Extraction Agent</a>
+    <a href={withBase("/for-ai-agents/")}>For AI Agents &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Contract Versioning"
+  description="Semantic versioning for contracts follows three rules, and the decision behind a version bump has nothing to do with how large the text diff looks."
+  section="core-model"
+>
+  <h1>Contract Versioning</h1>
+
+  <p>
+    A contract's `version` field uses standard semantic versioning,
+    major, minor, patch, and the toolkit is deliberate about what
+    decides which number moves. It's not the size of the diff. A
+    one-line change to a guarantee can be a major break. A twenty-line
+    addition of new optional fields can be a minor bump. What decides
+    the version is downstream compatibility: does a capability that
+    depends on this one need to change anything to stay correct.
+  </p>
+  <p>
+    A major version moves when a change breaks a dependent capability
+    or removes a guarantee the contract used to make. Tightening a
+    response guarantee that makes a previous caller's assumption
+    invalid counts, even if nothing about the request shape changed.
+    The test isn't whether the API signature looks different. It's
+    whether something that used to be true, and that another
+    capability was relying on, stops being true.
+  </p>
+  <p>
+    A minor version moves when a change adds backward-compatible
+    fields, capabilities, or clarifications without invalidating
+    anything a current caller depends on. Adding a new optional
+    dependency with its rationale documented is the canonical minor
+    change: it expands what the capability can do without narrowing
+    what it already promised. Existing callers keep working exactly
+    as they did before the bump.
+  </p>
+  <p>
+    A patch version moves when the change only corrects the contract
+    text itself without touching declared behavior. Fixing an
+    ambiguous description so it says what was always true, but said
+    imprecisely, is a patch. Nothing about how the capability actually
+    behaves changes. Only the accuracy of what's written about it
+    does.
+  </p>
+  <p>
+    In practice this comes down to three questions, asked in order.
+    Would a dependent capability need to change behavior or
+    assumptions to stay correct? If yes, that's major, full stop,
+    regardless of how the other two questions answer. Did the change
+    add expressive power without invalidating existing consumers? If
+    that's the only yes, it's minor. Did the change only clarify
+    wording, examples, or metadata without touching the behavioral
+    contract itself? If that's the only yes, it's patch.
+  </p>
+  <p>
+    The reason this discipline matters more for contracts than for
+    typical application code is that a contract's version isn't
+    describing an implementation detail. It's describing a promise,
+    and every capability that declared a dependency on a specific
+    version range is trusting that promise to hold. Bump carelessly
+    and an agent reading a stale version constraint will trust
+    guarantees that no longer exist. The contract-maintenance role
+    exists specifically to catch this kind of drift before it reaches
+    that point, comparing the current contract against the code, the
+    generated `contract.json` and `contract.md` siblings, and flagging
+    exactly which field is out of date and which version bump the fix
+    actually calls for.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/core-model/extended-contract-fields/")}>&larr; Extended Contract Fields</a>
+    <a href={withBase("/core-model/contract-anti-patterns/")}>Contract Anti-Patterns &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

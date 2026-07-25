@@ -1,0 +1,114 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="The Contract-Aware Coding Agent"
+  description="The implementation prompt for a repository where contracts define intent. It checks the relevant contract before touching code and stops when the contract and the code disagree."
+  section="for-ai-agents"
+>
+  <h1>The Contract-Aware Coding Agent</h1>
+
+  <p>
+    Five of the toolkit's role prompts operate on contracts and audits.
+    This one is the exception: it's the prompt that actually edits
+    application code, and it does that work inside a repository where a
+    contract, when one exists, is the governing source of intent rather
+    than a document sitting next to the code for reference. Before it
+    touches anything, it checks the relevant contract under
+    <code>cdad/</code>, reads <code>docs/cli-reference.md</code> for
+    intended command behavior, checks
+    <code>ref/the-day-after-toolkit-spec.md</code> for governing spec
+    language, and looks at whatever generated artifacts the change
+    would affect, things like <code>cdad-report.md</code>,
+    <code>cdad-roadmap.md</code>, or <code>cdad-graph.json</code>.
+  </p>
+  <p>
+    If no contract exists for the capability it's about to touch, it
+    says so explicitly instead of quietly proceeding. That distinction
+    matters more than it looks like it does. An agent that infers
+    intent from code structure alone is guessing at business rules it
+    has no way to verify, and it will guess wrong in exactly the cases
+    that matter most: the retry limit that exists because of a past
+    incident, the ordering that looks arbitrary but isn't. This prompt
+    is meant to be paired with the repository's <code>CLAUDE.md</code>
+    context file, which carries the same discipline at the repo level:
+    never modify a capability in a way that violates its declared
+    non-goals, never remove a behavioral constraint without updating
+    the contract, and if a constraint shows up in the code but isn't in
+    the contract, surface it rather than assume it was intentional.
+  </p>
+  <p>
+    Its working rules are narrow on purpose. It never widens behavior
+    beyond what a contract says unless it updates that contract first.
+    When it changes behavior, it updates the closest supporting docs or
+    tests in the same slice of work, so the repository doesn't drift
+    out of sync with itself one commit at a time. When it does change a
+    contract, it treats <code>contract.yaml</code> as the source of
+    truth and keeps <code>contract.json</code> and
+    <code>contract.md</code> synchronized before anything gets
+    validated. And if the contract, the spec, and the implementation
+    disagree with each other, it stops. It surfaces the mismatch rather
+    than picking whichever version seems most plausible and coding
+    around the disagreement.
+  </p>
+  <p>
+    Verification is concrete rather than vibes-based: run
+    <code>npm test</code> for CLI or library changes, run
+    <code>cdad validate &lt;path&gt;</code> whenever a contract changed,
+    and run <code>cdad graph</code> when the change touched dependency
+    coverage or topology. That's the same validation surface a human
+    contributor would be expected to run, which is the point. The
+    contract-aware coding agent isn't held to a lighter bar than a
+    practitioner working the same repository, it's held to the same
+    one, expressed as instructions it can actually follow without a
+    person standing over its shoulder.
+  </p>
+  <p>
+    This is the prompt you reach for once a capability already has a
+    contract and someone, human or agent, needs to change the code
+    underneath it. The other five role prompts exist to get a
+    capability to that point: authored, reviewed, audited, sequenced,
+    and kept in sync. This one is what happens after, on every ordinary
+    day of implementation work that follows.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/for-ai-agents/")}>&larr; For AI Agents</a>
+    <a href={withBase("/for-ai-agents/contract-author/")}>The Contract Author &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

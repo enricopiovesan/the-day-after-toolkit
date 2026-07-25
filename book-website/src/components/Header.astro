@@ -1,19 +1,12 @@
 ---
 import { withBase } from "../utils/url";
+import { PILLARS } from "../data/siteSections";
 
 interface Props {
   overlay?: boolean;
 }
 
 const { overlay = false } = Astro.props;
-
-const navItems = [
-  { href: withBase("/"), label: "Home" },
-  { href: withBase("/about-the-book/"), label: "About the Book" },
-  { href: withBase("/author/"), label: "Author" },
-  { href: withBase("/excerpt/"), label: "Excerpt" },
-  { href: withBase("/contact/"), label: "Contact" },
-];
 
 const currentPath = Astro.url.pathname;
 ---
@@ -26,9 +19,9 @@ const currentPath = Astro.url.pathname;
 
     <nav class="site-nav" aria-label="Primary">
       {
-        navItems.map((item) => (
-          <a href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>
-            {item.label}
+        PILLARS.map((pillar) => (
+          <a href={pillar.href} aria-current={currentPath === pillar.href ? "page" : undefined}>
+            {pillar.label}
           </a>
         ))
       }

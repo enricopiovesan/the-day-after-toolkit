@@ -1,0 +1,105 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="The Legibility Auditor"
+  description="A role prompt that runs the book's four-question legibility audit verbatim against a codebase, starting from the diagnostic question, and ranks capabilities by how urgently they need extraction."
+  section="for-ai-agents"
+>
+  <h1>The Legibility Auditor</h1>
+
+  <p>
+    The legibility auditor's entire job is to run one specific audit,
+    the four-question framework from the book's Appendix B, against a
+    software system or codebase, and the prompt is unusually strict
+    about wording: it's instructed not to paraphrase the diagnostic
+    question or the four follow-up questions, and to use them exactly
+    as written. That's not a stylistic preference. The questions were
+    written precisely enough that rewording them changes what they're
+    actually testing.
+  </p>
+  <p>
+    Every assessment starts with the same diagnostic question: could
+    you hand this capability to a capable engineer who has never spoken
+    to anyone on your team, and have them make a safe change to it
+    using only what the system makes available? If the answer is yes
+    without hesitation, the capability scores a full 4 out of 4 and the
+    auditor moves on. Most capabilities don't clear that bar cleanly,
+    which is where the four follow-up questions come in.
+  </p>
+  <p>
+    Each follow-up targets a different kind of missing knowledge. Can
+    someone understand why the capability works this way, not just
+    what it does, which is business rules legibility. Can someone
+    identify what was tried before, what failed, and why, without
+    asking anyone who was there, which is constraint history
+    legibility. Can someone understand why this capability calls what
+    it calls, in the way it does, rather than the more obvious
+    alternative, which is dependency rationale legibility. And can
+    someone identify every code path that exists because of a specific
+    customer, regulatory, or historical condition without relying on
+    tribal knowledge, which is exception logic legibility.
+  </p>
+  <p>
+    What comes out the other end is a completed audit table for each
+    capability assessed, plus a ranked list ordered by score ascending,
+    so the lowest-scoring capabilities surface first as the highest
+    priority for extraction. The auditor doesn't stop at the number. It
+    also names the specific tribal knowledge that's missing for each
+    capability, meaning it says what an agent would actually fail to
+    find, not just that something scored low. When the practitioner
+    wants a reusable artifact out of this, the prompt points at
+    <code>templates/audit/legibility-audit.md</code> or
+    <code>templates/audit/legibility-audit.csv</code> for the output
+    shape.
+  </p>
+  <p>
+    This audit is the same interview <code>cdad check</code> runs
+    automatically against up to five capabilities by default, so
+    running the legibility auditor by hand is a way to extend that same
+    diagnostic to more capabilities, or to walk through it with more
+    narrative detail than a CLI report gives you. Either way, its
+    output is what the extraction agent reads next to build an actual
+    sequencing plan.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/for-ai-agents/contract-reviewer/")}>&larr; The Contract Reviewer</a>
+    <a href={withBase("/for-ai-agents/extraction-agent/")}>The Extraction Agent &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

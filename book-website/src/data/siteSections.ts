@@ -9,18 +9,40 @@ export interface SiteSection {
   key: string;
   label: string;
   href: string;
+  pillar: string;
   links: SectionLink[];
 }
 
+export interface Pillar {
+  key: string;
+  label: string;
+  href: string;
+}
+
+// The site's top-level navigation, shown in the header and as the footer's
+// column headings. Every SiteSection below declares which pillar it rolls
+// up into, so the header/footer stay in sync with the section data instead
+// of hand-maintaining a second list.
+export const PILLARS: Pillar[] = [
+  { key: "book", label: "The Book", href: withBase("/about-the-book/") },
+  { key: "why-c-dad", label: "Why C-DAD", href: withBase("/why-c-dad/") },
+  { key: "model", label: "The Model", href: withBase("/core-model/") },
+  { key: "how-it-works", label: "How It Works", href: withBase("/how-c-dad-works/") },
+  { key: "for-ai-agents", label: "For AI Agents", href: withBase("/for-ai-agents/") },
+  { key: "proof", label: "Proof", href: withBase("/proof/") },
+];
+
 // Single source of truth for the site's information architecture: which
-// pages belong to which content cluster. Drives the left "section nav"
-// rail and the breadcrumb trail on every non-home page, so a page only
-// has to declare which section it's in, not repeat the link list.
+// pages belong to which content cluster, and which top-level pillar that
+// cluster rolls up into. Drives the left "section nav" rail and the
+// breadcrumb trail on every non-home page, so a page only has to declare
+// which section it's in, not repeat the link list.
 export const SITE_SECTIONS: Record<string, SiteSection> = {
   book: {
     key: "book",
     label: "The Book",
     href: withBase("/about-the-book/"),
+    pillar: "book",
     links: [
       { href: withBase("/about-the-book/"), label: "About the Book" },
       { href: withBase("/excerpt/"), label: "Free Excerpt" },
@@ -33,6 +55,7 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
     key: "chapters",
     label: "Chapters",
     href: withBase("/the-day-after/"),
+    pillar: "book",
     links: [
       { href: withBase("/the-day-after/"), label: "Ch.1: The Day After" },
       { href: withBase("/tribal-knowledge/"), label: "Ch.2: Tribal Knowledge Is the Bottleneck" },
@@ -56,6 +79,7 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
     key: "why-c-dad",
     label: "Why C-DAD",
     href: withBase("/why-c-dad/"),
+    pillar: "why-c-dad",
     links: [
       { href: withBase("/why-c-dad/"), label: "Why C-DAD" },
       { href: withBase("/why-c-dad/what-problem-does-c-dad-solve/"), label: "What problem does C-DAD solve?" },
@@ -68,6 +92,7 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
     key: "core-model",
     label: "Core Model",
     href: withBase("/core-model/"),
+    pillar: "model",
     links: [
       { href: withBase("/core-model/"), label: "Core Model" },
       { href: withBase("/core-model/legibility/"), label: "Legibility" },
@@ -75,6 +100,8 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
       { href: withBase("/core-model/contract/"), label: "Contract" },
       { href: withBase("/core-model/capability-graph/"), label: "Capability Graph" },
       { href: withBase("/core-model/minimum-viable-contract/"), label: "Minimum Viable Contract" },
+      { href: withBase("/core-model/extended-contract-fields/"), label: "Extended Contract Fields" },
+      { href: withBase("/core-model/contract-versioning/"), label: "Contract Versioning" },
       { href: withBase("/core-model/contract-anti-patterns/"), label: "Contract Anti-Patterns" },
       { href: withBase("/core-model/capability-lifecycle-states/"), label: "Capability Lifecycle States" },
     ],
@@ -83,6 +110,7 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
     key: "how-c-dad-works",
     label: "How C-DAD Works",
     href: withBase("/how-c-dad-works/"),
+    pillar: "how-it-works",
     links: [
       { href: withBase("/how-c-dad-works/"), label: "How C-DAD Works" },
       { href: withBase("/how-c-dad-works/cdad-check/"), label: "cdad check" },
@@ -97,6 +125,7 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
     key: "glossary",
     label: "Glossary",
     href: withBase("/glossary/"),
+    pillar: "model",
     links: [
       { href: withBase("/glossary/"), label: "Glossary" },
       { href: withBase("/glossary/legibility/"), label: "Legibility" },
@@ -111,10 +140,26 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
       { href: withBase("/glossary/non-goals/"), label: "Non-Goals" },
     ],
   },
+  "for-ai-agents": {
+    key: "for-ai-agents",
+    label: "For AI Agents",
+    href: withBase("/for-ai-agents/"),
+    pillar: "for-ai-agents",
+    links: [
+      { href: withBase("/for-ai-agents/"), label: "For AI Agents" },
+      { href: withBase("/for-ai-agents/contract-aware-coding-agent/"), label: "The Contract-Aware Coding Agent" },
+      { href: withBase("/for-ai-agents/contract-author/"), label: "The Contract Author" },
+      { href: withBase("/for-ai-agents/contract-reviewer/"), label: "The Contract Reviewer" },
+      { href: withBase("/for-ai-agents/legibility-auditor/"), label: "The Legibility Auditor" },
+      { href: withBase("/for-ai-agents/extraction-agent/"), label: "The Extraction Agent" },
+      { href: withBase("/for-ai-agents/contract-maintenance-agent/"), label: "The Contract Maintenance Agent" },
+    ],
+  },
   comparisons: {
     key: "comparisons",
     label: "Comparisons",
     href: withBase("/comparisons/"),
+    pillar: "proof",
     links: [
       { href: withBase("/comparisons/"), label: "Comparisons" },
       { href: withBase("/comparisons/c-dad-vs-documentation/"), label: "C-DAD vs Documentation" },
@@ -128,6 +173,7 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
     key: "use-cases",
     label: "Use Cases",
     href: withBase("/use-cases/"),
+    pillar: "proof",
     links: [
       { href: withBase("/use-cases/"), label: "Use Cases" },
       { href: withBase("/use-cases/legacy-codebase-modernization/"), label: "Legacy Codebase Modernization" },
@@ -141,6 +187,7 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
     key: "proof",
     label: "Proof",
     href: withBase("/proof/"),
+    pillar: "proof",
     links: [
       { href: withBase("/proof/"), label: "Proof" },
       { href: withBase("/proof/legibility-scoring-methodology/"), label: "Legibility Scoring Methodology" },
@@ -152,6 +199,7 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
     key: "examples",
     label: "Examples",
     href: withBase("/examples/"),
+    pillar: "proof",
     links: [
       { href: withBase("/examples/"), label: "Examples" },
       { href: withBase("/examples/payment-retry-policy-contract/"), label: "Payment Retry Policy Contract" },
@@ -164,6 +212,7 @@ export const SITE_SECTIONS: Record<string, SiteSection> = {
     key: "toolkit",
     label: "Toolkit",
     href: withBase("/toolkit/"),
+    pillar: "how-it-works",
     links: [
       { href: withBase("/toolkit/"), label: "Toolkit" },
       { href: withBase("/toolkit/installation/"), label: "Installation" },

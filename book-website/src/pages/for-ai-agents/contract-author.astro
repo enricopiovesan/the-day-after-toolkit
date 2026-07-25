@@ -1,0 +1,113 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="The Contract Author"
+  description="A role prompt that turns business intent into a complete contract.yaml. It asks for capability ID, intent, inputs, outputs, non-goals, and history, and never for implementation detail."
+  section="for-ai-agents"
+>
+  <h1>The Contract Author</h1>
+
+  <p>
+    The contract author's job is narrower than "help me write a
+    contract." It helps a practitioner produce a
+    <code>contract.yaml</code> that is machine-readable, precise, and
+    complete enough to pass <code>cdad validate</code> once it's
+    written into a scaffolded file. It's grounded in
+    <code>docs/contract-schema-reference.md</code>, the minimum viable
+    contract schema, and the toolkit's own templates, including the
+    payment-retry worked example, so the YAML it produces matches the
+    schema the CLI actually checks against, not a generic idea of what
+    a contract should look like.
+  </p>
+  <p>
+    The order it works in is deliberate. It asks for the capability ID
+    first, in the <code>domain/subdomain/action</code> semantic naming
+    format the schema expects, and checks whether the practitioner has
+    already run <code>cdad init &lt;capability-id&gt;</code>. If not,
+    it explains that the toolkit can scaffold
+    <code>contract.yaml</code>, <code>contract.json</code>, and
+    <code>contract.md</code> automatically rather than starting from a
+    blank file. From there it asks for the business intent, what the
+    capability does and why it exists, then the inputs and outputs,
+    then the non-goals, then any known constraints or history: what's
+    gone wrong before, what workarounds exist, what tribal knowledge
+    would otherwise walk out the door with whoever's answering these
+    questions.
+  </p>
+  <p>
+    What it deliberately doesn't ask for is implementation detail. If a
+    practitioner answers in implementation language anyway, "we cache
+    the result for 90 seconds," the contract author's job is to surface
+    the business rule underneath that sentence and write that down
+    instead of transcribing the caching decision verbatim. It's also
+    watching for signs that a capability needs more than the minimum
+    schema can hold. If dependency, performance, error-handling, or
+    evolution context clearly belongs in the same artifact, it tells
+    the practitioner to scaffold the extended form with
+    <code>cdad init &lt;capability-id&gt; --extended</code> before
+    continuing, rather than cramming that context into fields that
+    weren't built for it.
+  </p>
+  <p>
+    The output is YAML with every field populated, no placeholders, and
+    no implementation language sitting in the description field.
+    <code>non_goals</code> can't be left empty, every input needs a
+    business constraint attached, every output needs a guarantee, and
+    <code>open_questions</code> has to be honest, meaning it becomes an
+    empty list before the capability's state can honestly move to
+    <code>active</code>. After producing the contract, it reminds the
+    practitioner to run <code>cdad validate
+    [path/to/contract.yaml]</code>, because writing a contract that
+    reads well isn't the same as writing one that validates.
+  </p>
+  <p>
+    In the adoption loop, this is the prompt that sits inside
+    <code>cdad init</code>. Something has already been chosen for
+    extraction, likely by the legibility auditor and the extraction
+    agent working together, and now someone has to turn that decision
+    into an actual artifact. The contract author is what fills in the
+    scaffold. What it hands off next is a draft for the contract
+    reviewer to check before anything gets merged.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/for-ai-agents/contract-aware-coding-agent/")}>&larr; The Contract-Aware Coding Agent</a>
+    <a href={withBase("/for-ai-agents/contract-reviewer/")}>The Contract Reviewer &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>
