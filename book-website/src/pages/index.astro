@@ -100,19 +100,6 @@ const heroTiming = `
     }
   </script>
   <div class="hero-wrap" id="hero-wrap" style={heroTiming}>
-    <div class="hero__ambient" aria-hidden="true">
-      {
-        heroStages.map((src, i) => (
-          <img
-            class="hero__ambient-image"
-            style={`--stage: ${i}; z-index: ${heroStages.length - i};`}
-            src={src}
-            alt=""
-            loading="eager"
-          />
-        ))
-      }
-    </div>
     <section class="hero" id="hero">
       <Header overlay />
       <div class="hero__zoom" aria-hidden="true">
@@ -250,65 +237,15 @@ const heroTiming = `
 <style>
   .hero-wrap {
     position: relative;
-    max-width: 1500px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+    margin: calc(-1 * var(--header-height)) 0 0;
   }
 
   .hero {
     position: relative;
     z-index: 1;
-    margin-top: 1.5rem;
     aspect-ratio: 1624 / 896;
     overflow: hidden;
-    border-radius: 2rem;
     height: 100%;
-  }
-
-  /* Ambient light spilling out around the hero: the same photos, heavily
-     blurred and enlarged so the blur's own soft edge never shows, sitting
-     behind the hero and bleeding a little past its edges. It cross-fades
-     night-to-day on the same schedule as the sharp images (same keyframe,
-     same delays), just softened and kept faint. Real photo color (night
-     blue warming to sunrise gold), not a synthetic tint. */
-  .hero__ambient {
-    position: absolute;
-    inset: -2rem;
-    z-index: 0;
-    overflow: hidden;
-    border-radius: 2.5rem;
-    opacity: 0.4;
-    pointer-events: none;
-  }
-
-  .hero__ambient-image {
-    position: absolute;
-    inset: -15%;
-    width: 130%;
-    height: 130%;
-    object-fit: cover;
-    filter: blur(3rem);
-    opacity: 0;
-  }
-
-  .hero__ambient-image:last-child {
-    opacity: 1;
-  }
-
-  :global(.sunrise-pending) .hero__ambient-image:first-child {
-    opacity: 1;
-  }
-
-  .hero--animate .hero__ambient-image {
-    opacity: 1;
-    animation: hero-stage-out var(--hero-fade) ease-in-out forwards;
-    animation-delay: calc(
-      var(--hero-first-hold) + var(--stage) * var(--hero-stage-gap)
-    );
-  }
-
-  .hero--animate .hero__ambient-image:last-child {
-    animation: none;
   }
 
   .hero__zoom {
