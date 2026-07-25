@@ -51,19 +51,19 @@ const { eyebrow, color, columns } = Astro.props;
     gap: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-weight: 500;
     margin: 0 0 3rem;
   }
 
   .tick {
     display: inline-block;
     width: 7rem;
-    height: 2px;
+    height: 2.5px;
     background: currentColor;
     transform-origin: bottom left;
     transform: rotate(-45deg);
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.3rem;
   }
 
   .panel__columns {
@@ -73,15 +73,16 @@ const { eyebrow, color, columns } = Astro.props;
   }
 
   .panel__column-title {
+    font-size: 1.35rem;
     font-weight: 600;
-    margin: 0 0 0.6rem;
+    margin: 0 0 0.9rem;
   }
 
   .panel__column-body {
     margin: 0;
-    font-size: 0.9rem;
-    opacity: 0.8;
-    line-height: 1.55;
+    font-size: 1.05rem;
+    opacity: 0.85;
+    line-height: 1.6;
   }
 
   @media (max-width: 720px) {

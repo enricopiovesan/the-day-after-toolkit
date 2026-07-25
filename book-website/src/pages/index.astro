@@ -243,9 +243,8 @@ const heroTiming = `
   .hero {
     position: relative;
     z-index: 1;
-    aspect-ratio: 1624 / 896;
+    height: 70vh;
     overflow: hidden;
-    height: 100%;
   }
 
   .hero__zoom {
@@ -386,23 +385,18 @@ const heroTiming = `
     z-index: 2;
   }
 
-  @media (max-width: 640px) {
-    .hero {
-      aspect-ratio: 9 / 16;
-    }
-  }
 
   .section__body {
     display: grid;
     gap: 2rem;
     max-width: 40rem;
-    margin: 0 0 4rem auto;
+    margin: 0 0 5.5rem auto;
     color: var(--text-muted);
     font-size: 0.95rem;
   }
 
   .section__body--left {
-    margin: 0 auto 4rem 0;
+    margin: 0 auto 5.5rem 0;
   }
 
   .section__body p {

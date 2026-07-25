@@ -65,6 +65,13 @@ const currentPath = Astro.url.pathname;
     root.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
   });
+
+  const header = document.querySelector(".site-header");
+  function updateHeaderScrolled() {
+    header?.classList.toggle("is-scrolled", window.scrollY > 8);
+  }
+  updateHeaderScrolled();
+  window.addEventListener("scroll", updateHeaderScrolled, { passive: true });
 </script>
 
 <style>
@@ -88,6 +95,19 @@ const currentPath = Astro.url.pathname;
     border-bottom: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+
+  .site-header.is-scrolled {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .site-header.is-scrolled .site-nav a,
+  .site-header.is-scrolled .theme-toggle,
+  .site-header.is-scrolled .site-header__link {
+    color: rgba(245, 243, 238, 0.9);
   }
 
   .site-header__inner {
