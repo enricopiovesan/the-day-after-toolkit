@@ -1,44 +1,41 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Agent Readiness: Glossary"
   description="Agent readiness is a 0 to 10 score with a named band, produced by cdad check, that measures how safely an AI agent could work on a repo's capabilities without tribal knowledge."
+  section="glossary"
+  crumbLabel="Agent Readiness"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Glossary</p>
-      <h1>Agent Readiness</h1>
+  <h1>Agent Readiness</h1>
 
-      <p>
-        Hand your repo to an AI agent tomorrow. How much would it get
-        wrong? Agent readiness is the toolkit's attempt to answer that
-        with a number instead of a guess, a 0 to 10 score with a band,
-        produced by <code>cdad check</code>.
-      </p>
-      <p>
-        The score combines two signals: a static scan of the repo, and a
-        legibility questionnaire that asks up to five capabilities the
-        same four questions an audit would ask. Together they produce
-        <code>cdad-report.md</code>, the baseline everything else in the
-        workflow builds on.
-      </p>
-      <p>
-        A low score isn't a verdict on the team, it's a map. Feed that
-        report into <code>cdad roadmap</code> and the lowest-scoring,
-        highest-risk capabilities rise to the top of what gets
-        <a href={withBase("/glossary/extraction/")}>extracted</a> first.
-      </p>
+  <p>
+    Hand your repo to an AI agent tomorrow. How much would it get
+    wrong? Agent readiness is the toolkit's attempt to answer that
+    with a number instead of a guess, a 0 to 10 score with a band,
+    produced by <code>cdad check</code>.
+  </p>
+  <p>
+    The score combines two signals: a static scan of the repo, and a
+    legibility questionnaire that asks up to five capabilities the
+    same four questions an audit would ask. Together they produce
+    <code>cdad-report.md</code>, the baseline everything else in the
+    workflow builds on.
+  </p>
+  <p>
+    A low score isn't a verdict on the team, it's a map. Feed that
+    report into <code>cdad roadmap</code> and the lowest-scoring,
+    highest-risk capabilities rise to the top of what gets
+    <a href={withBase("/glossary/extraction/")}>extracted</a> first.
+  </p>
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/glossary/")}>&larr; Glossary</a>
-        <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/glossary/")}>&larr; Glossary</a>
+    <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

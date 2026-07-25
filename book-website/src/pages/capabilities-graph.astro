@@ -1,51 +1,48 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageLayout from "../layouts/SubpageLayout.astro";
 import BuyLinks from "../components/BuyLinks.astro";
 import { withBase } from "../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="The Capabilities Graph"
   description="Contracts describe one piece of logic. The capabilities graph is what happens when a whole system declares itself, legible to a new hire and an AI agent in exactly the same way."
+  section="chapters"
+  crumbLabel="Ch.4: The Capabilities Graph"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Chapter 4 &middot; Part II: The Architecture</p>
-      <h1>The Capabilities Graph</h1>
+  <h1>The Capabilities Graph</h1>
 
-      <p>
-        A contract makes one piece of business logic legible. Chapter 4 asks
-        the next question: what happens when every piece is? The answer is
-        the capabilities graph, a map of every capability in a
-        system, its dependencies, its owner, and the contract that governs
-        it.
-      </p>
-      <p>
-        The chapter introduces the capability as a new atomic unit of
-        software design, defined by three properties: headless (no
-        assumptions about how it's presented), portable (it runs wherever
-        it's called from), and contract-defined (its boundaries and rules
-        are declared, not inferred by reading the code). That's a different
-        way of decomposing a system than the service boundaries most teams
-        already have.
-      </p>
-      <p>
-        The result isn't a diagram for a slide deck. It's a structure
-        a new hire can read in twenty minutes instead of losing two days to,
-        and a structure a coding agent can navigate instead of guess at. The
-        chapter walks through what a capability is, how to draw its
-        boundaries, and how the graph accumulates one capability at a time.
-      </p>
+  <p>
+    A contract makes one piece of business logic legible. Chapter 4 asks
+    the next question: what happens when every piece is? The answer is
+    the capabilities graph, a map of every capability in a
+    system, its dependencies, its owner, and the contract that governs
+    it.
+  </p>
+  <p>
+    The chapter introduces the capability as a new atomic unit of
+    software design, defined by three properties: headless (no
+    assumptions about how it's presented), portable (it runs wherever
+    it's called from), and contract-defined (its boundaries and rules
+    are declared, not inferred by reading the code). That's a different
+    way of decomposing a system than the service boundaries most teams
+    already have.
+  </p>
+  <p>
+    The result isn't a diagram for a slide deck. It's a structure
+    a new hire can read in twenty minutes instead of losing two days to,
+    and a structure a coding agent can navigate instead of guess at. The
+    chapter walks through what a capability is, how to draw its
+    boundaries, and how the graph accumulates one capability at a time.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Chapter navigation">
-        <a href={withBase("/contracts/")}>&larr; Chapter 3: Contracts Are the Answer</a>
-        <a href={withBase("/extraction-over-refactoring/")}>Chapter 5: Extraction Over Refactoring &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/contracts/")}>&larr; Chapter 3: Contracts Are the Answer</a>
+    <a href={withBase("/extraction-over-refactoring/")}>Chapter 5: Extraction Over Refactoring &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

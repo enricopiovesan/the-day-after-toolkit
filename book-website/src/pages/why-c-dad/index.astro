@@ -1,49 +1,57 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import { withBase } from "../../utils/url";
+
+const toc = [
+  { href: "#overview", label: "Overview" },
+  { href: "#pages-in-this-area", label: "Pages in this area" },
+];
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Why C-DAD"
   description="Contract-Driven AI Development exists because AI agents can read your entire codebase and still get your system wrong. Here's the case for why contracts, not more documentation, actually fix that."
+  section="why-c-dad"
+  toc={toc}
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Contract-Driven AI Development</p>
-      <h1>Why C-DAD</h1>
+  <h1>Why C-DAD</h1>
 
-      <p>
-        An AI agent can read every file in your repository in a few
-        seconds. It still can't ask a senior engineer what a payment
-        constraint actually means, or why a service calls another one out
-        of the order that looks obvious from the outside. That gap is
-        where most agent-generated changes quietly go wrong, and it isn't
-        something a bigger context window fixes.
-      </p>
-      <p>
-        Contract-Driven AI Development is the operating model built for
-        that gap specifically. Not a coding standard, not a linting rule,
-        a way of making a system declare what it knows about itself, in a
-        form both people and agents can act on. The pages below make the
-        case for it from four different angles: the actual problem it
-        solves, why legibility matters more than raw model capability, what
-        tribal knowledge really costs a team, and why documentation was
-        never going to be the fix.
-      </p>
-
-      <ul class="cluster-list">
-        <li><a href={withBase("/why-c-dad/what-problem-does-c-dad-solve/")}>What problem does C-DAD solve?</a></li>
-        <li><a href={withBase("/why-c-dad/why-ai-agents-need-legible-systems/")}>Why AI agents need legible systems</a></li>
-        <li><a href={withBase("/why-c-dad/the-cost-of-tribal-knowledge/")}>The cost of tribal knowledge</a></li>
-        <li><a href={withBase("/why-c-dad/from-documentation-to-contracts/")}>From documentation to contracts</a></li>
-      </ul>
-
-      <p class="see-also">
-        See also: <a href={withBase("/core-model/")}>the core model</a> for what a contract and a capability graph actually are, or <a href={withBase("/tribal-knowledge/")}>Chapter 2 of the book</a> for where this argument started.
-      </p>
-    </div>
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      An AI agent can read every file in your repository in a few
+      seconds. It still can't ask a senior engineer what a payment
+      constraint actually means, or why a service calls another one out
+      of the order that looks obvious from the outside. That gap is
+      where most agent-generated changes quietly go wrong, and it isn't
+      something a bigger context window fixes.
+    </p>
+    <p>
+      Contract-Driven AI Development is the operating model built for
+      that gap specifically. Not a coding standard, not a linting rule,
+      a way of making a system declare what it knows about itself, in a
+      form both people and agents can act on. The pages below make the
+      case for it from four different angles: the actual problem it
+      solves, why legibility matters more than raw model capability, what
+      tribal knowledge really costs a team, and why documentation was
+      never going to be the fix.
+    </p>
   </section>
-</BaseLayout>
+
+  <section id="pages-in-this-area">
+    <h2>Pages in this area</h2>
+    <ul class="cluster-list">
+      <li><a href={withBase("/why-c-dad/what-problem-does-c-dad-solve/")}>What problem does C-DAD solve?</a></li>
+      <li><a href={withBase("/why-c-dad/why-ai-agents-need-legible-systems/")}>Why AI agents need legible systems</a></li>
+      <li><a href={withBase("/why-c-dad/the-cost-of-tribal-knowledge/")}>The cost of tribal knowledge</a></li>
+      <li><a href={withBase("/why-c-dad/from-documentation-to-contracts/")}>From documentation to contracts</a></li>
+    </ul>
+  </section>
+
+  <p class="see-also">
+    See also: <a href={withBase("/core-model/")}>the core model</a> for what a contract and a capability graph actually are, or <a href={withBase("/tribal-knowledge/")}>Chapter 2 of the book</a> for where this argument started.
+  </p>
+</SubpageLayout>
 
 <style>
   .cluster-list {

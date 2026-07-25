@@ -1,44 +1,41 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Contract-Driven AI Development: Glossary"
   description="Contract-Driven AI Development, or C-DAD, is the discipline of declaring what a system knows about itself through contracts, so humans and AI agents can both act on it safely."
+  section="glossary"
+  crumbLabel="Contract-Driven AI Development"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Glossary</p>
-      <h1>Contract-Driven AI Development</h1>
+  <h1>Contract-Driven AI Development</h1>
 
-      <p>
-        C-DAD is the discipline the book and the toolkit are both named
-        after. Short for Contract-Driven AI Development, it's the
-        practice of making a system explain itself through contracts,
-        instead of through whoever happens to remember.
-      </p>
-      <p>
-        In practice that means treating every capability's intent,
-        dependencies, and boundaries as something written down and
-        checkable, not something inferred from old commit messages. The
-        four core ideas, legibility, capability, contract, and the
-        capability graph, are the vocabulary C-DAD is built from.
-      </p>
-      <p>
-        The <code>cdad</code> CLI is the executable half of the
-        discipline: <code>check</code>, <code>roadmap</code>,
-        <code>init</code>, <code>validate</code>, and <code>graph</code>
-        walk a repo from unmeasured to mapped, one capability at a time.
-      </p>
+  <p>
+    C-DAD is the discipline the book and the toolkit are both named
+    after. Short for Contract-Driven AI Development, it's the
+    practice of making a system explain itself through contracts,
+    instead of through whoever happens to remember.
+  </p>
+  <p>
+    In practice that means treating every capability's intent,
+    dependencies, and boundaries as something written down and
+    checkable, not something inferred from old commit messages. The
+    four core ideas, legibility, capability, contract, and the
+    capability graph, are the vocabulary C-DAD is built from.
+  </p>
+  <p>
+    The <code>cdad</code> CLI is the executable half of the
+    discipline: <code>check</code>, <code>roadmap</code>,
+    <code>init</code>, <code>validate</code>, and <code>graph</code>
+    walk a repo from unmeasured to mapped, one capability at a time.
+  </p>
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/glossary/")}>&larr; Glossary</a>
-        <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/glossary/")}>&larr; Glossary</a>
+    <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

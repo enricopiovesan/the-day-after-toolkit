@@ -1,65 +1,61 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import BuyLinks from "../../components/BuyLinks.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Legacy Codebase Modernization"
   description="Teams inheriting an old system usually reach for a rewrite. C-DAD offers a way to make the system safely navigable first, one capability at a time, without betting months on a clean slate."
+  section="use-cases"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Use Cases</p>
-      <h1>Legacy Codebase Modernization</h1>
+  <h1>Legacy Codebase Modernization</h1>
 
-      <p>
-        Somebody on the team inherited a system nobody currently working
-        on it originally built. That's the starting condition for most
-        legacy modernization work, and it explains why so much of it goes
-        sideways. The people who understood why the retry logic works the
-        way it does, or why that one service calls an internal API instead
-        of the obvious external one, left the company two reorgs ago.
-        What's left is code that runs correctly and explains nothing.
-      </p>
-      <p>
-        The default response is usually a rewrite, and it's an
-        understandable one. But a rewrite spends months of senior
-        engineering time and produces a system that's cleaner without
-        being any more legible, because the tribal knowledge that made the
-        old system dangerous to touch never made it into the new one
-        either. Nobody wrote it down the first time, and a rewrite project
-        rarely has a mechanism to force that writing-down to happen along
-        the way.
-      </p>
-      <p>
-        C-DAD's answer starts smaller. Run <code>cdad check</code> against
-        the current system to get an honest baseline, then
-        <code>cdad roadmap</code> to see which capabilities are both risky
-        and frequently touched, the ones where an unsafe change would
-        actually hurt. Extract and contract those first with
-        <code>cdad init</code>, validate them with
-        <code>cdad validate --all --strict</code> before anything merges,
-        and use <code>cdad graph</code> to see how the pieces you've
-        extracted connect to the pieces you haven't gotten to yet.
-      </p>
-      <p>
-        This doesn't produce a modernized system on day one, and it isn't
-        trying to. It produces a system that gets safer to extend one
-        capability at a time, with the riskiest parts addressed first
-        instead of last, which is usually the opposite order a big rewrite
-        ends up tackling them in once the schedule gets tight.
-      </p>
+  <p>
+    Somebody on the team inherited a system nobody currently working
+    on it originally built. That's the starting condition for most
+    legacy modernization work, and it explains why so much of it goes
+    sideways. The people who understood why the retry logic works the
+    way it does, or why that one service calls an internal API instead
+    of the obvious external one, left the company two reorgs ago.
+    What's left is code that runs correctly and explains nothing.
+  </p>
+  <p>
+    The default response is usually a rewrite, and it's an
+    understandable one. But a rewrite spends months of senior
+    engineering time and produces a system that's cleaner without
+    being any more legible, because the tribal knowledge that made the
+    old system dangerous to touch never made it into the new one
+    either. Nobody wrote it down the first time, and a rewrite project
+    rarely has a mechanism to force that writing-down to happen along
+    the way.
+  </p>
+  <p>
+    C-DAD's answer starts smaller. Run <code>cdad check</code> against
+    the current system to get an honest baseline, then
+    <code>cdad roadmap</code> to see which capabilities are both risky
+    and frequently touched, the ones where an unsafe change would
+    actually hurt. Extract and contract those first with
+    <code>cdad init</code>, validate them with
+    <code>cdad validate --all --strict</code> before anything merges,
+    and use <code>cdad graph</code> to see how the pieces you've
+    extracted connect to the pieces you haven't gotten to yet.
+  </p>
+  <p>
+    This doesn't produce a modernized system on day one, and it isn't
+    trying to. It produces a system that gets safer to extend one
+    capability at a time, with the riskiest parts addressed first
+    instead of last, which is usually the opposite order a big rewrite
+    ends up tackling them in once the schedule gets tight.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/use-cases/")}>&larr; Use Cases</a>
-        <a href={withBase("/use-cases/onboarding-new-engineers/")}>Onboarding New Engineers &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/use-cases/")}>&larr; Use Cases</a>
+    <a href={withBase("/use-cases/onboarding-new-engineers/")}>Onboarding New Engineers &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

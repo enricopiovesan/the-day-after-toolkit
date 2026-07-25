@@ -1,58 +1,66 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageLayout from "../layouts/SubpageLayout.astro";
 import BuyLinks from "../components/BuyLinks.astro";
 import { withBase } from "../utils/url";
+
+const toc = [
+  { href: "#overview", label: "Overview" },
+  { href: "#pages-in-this-area", label: "Pages in this area" },
+];
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Toolkit"
   description="cdad is the open source CLI behind Contract-Driven AI Development. Install it, run it against a repository, and it turns the book's methodology into commands you can actually run."
+  section="toolkit"
+  toc={toc}
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Toolkit</p>
-      <h1>Toolkit</h1>
+  <h1>Toolkit</h1>
 
-      <p>
-        The book describes a methodology. The toolkit is what makes it
-        runnable. <code>cdad</code> is an open source command-line tool you
-        install and point at a repository, and it carries the whole
-        adoption loop, from a first legibility check through prioritizing
-        what to extract, scaffolding contracts, validating them, and
-        mapping how they connect.
-      </p>
-      <p>
-        This section covers the practical side of adopting it: how to get
-        it installed and run your first command, a shorter tour of all
-        five commands in one place, and where to go to check the source
-        itself. If you want the deep, one-command-per-page treatment,
-        that lives under <a href={withBase("/how-c-dad-works/")}>How C-DAD Works</a>.
-      </p>
-
-      <ul class="cluster-list">
-        <li>
-          <a href={withBase("/toolkit/installation/")}>Installation</a>
-          <p>Getting the CLI installed and running your first command against a real repository.</p>
-        </li>
-        <li>
-          <a href={withBase("/toolkit/cli-reference/")}>CLI Reference</a>
-          <p>All five commands, check, roadmap, init, validate, and graph, covered in one place.</p>
-        </li>
-        <li>
-          <a href={withBase("/toolkit/github-repository/")}>GitHub Repository</a>
-          <p>Where the schemas, the CLI source, and the documentation actually live.</p>
-        </li>
-      </ul>
-
-      <BuyLinks />
-
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/examples/")}>&larr; Examples</a>
-        <a href={withBase("/faq/")}>FAQ &rarr;</a>
-      </nav>
-    </div>
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      The book describes a methodology. The toolkit is what makes it
+      runnable. <code>cdad</code> is an open source command-line tool you
+      install and point at a repository, and it carries the whole
+      adoption loop, from a first legibility check through prioritizing
+      what to extract, scaffolding contracts, validating them, and
+      mapping how they connect.
+    </p>
+    <p>
+      This section covers the practical side of adopting it: how to get
+      it installed and run your first command, a shorter tour of all
+      five commands in one place, and where to go to check the source
+      itself. If you want the deep, one-command-per-page treatment,
+      that lives under <a href={withBase("/how-c-dad-works/")}>How C-DAD Works</a>.
+    </p>
   </section>
-</BaseLayout>
+
+  <section id="pages-in-this-area">
+    <h2>Pages in this area</h2>
+    <ul class="cluster-list">
+      <li>
+        <a href={withBase("/toolkit/installation/")}>Installation</a>
+        <p>Getting the CLI installed and running your first command against a real repository.</p>
+      </li>
+      <li>
+        <a href={withBase("/toolkit/cli-reference/")}>CLI Reference</a>
+        <p>All five commands, check, roadmap, init, validate, and graph, covered in one place.</p>
+      </li>
+      <li>
+        <a href={withBase("/toolkit/github-repository/")}>GitHub Repository</a>
+        <p>Where the schemas, the CLI source, and the documentation actually live.</p>
+      </li>
+    </ul>
+  </section>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/examples/")}>&larr; Examples</a>
+    <a href={withBase("/faq/")}>FAQ &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   code {

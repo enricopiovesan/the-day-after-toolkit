@@ -1,59 +1,56 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageLayout from "../layouts/SubpageLayout.astro";
 import BuyLinks from "../components/BuyLinks.astro";
 import { withBase } from "../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Tribal Knowledge Is the Bottleneck"
   description="Why the knowledge that keeps your systems safe lives in people's heads instead of your code, and why that's the real reason AI coding agents can't be trusted with it yet."
+  section="chapters"
+  crumbLabel="Ch.2: Tribal Knowledge Is the Bottleneck"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Chapter 2 &middot; Part I: The Problem</p>
-      <h1>Tribal Knowledge Is the Bottleneck</h1>
+  <h1>Tribal Knowledge Is the Bottleneck</h1>
 
-      <p>
-        Every software organization runs on knowledge that was never written
-        down. The constraint that stops a "simple" fix from breaking
-        production. The reason one service calls another out of the obvious
-        order. The processor quirk that made someone move a single line of
-        code three years ago. None of it lives in the codebase. All of it
-        lives in someone's head.
-      </p>
-      <p>
-        Chapter 2 opens on a routine onboarding conversation: a new
-        hire, a short list of components to understand, and an engineer
-        walking through constraints that exist nowhere else: not in the
-        wiki, not in a comment, not in a ticket. Just memory, passed down one
-        conversation at a time, for as long as the person who remembers it
-        stays.
-      </p>
-      <p>
-        That's the condition AI agents inherit when you point them at a real
-        codebase. An agent can read every file in a repository in seconds,
-        but it cannot sit in on that onboarding conversation. Every
-        constraint that only exists in someone's memory is invisible to
-        exactly the tool teams are now betting production changes on.
-      </p>
-      <p>
-        The chapter maps where this knowledge actually lives, in Slack
-        threads, tribal shorthand, the specific developers who've "just
-        always known," and makes the case that this isn't a
-        documentation gap you can wiki your way out of. It's a structural
-        condition with a structural cost, and naming it precisely is where
-        the fix starts.
-      </p>
+  <p>
+    Every software organization runs on knowledge that was never written
+    down. The constraint that stops a "simple" fix from breaking
+    production. The reason one service calls another out of the obvious
+    order. The processor quirk that made someone move a single line of
+    code three years ago. None of it lives in the codebase. All of it
+    lives in someone's head.
+  </p>
+  <p>
+    Chapter 2 opens on a routine onboarding conversation: a new
+    hire, a short list of components to understand, and an engineer
+    walking through constraints that exist nowhere else: not in the
+    wiki, not in a comment, not in a ticket. Just memory, passed down one
+    conversation at a time, for as long as the person who remembers it
+    stays.
+  </p>
+  <p>
+    That's the condition AI agents inherit when you point them at a real
+    codebase. An agent can read every file in a repository in seconds,
+    but it cannot sit in on that onboarding conversation. Every
+    constraint that only exists in someone's memory is invisible to
+    exactly the tool teams are now betting production changes on.
+  </p>
+  <p>
+    The chapter maps where this knowledge actually lives, in Slack
+    threads, tribal shorthand, the specific developers who've "just
+    always known," and makes the case that this isn't a
+    documentation gap you can wiki your way out of. It's a structural
+    condition with a structural cost, and naming it precisely is where
+    the fix starts.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Chapter navigation">
-        <a href={withBase("/about-the-book/")}>&larr; Table of contents</a>
-        <a href={withBase("/contracts/")}>Chapter 3: Contracts Are the Answer &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/about-the-book/")}>&larr; Table of contents</a>
+    <a href={withBase("/contracts/")}>Chapter 3: Contracts Are the Answer &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

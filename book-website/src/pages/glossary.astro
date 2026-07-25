@@ -1,74 +1,82 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageLayout from "../layouts/SubpageLayout.astro";
 import { withBase } from "../utils/url";
+
+const toc = [
+  { href: "#overview", label: "Overview" },
+  { href: "#all-terms", label: "All terms" },
+];
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Glossary"
   description="Short, plain definitions for the vocabulary of Contract-Driven AI Development: legibility, capability, contract, the capability graph, and the terms around them."
+  section="glossary"
+  toc={toc}
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Quick Reference</p>
-      <h1>Glossary</h1>
+  <h1>Glossary</h1>
 
-      <p>
-        The book and the toolkit share a small vocabulary, and it shows
-        up everywhere once you know it. These are the short, dictionary
-        versions of the ten terms that matter most, each one linking
-        back to where the idea gets its full treatment.
-      </p>
-
-      <ul class="cluster-list">
-        <li>
-          <a href={withBase("/glossary/agent-readiness/")}>Agent Readiness</a>
-          <p>The 0 to 10 score, with a band, that <code>cdad check</code> produces for a repo.</p>
-        </li>
-        <li>
-          <a href={withBase("/glossary/capability/")}>Capability</a>
-          <p>A business-facing unit of behavior with inputs, outputs, and non-goals.</p>
-        </li>
-        <li>
-          <a href={withBase("/glossary/capability-graph/")}>Capability Graph</a>
-          <p>The directed dependency map of every contract in a repo.</p>
-        </li>
-        <li>
-          <a href={withBase("/glossary/contract/")}>Contract</a>
-          <p>The declaration of what a capability does, needs, promises, and won't do.</p>
-        </li>
-        <li>
-          <a href={withBase("/glossary/contract-driven-ai-development/")}>Contract-Driven AI Development</a>
-          <p>C-DAD, the discipline the book and toolkit are both built around.</p>
-        </li>
-        <li>
-          <a href={withBase("/glossary/extraction/")}>Extraction</a>
-          <p>Pulling a capability out of tribal knowledge and into a contract.</p>
-        </li>
-        <li>
-          <a href={withBase("/glossary/legibility/")}>Legibility</a>
-          <p>Whether a capability's behavior can be understood without tribal knowledge.</p>
-        </li>
-        <li>
-          <a href={withBase("/glossary/minimum-viable-contract/")}>Minimum Viable Contract</a>
-          <p>The smallest set of fields a contract needs to be useful.</p>
-        </li>
-        <li>
-          <a href={withBase("/glossary/non-goals/")}>Non-Goals</a>
-          <p>The explicit statement of what a capability deliberately does not do.</p>
-        </li>
-        <li>
-          <a href={withBase("/glossary/tribal-knowledge/")}>Tribal Knowledge</a>
-          <p>Undocumented operational knowledge that lives in people's heads, not in the system.</p>
-        </li>
-      </ul>
-
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/how-c-dad-works/")}>&larr; How C-DAD Works</a>
-        <a href={withBase("/comparisons/")}>Comparisons &rarr;</a>
-      </nav>
-    </div>
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      The book and the toolkit share a small vocabulary, and it shows
+      up everywhere once you know it. These are the short, dictionary
+      versions of the ten terms that matter most, each one linking
+      back to where the idea gets its full treatment.
+    </p>
   </section>
-</BaseLayout>
+
+  <section id="all-terms">
+    <h2>All terms</h2>
+    <ul class="cluster-list">
+      <li>
+        <a href={withBase("/glossary/agent-readiness/")}>Agent Readiness</a>
+        <p>The 0 to 10 score, with a band, that <code>cdad check</code> produces for a repo.</p>
+      </li>
+      <li>
+        <a href={withBase("/glossary/capability/")}>Capability</a>
+        <p>A business-facing unit of behavior with inputs, outputs, and non-goals.</p>
+      </li>
+      <li>
+        <a href={withBase("/glossary/capability-graph/")}>Capability Graph</a>
+        <p>The directed dependency map of every contract in a repo.</p>
+      </li>
+      <li>
+        <a href={withBase("/glossary/contract/")}>Contract</a>
+        <p>The declaration of what a capability does, needs, promises, and won't do.</p>
+      </li>
+      <li>
+        <a href={withBase("/glossary/contract-driven-ai-development/")}>Contract-Driven AI Development</a>
+        <p>C-DAD, the discipline the book and toolkit are both built around.</p>
+      </li>
+      <li>
+        <a href={withBase("/glossary/extraction/")}>Extraction</a>
+        <p>Pulling a capability out of tribal knowledge and into a contract.</p>
+      </li>
+      <li>
+        <a href={withBase("/glossary/legibility/")}>Legibility</a>
+        <p>Whether a capability's behavior can be understood without tribal knowledge.</p>
+      </li>
+      <li>
+        <a href={withBase("/glossary/minimum-viable-contract/")}>Minimum Viable Contract</a>
+        <p>The smallest set of fields a contract needs to be useful.</p>
+      </li>
+      <li>
+        <a href={withBase("/glossary/non-goals/")}>Non-Goals</a>
+        <p>The explicit statement of what a capability deliberately does not do.</p>
+      </li>
+      <li>
+        <a href={withBase("/glossary/tribal-knowledge/")}>Tribal Knowledge</a>
+        <p>Undocumented operational knowledge that lives in people's heads, not in the system.</p>
+      </li>
+    </ul>
+  </section>
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/how-c-dad-works/")}>&larr; How C-DAD Works</a>
+    <a href={withBase("/comparisons/")}>Comparisons &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .cluster-list {
