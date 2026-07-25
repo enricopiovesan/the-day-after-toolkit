@@ -18,6 +18,7 @@
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Roboto Mono", monospace;
   --content-width: 46rem;
+  --content-width-wide: 73.75rem;
   --header-height: 4rem;
 }
 
@@ -77,7 +78,7 @@ a {
 }
 
 .wrap--wide {
-  max-width: 72rem;
+  max-width: var(--content-width-wide);
 }
 
 .btn {

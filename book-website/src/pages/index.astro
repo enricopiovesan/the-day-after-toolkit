@@ -5,7 +5,6 @@ import SectionHeading from "../components/SectionHeading.astro";
 import PanelSection from "../components/PanelSection.astro";
 import CardRow from "../components/CardRow.astro";
 import AudienceGrid from "../components/AudienceGrid.astro";
-import BuyLinks from "../components/BuyLinks.astro";
 import { withBase } from "../utils/url";
 
 // Section copy is written from the book's own manuscript (Chapters 1-5),
@@ -188,13 +187,6 @@ const heroTiming = `
     </div>
   </section>
 
-  <section class="cta">
-    <div class="wrap">
-      <h2>Get the book.</h2>
-      <p class="cta__subtitle">A concrete recipe for every role in a software organization, read the opening chapter free.</p>
-      <BuyLinks />
-    </div>
-  </section>
 </BaseLayout>
 
 <script>
@@ -237,7 +229,8 @@ const heroTiming = `
 <style>
   .hero-wrap {
     position: relative;
-    margin: calc(-1 * var(--header-height)) 0 0;
+    max-width: 1400px;
+    margin: calc(-1 * var(--header-height)) auto 0;
   }
 
   .hero {
@@ -451,30 +444,4 @@ const heroTiming = `
     margin: 0 auto;
   }
 
-  .cta {
-    background: var(--coral);
-    color: #201008;
-    text-align: center;
-    padding: 6rem 0;
-  }
-
-  .cta h2 {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    margin-bottom: 0.75rem;
-  }
-
-  .cta__subtitle {
-    max-width: 32rem;
-    margin: 0 auto 1.5rem;
-    opacity: 0.85;
-  }
-
-  .cta :global(.btn--coral) {
-    background: #201008;
-    color: #f5f3ee;
-  }
-
-  .cta :global(.btn--outline) {
-    border-color: rgba(32, 16, 8, 0.4);
-  }
 </style>

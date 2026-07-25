@@ -2,19 +2,19 @@
 import { withBase } from "../utils/url";
 
 const tiles = [
-  { title: "Software\nDevelopers", tag: "SOFTWARE ENGINEERS", color: "pink", image: "/images/team-developers.jpg" },
-  { title: "Project\nManagers", tag: "PROJECT OWNERS", color: "sage", image: "/images/team-project-managers.jpg" },
-  { title: "Software\nArchitects", tag: "TECH LEADS", color: "gray", image: "/images/team-architects.jpg" },
-  { title: "UI/XD\nDesigners", tag: "SOFTWARE ENGINEERS", color: "tan", image: "/images/team-designers.jpg" },
-  { title: "Leadership\nTeams", tag: "CEOs, CTOs", color: "coral", image: "/images/team-leadership.jpg" },
-  { title: "Engineering\nManagers", tag: "ENGINEERING DIRECTORS", color: "pink", image: "/images/team-engineering-managers.jpg" },
+  { title: "Software\nDevelopers", tag: "SOFTWARE ENGINEERS", color: "pink", image: "/images/team-developers.jpg", href: "/for-developers/" },
+  { title: "Project\nManagers", tag: "PROJECT OWNERS", color: "sage", image: "/images/team-project-managers.jpg", href: "/for-product-managers/" },
+  { title: "Software\nArchitects", tag: "TECH LEADS", color: "gray", image: "/images/team-architects.jpg", href: "/for-architects/" },
+  { title: "UI/XD\nDesigners", tag: "SOFTWARE ENGINEERS", color: "tan", image: "/images/team-designers.jpg", href: "/for-designers/" },
+  { title: "Leadership\nTeams", tag: "CEOs, CTOs", color: "coral", image: "/images/team-leadership.jpg", href: "/for-engineering-leaders/" },
+  { title: "Engineering\nManagers", tag: "ENGINEERING DIRECTORS", color: "pink", image: "/images/team-engineering-managers.jpg", href: "/for-engineering-leaders/" },
 ];
 ---
 
 <div class="audience-grid">
   {
     tiles.map((tile) => (
-      <div class="tile">
+      <a class="tile" href={withBase(tile.href)}>
         <div class={`tile__header tile__header--${tile.color}`}>
           <p class="tile__tag">
             <span class="tick" aria-hidden="true" />
@@ -29,8 +29,10 @@ const tiles = [
             ))}
           </h3>
         </div>
-        <img class="tile__image" src={withBase(tile.image)} alt="" loading="lazy" />
-      </div>
+        <div class={`tile__image-wrap tile__image-wrap--${tile.color}`}>
+          <img class="tile__image" src={withBase(tile.image)} alt="" loading="lazy" />
+        </div>
+      </a>
     ))
   }
 </div>
@@ -43,10 +45,13 @@ const tiles = [
   }
 
   .tile {
+    display: block;
     border-radius: 0.75rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    color: inherit;
+    text-decoration: none;
   }
 
   .tile__header {
@@ -86,11 +91,35 @@ const tiles = [
     line-height: 1.2;
   }
 
+  .tile__image-wrap {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .tile__image-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: color;
+  }
+
+  .tile__image-wrap--pink::after { background: var(--pink); }
+  .tile__image-wrap--sage::after { background: var(--sage); }
+  .tile__image-wrap--gray::after { background: var(--gray-light); }
+  .tile__image-wrap--tan::after { background: var(--tan); }
+  .tile__image-wrap--coral::after { background: var(--coral); }
+
   .tile__image {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    height: 100%;
     object-fit: cover;
     display: block;
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .tile:hover .tile__image {
+    filter: grayscale(0.6) contrast(1.05);
   }
 
   @media (max-width: 720px) {
