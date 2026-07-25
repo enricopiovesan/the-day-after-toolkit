@@ -20,16 +20,18 @@ const { align = "left" } = Astro.props;
   }
 
   .section-heading h2 {
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    font-weight: 300;
+    line-height: 1.2;
     white-space: nowrap;
   }
 
   .section-heading--left {
-    flex-direction: row;
+    flex-direction: row-reverse;
   }
 
   .section-heading--right {
-    flex-direction: row-reverse;
+    flex-direction: row;
   }
 
   .section-heading .divider {
