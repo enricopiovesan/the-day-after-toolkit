@@ -18,6 +18,7 @@
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Roboto Mono", monospace;
   --content-width: 46rem;
+  --header-height: 4rem;
 }
 
 :root[data-theme="dark"] {
@@ -55,6 +56,7 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   transition: background-color 0.2s ease, color 0.2s ease;
+  padding-top: var(--header-height);
 }
 
 h1, h2, h3 {
@@ -128,7 +130,7 @@ a {
 .subpage-body h2 {
   font-size: 1.5rem;
   margin: 2.5rem 0 1rem;
-  scroll-margin-top: 6.5rem;
+  scroll-margin-top: calc(var(--header-height) + 1.5rem);
 }
 
 .subpage-body p {
@@ -142,29 +144,6 @@ a {
   color: var(--text-muted);
 }
 
-/* Homepage sunrise: while the hero plays its night-to-day sequence, the
-   page around it lightens in sync. Deep night blue (sampled from the
-   night frame's sky) warms up to the theme background. Classes are set
-   by the homepage's sunrise scripts, and timing vars are copied from the
-   hero so the two animations can never drift apart. */
-html.sunrise-pending body {
-  background: #0c1017;
-}
-
-html.sunrise-play body {
-  animation: sunrise-bg
-    calc(var(--hero-zoom, 5.7s) - var(--hero-first-hold, 1.2s)) ease-in-out
-    var(--hero-first-hold, 1.2s) both;
-}
-
-@keyframes sunrise-bg {
-  from {
-    background-color: #0c1017;
-  }
-  to {
-    background-color: var(--bg);
-  }
-}
 
 .divider {
   height: 1px;
