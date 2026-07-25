@@ -1,125 +1,121 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import BuyLinks from "../../components/BuyLinks.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Contract"
   description="A contract is the machine-readable and human-readable declaration of a capability: what it does, what it needs, what it promises, and what it explicitly refuses to do."
+  section="core-model"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Core Model</p>
-      <h1>Contract</h1>
+  <h1>Contract</h1>
 
-      <p>
-        A contract is the machine-readable and human-readable declaration
-        of a capability. It says what the capability does, what it
-        needs, what it promises, and what it explicitly does not do.
-        That last clause matters as much as the first three. Most
-        documentation describes behavior and stops there. A contract
-        also draws the edge around the behavior, on purpose, so the next
-        person, or the next agent, doesn't quietly expand scope just
-        because nothing told them not to.
-      </p>
-      <p>
-        The instinct, once tribal knowledge gets named as a problem, is
-        to write more of it down. A better wiki. Clearer onboarding
-        pages. Chapter 3 argues that this instinct, while well meaning,
-        treats a structural gap as a writing gap. A wiki page is prose,
-        built for a person to read and interpret, and interpretation is
-        precisely the step an AI agent can't reliably perform. Tell an
-        agent "retries are capped to avoid overloading the payment
-        processor during an outage" and it has to guess how that
-        sentence turns into a specific number, a specific exception, a
-        specific line it's allowed to touch. A contract removes the
-        guess by being structured instead of narrative, specific enough
-        for a human to trust and consistent enough for a machine to
-        parse without a person translating in between.
-      </p>
-      <p>
-        What a contract has to say breaks into four parts, and the
-        toolkit's schema treats each one as a distinct set of fields
-        rather than one big freeform paragraph. What the capability does
-        and why it exists, captured as business intent rather than
-        implementation detail. What it needs to run, its declared
-        inputs, each with a type and the business constraint behind it.
-        What it promises, its outputs and the guarantees attached to
-        each one. And what it explicitly refuses to do, its non-goals,
-        stated as plain declarative sentences instead of left implicit.
-        The Minimum Viable Contract page walks through every field this
-        produces.
-      </p>
-      <p>
-        That four-part shape is the floor, not the ceiling. The minimum
-        viable contract, walked through field by field on its own page,
-        covers exactly what's required to make a capability legible at
-        all. An extended contract layers on more: named dependencies on
-        other capabilities, performance thresholds, how specific error
-        conditions should behave, which trust zone the capability
-        operates in, rate limits, constraints inherited from a policy
-        set somewhere higher up, and a constraint history that preserves
-        the incidents that shaped the current behavior. Most teams don't
-        need the extended fields for their first few contracts. They
-        become worth the effort once a capability sits somewhere risky
-        enough that the minimum fields stop capturing everything a
-        reviewer needs to trust it.
-      </p>
-      <p>
-        There's a writing rule underneath every field in the schema, and
-        it's worth stating plainly because it's easy to violate without
-        noticing: write intent, guarantees, and boundaries in plain
-        language, and if a field starts describing retries, caches,
-        queues, polling, or backoff just because that happens to be how
-        the capability is currently built, rewrite it toward the
-        business rule that actually justifies the behavior. The test is
-        whether a practitioner could understand the capability from the
-        contract alone, without opening the code to reverse-engineer
-        what the prose was dancing around. A contract that restates
-        method names and internal optimization choices has failed at
-        this even if every field is technically filled in.
-      </p>
-      <p>
-        A contract isn't one file. It's a triple: `contract.yaml` as the
-        human-authored source of truth, plus `contract.json` and
-        `contract.md` generated from it for machine consumption and
-        readable rendering. That split only works if the discipline
-        holds, the YAML gets edited and the other two get regenerated
-        from it, not the other way around. Editing the generated
-        Markdown by hand and leaving the YAML stale is one of the most
-        common ways a contract quietly stops being true, covered in
-        detail on the anti-patterns page.
-      </p>
-      <p>
-        Contracts don't stay static once written. Each one carries a
-        `state`, draft, active, deprecated, or retired, and a contract
-        can't move to active while its open questions are still
-        unresolved. `cdad validate` is what enforces this before a
-        change lands: it checks the schema, the versioning rules, and
-        whether the generated artifacts still match the source YAML, and
-        it can be wired into a pre-commit hook so drift gets caught
-        before it merges rather than after someone's already trusted a
-        stale answer.
-      </p>
-      <p>
-        This is the hinge point of the book's argument, not incidentally
-        Chapter 3's position in the table of contents. Everything before
-        it names the problem: tribal knowledge, illegible systems, agents
-        that can't safely act without a person translating first.
-        Everything after it is what you build once you accept that a
-        contract, not a better wiki, is the actual fix.
-      </p>
+  <p>
+    A contract is the machine-readable and human-readable declaration
+    of a capability. It says what the capability does, what it
+    needs, what it promises, and what it explicitly does not do.
+    That last clause matters as much as the first three. Most
+    documentation describes behavior and stops there. A contract
+    also draws the edge around the behavior, on purpose, so the next
+    person, or the next agent, doesn't quietly expand scope just
+    because nothing told them not to.
+  </p>
+  <p>
+    The instinct, once tribal knowledge gets named as a problem, is
+    to write more of it down. A better wiki. Clearer onboarding
+    pages. Chapter 3 argues that this instinct, while well meaning,
+    treats a structural gap as a writing gap. A wiki page is prose,
+    built for a person to read and interpret, and interpretation is
+    precisely the step an AI agent can't reliably perform. Tell an
+    agent "retries are capped to avoid overloading the payment
+    processor during an outage" and it has to guess how that
+    sentence turns into a specific number, a specific exception, a
+    specific line it's allowed to touch. A contract removes the
+    guess by being structured instead of narrative, specific enough
+    for a human to trust and consistent enough for a machine to
+    parse without a person translating in between.
+  </p>
+  <p>
+    What a contract has to say breaks into four parts, and the
+    toolkit's schema treats each one as a distinct set of fields
+    rather than one big freeform paragraph. What the capability does
+    and why it exists, captured as business intent rather than
+    implementation detail. What it needs to run, its declared
+    inputs, each with a type and the business constraint behind it.
+    What it promises, its outputs and the guarantees attached to
+    each one. And what it explicitly refuses to do, its non-goals,
+    stated as plain declarative sentences instead of left implicit.
+    The Minimum Viable Contract page walks through every field this
+    produces.
+  </p>
+  <p>
+    That four-part shape is the floor, not the ceiling. The minimum
+    viable contract, walked through field by field on its own page,
+    covers exactly what's required to make a capability legible at
+    all. An extended contract layers on more: named dependencies on
+    other capabilities, performance thresholds, how specific error
+    conditions should behave, which trust zone the capability
+    operates in, rate limits, constraints inherited from a policy
+    set somewhere higher up, and a constraint history that preserves
+    the incidents that shaped the current behavior. Most teams don't
+    need the extended fields for their first few contracts. They
+    become worth the effort once a capability sits somewhere risky
+    enough that the minimum fields stop capturing everything a
+    reviewer needs to trust it.
+  </p>
+  <p>
+    There's a writing rule underneath every field in the schema, and
+    it's worth stating plainly because it's easy to violate without
+    noticing: write intent, guarantees, and boundaries in plain
+    language, and if a field starts describing retries, caches,
+    queues, polling, or backoff just because that happens to be how
+    the capability is currently built, rewrite it toward the
+    business rule that actually justifies the behavior. The test is
+    whether a practitioner could understand the capability from the
+    contract alone, without opening the code to reverse-engineer
+    what the prose was dancing around. A contract that restates
+    method names and internal optimization choices has failed at
+    this even if every field is technically filled in.
+  </p>
+  <p>
+    A contract isn't one file. It's a triple: `contract.yaml` as the
+    human-authored source of truth, plus `contract.json` and
+    `contract.md` generated from it for machine consumption and
+    readable rendering. That split only works if the discipline
+    holds, the YAML gets edited and the other two get regenerated
+    from it, not the other way around. Editing the generated
+    Markdown by hand and leaving the YAML stale is one of the most
+    common ways a contract quietly stops being true, covered in
+    detail on the anti-patterns page.
+  </p>
+  <p>
+    Contracts don't stay static once written. Each one carries a
+    `state`, draft, active, deprecated, or retired, and a contract
+    can't move to active while its open questions are still
+    unresolved. `cdad validate` is what enforces this before a
+    change lands: it checks the schema, the versioning rules, and
+    whether the generated artifacts still match the source YAML, and
+    it can be wired into a pre-commit hook so drift gets caught
+    before it merges rather than after someone's already trusted a
+    stale answer.
+  </p>
+  <p>
+    This is the hinge point of the book's argument, not incidentally
+    Chapter 3's position in the table of contents. Everything before
+    it names the problem: tribal knowledge, illegible systems, agents
+    that can't safely act without a person translating first.
+    Everything after it is what you build once you accept that a
+    contract, not a better wiki, is the actual fix.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/core-model/capability/")}>&larr; Capability</a>
-        <a href={withBase("/core-model/capability-graph/")}>Capability Graph &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/core-model/capability/")}>&larr; Capability</a>
+    <a href={withBase("/core-model/capability-graph/")}>Capability Graph &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

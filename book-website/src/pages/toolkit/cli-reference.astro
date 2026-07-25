@@ -1,78 +1,74 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import BuyLinks from "../../components/BuyLinks.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="CLI Reference"
   description="A quick tour of all five cdad commands, check, roadmap, init, validate, and graph, in one place. For the deeper walkthrough of each one, see How C-DAD Works."
+  section="toolkit"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Toolkit</p>
-      <h1>CLI Reference</h1>
+  <h1>CLI Reference</h1>
 
-      <p>
-        Five commands cover the full loop. This page is the quick version
-        of each. For a longer walkthrough of any single command, including
-        flags and sample output, the dedicated pages under
-        <a href={withBase("/how-c-dad-works/")}>How C-DAD Works</a> go
-        deeper than what's here.
-      </p>
-      <p>
-        <code>cdad check</code> establishes the baseline. It combines a
-        static scan of the repository with a short legibility
-        questionnaire covering up to five capabilities, then writes a
-        score from zero to ten, with a band, to <code>cdad-report.md</code>.
-        Everything else in the loop starts from this file.
-      </p>
-      <p>
-        <code>cdad roadmap</code> reads that report and prioritizes.
-        It factors in business criticality and touchpoint frequency
-        alongside the tribal knowledge density the check already
-        surfaced, multiplies the three together, and writes a ranked
-        list to <code>cdad-roadmap.md</code>.
-      </p>
-      <p>
-        <code>cdad init &lt;capability-id&gt;</code> scaffolds a contract.
-        Given a capability ID in <code>domain/subdomain/action</code> form,
-        it creates the contract triple, YAML, JSON, and Markdown, under
-        <code>cdad/</code>, and can pull relevant notes straight from the
-        roadmap into the new contract.
-      </p>
-      <p>
-        <code>cdad validate &lt;path&gt;</code> keeps contracts honest over
-        time. It checks schema conformance, versioning rules, and whether
-        the generated JSON and Markdown artifacts still match the YAML
-        source of truth. Run it with <code>--all</code> across the whole
-        repo, <code>--strict</code> to treat warnings as failures, or
-        <code>--install-hook</code> to run it automatically before every
-        commit.
-      </p>
-      <p>
-        <code>cdad graph</code> renders every contracted capability and
-        its dependencies as Mermaid, JSON, and Markdown output at once. The
-        JSON adjacency list is the stable, agent-consumable format if
-        you're building anything on top of the graph rather than just
-        looking at it.
-      </p>
-      <p>
-        Put together, the recommended pattern is check, roadmap, init,
-        validate, graph, and then check again once the work has landed, so
-        the score becomes a trend you can watch instead of a single
-        snapshot.
-      </p>
+  <p>
+    Five commands cover the full loop. This page is the quick version
+    of each. For a longer walkthrough of any single command, including
+    flags and sample output, the dedicated pages under
+    <a href={withBase("/how-c-dad-works/")}>How C-DAD Works</a> go
+    deeper than what's here.
+  </p>
+  <p>
+    <code>cdad check</code> establishes the baseline. It combines a
+    static scan of the repository with a short legibility
+    questionnaire covering up to five capabilities, then writes a
+    score from zero to ten, with a band, to <code>cdad-report.md</code>.
+    Everything else in the loop starts from this file.
+  </p>
+  <p>
+    <code>cdad roadmap</code> reads that report and prioritizes.
+    It factors in business criticality and touchpoint frequency
+    alongside the tribal knowledge density the check already
+    surfaced, multiplies the three together, and writes a ranked
+    list to <code>cdad-roadmap.md</code>.
+  </p>
+  <p>
+    <code>cdad init &lt;capability-id&gt;</code> scaffolds a contract.
+    Given a capability ID in <code>domain/subdomain/action</code> form,
+    it creates the contract triple, YAML, JSON, and Markdown, under
+    <code>cdad/</code>, and can pull relevant notes straight from the
+    roadmap into the new contract.
+  </p>
+  <p>
+    <code>cdad validate &lt;path&gt;</code> keeps contracts honest over
+    time. It checks schema conformance, versioning rules, and whether
+    the generated JSON and Markdown artifacts still match the YAML
+    source of truth. Run it with <code>--all</code> across the whole
+    repo, <code>--strict</code> to treat warnings as failures, or
+    <code>--install-hook</code> to run it automatically before every
+    commit.
+  </p>
+  <p>
+    <code>cdad graph</code> renders every contracted capability and
+    its dependencies as Mermaid, JSON, and Markdown output at once. The
+    JSON adjacency list is the stable, agent-consumable format if
+    you're building anything on top of the graph rather than just
+    looking at it.
+  </p>
+  <p>
+    Put together, the recommended pattern is check, roadmap, init,
+    validate, graph, and then check again once the work has landed, so
+    the score becomes a trend you can watch instead of a single
+    snapshot.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/toolkit/installation/")}>&larr; Installation</a>
-        <a href={withBase("/toolkit/github-repository/")}>GitHub Repository &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/toolkit/installation/")}>&larr; Installation</a>
+    <a href={withBase("/toolkit/github-repository/")}>GitHub Repository &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   code {

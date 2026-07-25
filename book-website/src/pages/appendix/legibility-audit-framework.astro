@@ -1,57 +1,54 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import BuyLinks from "../../components/BuyLinks.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Legibility Audit Framework"
   description="Four questions that score how safely a capability can be handed to someone who never lived through its history, human or agent. The starting point for any extraction program."
+  section="chapters"
+  crumbLabel="Legibility Audit Framework"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Appendix B</p>
-      <h1>Legibility Audit Framework</h1>
+  <h1>Legibility Audit Framework</h1>
 
-      <p>
-        Before you can decide what to extract first, you need a way to
-        measure how illegible a capability actually is. Not a gut feeling
-        about which parts of the codebase feel scary. A score.
-      </p>
-      <p>
-        The audit runs on one diagnostic question: could you hand this
-        capability to a capable engineer who's never spoken to your team,
-        and still expect a safe change, using only what the system makes
-        available? Underneath that question sit four more specific ones.
-        Can someone tell why the capability works this way, not just what
-        it does? Can they see what was tried before and why it failed?
-        Can they understand why it calls what it calls instead of the
-        obvious alternative? Can they find every exception path driven by
-        a customer, a regulation, or something that happened three years
-        ago?
-      </p>
-      <p>
-        Score each question a full point for yes, half a point for
-        partially, zero for no. Capabilities that score low aren't a
-        judgment on the engineers who built them. They're a map of where
-        tribal knowledge is doing the most load-bearing work, and
-        therefore where an agent (or a new hire) is most likely to walk
-        into something nobody wrote down.
-      </p>
-      <p>
-        The lowest-scoring capabilities are exactly the ones that feed
-        into the next step: ranking what actually gets extracted first.
-      </p>
+  <p>
+    Before you can decide what to extract first, you need a way to
+    measure how illegible a capability actually is. Not a gut feeling
+    about which parts of the codebase feel scary. A score.
+  </p>
+  <p>
+    The audit runs on one diagnostic question: could you hand this
+    capability to a capable engineer who's never spoken to your team,
+    and still expect a safe change, using only what the system makes
+    available? Underneath that question sit four more specific ones.
+    Can someone tell why the capability works this way, not just what
+    it does? Can they see what was tried before and why it failed?
+    Can they understand why it calls what it calls instead of the
+    obvious alternative? Can they find every exception path driven by
+    a customer, a regulation, or something that happened three years
+    ago?
+  </p>
+  <p>
+    Score each question a full point for yes, half a point for
+    partially, zero for no. Capabilities that score low aren't a
+    judgment on the engineers who built them. They're a map of where
+    tribal knowledge is doing the most load-bearing work, and
+    therefore where an agent (or a new hire) is most likely to walk
+    into something nobody wrote down.
+  </p>
+  <p>
+    The lowest-scoring capabilities are exactly the ones that feed
+    into the next step: ranking what actually gets extracted first.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/appendix/contract-schema-reference/")}>&larr; Contract Schema Reference</a>
-        <a href={withBase("/appendix/extraction-priority-matrix/")}>Extraction Priority Matrix &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/appendix/contract-schema-reference/")}>&larr; Contract Schema Reference</a>
+    <a href={withBase("/appendix/extraction-priority-matrix/")}>Extraction Priority Matrix &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

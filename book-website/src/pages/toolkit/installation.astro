@@ -1,67 +1,63 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import BuyLinks from "../../components/BuyLinks.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Installation"
   description="cdad is a CLI you install and run against a repository. Here's the shape of getting started, from installing the tool to running your first check."
+  section="toolkit"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Toolkit</p>
-      <h1>Installation</h1>
+  <h1>Installation</h1>
 
-      <p>
-        <code>cdad</code> is a command-line tool, not a service you sign up
-        for or a platform you migrate onto. You install it, you point it at
-        a repository, and it runs locally against the code that's already
-        there. There's no account to create and nothing to upload before
-        you can see what it does.
-      </p>
-      <p>
-        The practical starting point is to install the CLI from the
-        companion repository, following whatever install instructions are
-        published there for your environment, and confirm it's on your
-        path. From there, adoption doesn't require a plan or a kickoff
-        meeting. It requires one command.
-      </p>
-      <p>
-        Run <code>cdad check</code> in the root of the repository you want
-        to assess. That's the first command in the adoption loop for a
-        reason: it establishes a baseline before you've changed anything,
-        combining a static scan of the repo with a short questionnaire
-        about a handful of real capabilities, and writes the result to
-        <code>cdad-report.md</code>. Nothing about that first run commits
-        you to a full extraction program. It just tells you, honestly,
-        where the repo currently sits.
-      </p>
-      <p>
-        From that first report, the rest of the workflow follows in order,
-        <code>cdad roadmap</code> to prioritize, <code>cdad init</code> to
-        scaffold a contract, <code>cdad validate</code> to keep it honest,
-        and <code>cdad graph</code> to see how it connects to everything
-        else. None of those later steps require reinstalling anything or
-        reconfiguring the tool. The same CLI you installed for the first
-        check carries the whole loop.
-      </p>
-      <p>
-        If you're evaluating whether this fits your stack before
-        installing anything, the CLI reference and the repository itself
-        are the places to look. Both describe exactly what the tool does
-        without asking you to take it on faith first.
-      </p>
+  <p>
+    <code>cdad</code> is a command-line tool, not a service you sign up
+    for or a platform you migrate onto. You install it, you point it at
+    a repository, and it runs locally against the code that's already
+    there. There's no account to create and nothing to upload before
+    you can see what it does.
+  </p>
+  <p>
+    The practical starting point is to install the CLI from the
+    companion repository, following whatever install instructions are
+    published there for your environment, and confirm it's on your
+    path. From there, adoption doesn't require a plan or a kickoff
+    meeting. It requires one command.
+  </p>
+  <p>
+    Run <code>cdad check</code> in the root of the repository you want
+    to assess. That's the first command in the adoption loop for a
+    reason: it establishes a baseline before you've changed anything,
+    combining a static scan of the repo with a short questionnaire
+    about a handful of real capabilities, and writes the result to
+    <code>cdad-report.md</code>. Nothing about that first run commits
+    you to a full extraction program. It just tells you, honestly,
+    where the repo currently sits.
+  </p>
+  <p>
+    From that first report, the rest of the workflow follows in order,
+    <code>cdad roadmap</code> to prioritize, <code>cdad init</code> to
+    scaffold a contract, <code>cdad validate</code> to keep it honest,
+    and <code>cdad graph</code> to see how it connects to everything
+    else. None of those later steps require reinstalling anything or
+    reconfiguring the tool. The same CLI you installed for the first
+    check carries the whole loop.
+  </p>
+  <p>
+    If you're evaluating whether this fits your stack before
+    installing anything, the CLI reference and the repository itself
+    are the places to look. Both describe exactly what the tool does
+    without asking you to take it on faith first.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/toolkit/")}>&larr; Toolkit</a>
-        <a href={withBase("/toolkit/cli-reference/")}>CLI Reference &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/toolkit/")}>&larr; Toolkit</a>
+    <a href={withBase("/toolkit/cli-reference/")}>CLI Reference &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   code {

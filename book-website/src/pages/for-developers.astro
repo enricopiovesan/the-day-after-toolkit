@@ -1,59 +1,56 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageLayout from "../layouts/SubpageLayout.astro";
 import BuyLinks from "../components/BuyLinks.astro";
 import { withBase } from "../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="The Developer"
   description="Agents write production code today, in real repositories, against real requirements. Chapter 8 asks the question most developers haven't said out loud yet, and answers it honestly."
+  section="chapters"
+  crumbLabel="Ch.8: The Developer"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Chapter 8 &middot; Part III: The Transformation</p>
-      <h1>The Developer</h1>
+  <h1>The Developer</h1>
 
-      <p>
-        Agents write production code today. Not in a sandbox, not in a
-        demo. In real repositories, against real requirements, producing
-        code that gets reviewed, approved, and merged into systems people
-        depend on. If your team hasn't seen that yet, you will soon. If
-        you have, you've probably felt the question that follows, the one
-        most developers haven't said out loud because saying it makes it
-        more real than it's comfortable to be.
-      </p>
-      <p>
-        The question isn't whether agents can write code. That's settled.
-        It's what this means for you, specifically, in the role you built
-        with the skills you spent years developing. Chapter 8 is blunt
-        about the answer depending almost entirely on which developer you
-        are. A developer whose value has mostly been the volume and
-        velocity of code produced, tickets closed, features shipped, is in
-        a genuinely hard spot, and pretending otherwise isn't kindness.
-        That's exactly the work agents are getting better at.
-      </p>
-      <p>
-        A different developer, one whose value was always harder to
-        measure because it lived in judgment rather than output, is in the
-        opposite position. The one who knew why a constraint existed, not
-        just what it did. Who could look at an agent's output and know,
-        before running a test, that it would fail on the edge case nobody
-        documented. That developer isn't being replaced. They're in more
-        demand than ever, because code is flowing at a volume no
-        engineering org has had to govern before, and someone has to be
-        accountable for what it does. Chapter 8 is about becoming that
-        developer on purpose.
-      </p>
+  <p>
+    Agents write production code today. Not in a sandbox, not in a
+    demo. In real repositories, against real requirements, producing
+    code that gets reviewed, approved, and merged into systems people
+    depend on. If your team hasn't seen that yet, you will soon. If
+    you have, you've probably felt the question that follows, the one
+    most developers haven't said out loud because saying it makes it
+    more real than it's comfortable to be.
+  </p>
+  <p>
+    The question isn't whether agents can write code. That's settled.
+    It's what this means for you, specifically, in the role you built
+    with the skills you spent years developing. Chapter 8 is blunt
+    about the answer depending almost entirely on which developer you
+    are. A developer whose value has mostly been the volume and
+    velocity of code produced, tickets closed, features shipped, is in
+    a genuinely hard spot, and pretending otherwise isn't kindness.
+    That's exactly the work agents are getting better at.
+  </p>
+  <p>
+    A different developer, one whose value was always harder to
+    measure because it lived in judgment rather than output, is in the
+    opposite position. The one who knew why a constraint existed, not
+    just what it did. Who could look at an agent's output and know,
+    before running a test, that it would fail on the edge case nobody
+    documented. That developer isn't being replaced. They're in more
+    demand than ever, because code is flowing at a volume no
+    engineering org has had to govern before, and someone has to be
+    accountable for what it does. Chapter 8 is about becoming that
+    developer on purpose.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Chapter navigation">
-        <a href={withBase("/for-architects/")}>&larr; Chapter 7: The Architect</a>
-        <a href={withBase("/for-product-managers/")}>Chapter 9: The PM / PO &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/for-architects/")}>&larr; Chapter 7: The Architect</a>
+    <a href={withBase("/for-product-managers/")}>Chapter 9: The PM / PO &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

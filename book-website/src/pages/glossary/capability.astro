@@ -1,45 +1,42 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Capability: Glossary"
   description="A capability is a business-facing unit of behavior, with inputs, outputs, and explicit non-goals, that a contract can describe and a graph can connect."
+  section="glossary"
+  crumbLabel="Capability"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Glossary</p>
-      <h1>Capability</h1>
+  <h1>Capability</h1>
 
-      <p>
-        Not every function or class deserves its own contract. A
-        capability is the business-facing slice that does, the retry
-        policy, the discount calculation, the onboarding flow. It has a
-        name a product person would recognize, plus inputs, outputs, and
-        a stated boundary of what it deliberately leaves out.
-      </p>
-      <p>
-        Capabilities are the unit the whole toolkit is built around.
-        Contracts describe capabilities. The capability graph maps how
-        they depend on each other. <code>cdad init</code> scaffolds one
-        capability at a time, in <code>domain/subdomain/action</code>
-        form, so the granularity stays consistent as a repo grows.
-      </p>
-      <p>
-        Get the boundary wrong, usually by leaving the
-        <a href={withBase("/glossary/non-goals/")}>non-goals</a> empty,
-        and the capability's <a href={withBase("/glossary/contract/")}>contract</a>
-        stops meaning anything precise.
-      </p>
+  <p>
+    Not every function or class deserves its own contract. A
+    capability is the business-facing slice that does, the retry
+    policy, the discount calculation, the onboarding flow. It has a
+    name a product person would recognize, plus inputs, outputs, and
+    a stated boundary of what it deliberately leaves out.
+  </p>
+  <p>
+    Capabilities are the unit the whole toolkit is built around.
+    Contracts describe capabilities. The capability graph maps how
+    they depend on each other. <code>cdad init</code> scaffolds one
+    capability at a time, in <code>domain/subdomain/action</code>
+    form, so the granularity stays consistent as a repo grows.
+  </p>
+  <p>
+    Get the boundary wrong, usually by leaving the
+    <a href={withBase("/glossary/non-goals/")}>non-goals</a> empty,
+    and the capability's <a href={withBase("/glossary/contract/")}>contract</a>
+    stops meaning anything precise.
+  </p>
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/glossary/")}>&larr; Glossary</a>
-        <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/glossary/")}>&larr; Glossary</a>
+    <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

@@ -1,66 +1,62 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import BuyLinks from "../../components/BuyLinks.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="cdad check"
   description="cdad check scores how agent-ready your repo is right now, combining a static scan with a short legibility questionnaire, and writes the baseline report every later command reads."
+  section="how-c-dad-works"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">How C-DAD Works</p>
-      <h1>cdad check</h1>
+  <h1>cdad check</h1>
 
-      <p>
-        <code>cdad check</code> is where the workflow starts. It asks one
-        question about your repository: if an agent had to make a safe
-        change here today, using only what the system makes available,
-        how far would it get? The command answers that by combining two
-        kinds of evidence. First a static scan of the repo itself, then a
-        short questionnaire that walks through up to five capabilities and
-        asks the same four legibility questions for each one. The result
-        is a single score from zero to ten, plus a band that says roughly
-        where the repo sits.
-      </p>
-      <p>
-        The score isn't the point. The report is. Every run writes
-        <code>cdad-report.md</code>, and that file is what <code>cdad roadmap</code>
-        reads next. Skip the check and there's nothing for the roadmap
-        step to prioritize against, so this is genuinely the command
-        everything downstream depends on.
-      </p>
-      <p>
-        A handful of flags let you shape the run. <code>--capabilities &lt;n&gt;</code>
-        changes how many capabilities get walked through the questionnaire,
-        useful if five feels like too many or too few for a first pass.
-        <code>--skip-scan</code> and <code>--skip-questions</code> let you run
-        just one half of the assessment when you already trust the other
-        half. <code>--output &lt;path&gt;</code> moves the report somewhere other
-        than the repo root, and <code>--format json</code> swaps the Markdown
-        report for a machine-readable one if you're feeding the result into
-        other tooling instead of reading it yourself.
-      </p>
-      <p>
-        Run it again later and you get a second data point, not just a
-        second score. Comparing two reports over a few months is the
-        clearest way to see whether the extraction work is actually paying
-        off.
-      </p>
+  <p>
+    <code>cdad check</code> is where the workflow starts. It asks one
+    question about your repository: if an agent had to make a safe
+    change here today, using only what the system makes available,
+    how far would it get? The command answers that by combining two
+    kinds of evidence. First a static scan of the repo itself, then a
+    short questionnaire that walks through up to five capabilities and
+    asks the same four legibility questions for each one. The result
+    is a single score from zero to ten, plus a band that says roughly
+    where the repo sits.
+  </p>
+  <p>
+    The score isn't the point. The report is. Every run writes
+    <code>cdad-report.md</code>, and that file is what <code>cdad roadmap</code>
+    reads next. Skip the check and there's nothing for the roadmap
+    step to prioritize against, so this is genuinely the command
+    everything downstream depends on.
+  </p>
+  <p>
+    A handful of flags let you shape the run. <code>--capabilities &lt;n&gt;</code>
+    changes how many capabilities get walked through the questionnaire,
+    useful if five feels like too many or too few for a first pass.
+    <code>--skip-scan</code> and <code>--skip-questions</code> let you run
+    just one half of the assessment when you already trust the other
+    half. <code>--output &lt;path&gt;</code> moves the report somewhere other
+    than the repo root, and <code>--format json</code> swaps the Markdown
+    report for a machine-readable one if you're feeding the result into
+    other tooling instead of reading it yourself.
+  </p>
+  <p>
+    Run it again later and you get a second data point, not just a
+    second score. Comparing two reports over a few months is the
+    clearest way to see whether the extraction work is actually paying
+    off.
+  </p>
 
-      <pre><code>cdad check
+  <pre><code>cdad check
 cdad check --capabilities 8 --format json</code></pre>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/how-c-dad-works/")}>&larr; How C-DAD Works</a>
-        <a href={withBase("/how-c-dad-works/cdad-roadmap/")}>cdad roadmap &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/how-c-dad-works/")}>&larr; How C-DAD Works</a>
+    <a href={withBase("/how-c-dad-works/cdad-roadmap/")}>cdad roadmap &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   code {

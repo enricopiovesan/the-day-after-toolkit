@@ -1,126 +1,122 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import BuyLinks from "../../components/BuyLinks.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Capability Graph"
   description="The capability graph is the directed dependency map of every contract in a repo. It shows how capabilities connect, where change can propagate, and what still needs extraction work."
+  section="core-model"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Core Model</p>
-      <h1>Capability Graph</h1>
+  <h1>Capability Graph</h1>
 
-      <p>
-        The capability graph is the directed dependency map of all
-        contracts in a repository. It shows how capabilities connect to
-        each other, where a change in one is likely to propagate into
-        another, and which areas of the system still haven't been
-        extracted at all. A contract makes one piece of business logic
-        legible. The graph is what you get once enough of those
-        contracts exist that the connections between them become
-        visible instead of assumed.
-      </p>
-      <p>
-        The graph isn't hand-drawn or maintained separately from the
-        contracts it represents. It's generated. `cdad graph` reads
-        every contract in the repo and renders the result three ways: a
-        Mermaid diagram for humans to look at, a Markdown summary, and a
-        JSON adjacency list that's meant to be the stable, machine-
-        consumable format. That JSON output is deliberately treated as
-        the one to depend on if you're feeding graph state into other
-        tooling. Mermaid is for a person scanning a diagram. JSON is for
-        an agent that needs to walk the dependency chain programmatically
-        without parsing a picture.
-      </p>
-      <p>
-        On disk, that render lands as three files: `cdad-graph.mmd` for
-        the Mermaid source, `cdad-graph.json` for the adjacency list,
-        and `cdad-graph.md` for a readable summary, and each output can
-        be switched off independently with `--no-mermaid` or `--no-json`
-        if a workflow only needs one of them. The Markdown summary
-        reports coverage in plain terms too, something close to "N
-        capabilities contracted across M domains," which is a fast way
-        to answer "how much of this system actually declares itself"
-        without opening the diagram at all.
-      </p>
-      <p>
-        The graph can be scoped rather than rendered whole every time.
-        `--capability` narrows it to one node and its neighbors,
-        `--domain` narrows it to a business area, and `--state` filters
-        by lifecycle state so you can, for instance, look only at
-        capabilities still marked draft. That scoping matters in a
-        codebase of any real size, because a full-repo graph gets
-        visually noisy fast, and most questions people actually ask are
-        local: what does this one capability depend on, and what depends
-        on it.
-      </p>
-      <p>
-        `--output` redirects where those three files land, useful if a
-        team wants graph artifacts checked into a docs folder rather
-        than sitting at the repo root, and it's the kind of small option
-        that matters more than it sounds like once graph generation
-        becomes a step in CI rather than something someone runs by hand
-        occasionally. A graph that only gets regenerated when a person
-        remembers to is a graph that's usually a little stale, and a
-        stale graph is worse than no graph, because it looks
-        authoritative right up until someone trusts an edge that no
-        longer exists.
-      </p>
-      <p>
-        "Where change can propagate" is the practical payoff of drawing
-        the edges explicitly. If `payment/retry` depends on
-        `payment/gateway-status`, that dependency shows up as an edge in
-        the graph, not as something a reviewer has to reconstruct from
-        memory or from reading both pieces of code side by side. Change
-        the gateway-status capability and the graph tells you, before
-        you ship, what else is downstream of that change. That's the
-        difference between a review that catches a breaking change and
-        one that catches it in production three weeks later.
-      </p>
-      <p>
-        The graph is also a coverage map, whether or not that was the
-        intent behind checking it. A capability with no contract simply
-        doesn't appear as a node, which means gaps in extraction work
-        show up as literal blank space rather than something you'd have
-        to go looking for. Running `cdad check` again after a round of
-        extraction, the last stage in the toolkit's recommended workflow,
-        is partly about watching that blank space shrink over time as
-        more of the system actually declares itself.
-      </p>
-      <p>
-        The graph also inherits the three properties Chapter 4 assigns to
-        a capability itself. Every node is headless, so the graph
-        doesn't care whether a capability backs a web app or an agent
-        calling it directly. Every node is portable, so an edge means
-        the same thing regardless of which service happens to host
-        either end of it. And every node is contract-defined, which is
-        the property that makes the whole graph trustworthy in the
-        first place, since an edge only exists because a contract
-        declared the dependency, not because someone eyeballed the code
-        and guessed.
-      </p>
-      <p>
-        Chapter 4 frames the graph as the answer to a specific question:
-        a contract makes one piece of logic legible, so what happens
-        once every piece is? The result, per the chapter, isn't a
-        diagram built for a slide deck. It's a structure a new hire can
-        read in twenty minutes instead of losing two days to, and a
-        structure an agent can navigate directly instead of trying to
-        infer from scattered files.
-      </p>
+  <p>
+    The capability graph is the directed dependency map of all
+    contracts in a repository. It shows how capabilities connect to
+    each other, where a change in one is likely to propagate into
+    another, and which areas of the system still haven't been
+    extracted at all. A contract makes one piece of business logic
+    legible. The graph is what you get once enough of those
+    contracts exist that the connections between them become
+    visible instead of assumed.
+  </p>
+  <p>
+    The graph isn't hand-drawn or maintained separately from the
+    contracts it represents. It's generated. `cdad graph` reads
+    every contract in the repo and renders the result three ways: a
+    Mermaid diagram for humans to look at, a Markdown summary, and a
+    JSON adjacency list that's meant to be the stable, machine-
+    consumable format. That JSON output is deliberately treated as
+    the one to depend on if you're feeding graph state into other
+    tooling. Mermaid is for a person scanning a diagram. JSON is for
+    an agent that needs to walk the dependency chain programmatically
+    without parsing a picture.
+  </p>
+  <p>
+    On disk, that render lands as three files: `cdad-graph.mmd` for
+    the Mermaid source, `cdad-graph.json` for the adjacency list,
+    and `cdad-graph.md` for a readable summary, and each output can
+    be switched off independently with `--no-mermaid` or `--no-json`
+    if a workflow only needs one of them. The Markdown summary
+    reports coverage in plain terms too, something close to "N
+    capabilities contracted across M domains," which is a fast way
+    to answer "how much of this system actually declares itself"
+    without opening the diagram at all.
+  </p>
+  <p>
+    The graph can be scoped rather than rendered whole every time.
+    `--capability` narrows it to one node and its neighbors,
+    `--domain` narrows it to a business area, and `--state` filters
+    by lifecycle state so you can, for instance, look only at
+    capabilities still marked draft. That scoping matters in a
+    codebase of any real size, because a full-repo graph gets
+    visually noisy fast, and most questions people actually ask are
+    local: what does this one capability depend on, and what depends
+    on it.
+  </p>
+  <p>
+    `--output` redirects where those three files land, useful if a
+    team wants graph artifacts checked into a docs folder rather
+    than sitting at the repo root, and it's the kind of small option
+    that matters more than it sounds like once graph generation
+    becomes a step in CI rather than something someone runs by hand
+    occasionally. A graph that only gets regenerated when a person
+    remembers to is a graph that's usually a little stale, and a
+    stale graph is worse than no graph, because it looks
+    authoritative right up until someone trusts an edge that no
+    longer exists.
+  </p>
+  <p>
+    "Where change can propagate" is the practical payoff of drawing
+    the edges explicitly. If `payment/retry` depends on
+    `payment/gateway-status`, that dependency shows up as an edge in
+    the graph, not as something a reviewer has to reconstruct from
+    memory or from reading both pieces of code side by side. Change
+    the gateway-status capability and the graph tells you, before
+    you ship, what else is downstream of that change. That's the
+    difference between a review that catches a breaking change and
+    one that catches it in production three weeks later.
+  </p>
+  <p>
+    The graph is also a coverage map, whether or not that was the
+    intent behind checking it. A capability with no contract simply
+    doesn't appear as a node, which means gaps in extraction work
+    show up as literal blank space rather than something you'd have
+    to go looking for. Running `cdad check` again after a round of
+    extraction, the last stage in the toolkit's recommended workflow,
+    is partly about watching that blank space shrink over time as
+    more of the system actually declares itself.
+  </p>
+  <p>
+    The graph also inherits the three properties Chapter 4 assigns to
+    a capability itself. Every node is headless, so the graph
+    doesn't care whether a capability backs a web app or an agent
+    calling it directly. Every node is portable, so an edge means
+    the same thing regardless of which service happens to host
+    either end of it. And every node is contract-defined, which is
+    the property that makes the whole graph trustworthy in the
+    first place, since an edge only exists because a contract
+    declared the dependency, not because someone eyeballed the code
+    and guessed.
+  </p>
+  <p>
+    Chapter 4 frames the graph as the answer to a specific question:
+    a contract makes one piece of logic legible, so what happens
+    once every piece is? The result, per the chapter, isn't a
+    diagram built for a slide deck. It's a structure a new hire can
+    read in twenty minutes instead of losing two days to, and a
+    structure an agent can navigate directly instead of trying to
+    infer from scattered files.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/core-model/contract/")}>&larr; Contract</a>
-        <a href={withBase("/core-model/minimum-viable-contract/")}>Minimum Viable Contract &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/core-model/contract/")}>&larr; Contract</a>
+    <a href={withBase("/core-model/minimum-viable-contract/")}>Minimum Viable Contract &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

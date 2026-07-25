@@ -1,70 +1,66 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import BuyLinks from "../../components/BuyLinks.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Regulated Industries and Compliance"
   description="Regulated systems accumulate exception paths nobody wrote down anywhere durable. A contract is where those exceptions get declared instead of rediscovered during an audit."
+  section="use-cases"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Use Cases</p>
-      <h1>Regulated Industries and Compliance</h1>
+  <h1>Regulated Industries and Compliance</h1>
 
-      <p>
-        Every regulated system has a version of the same capability: the
-        one with the strange conditional buried in it that exists because
-        of a rule from a regulator, a specific customer contract, or an
-        incident that happened long enough ago that only one or two people
-        remember why. Nobody added that conditional for fun. Removing it,
-        or letting an agent "clean it up" because it looks like dead code,
-        is exactly the kind of change that turns into a compliance
-        incident.
-      </p>
-      <p>
-        The legibility audit framework this toolkit is built around asks
-        four diagnostic questions about any capability, and one of them is
-        specifically about this problem: can you find every exception
-        path driven by a customer, a regulation, or something that
-        happened years ago. Most teams working in a regulated space, when
-        they ask this question honestly, find the answer is no. The
-        exceptions exist in the code. The reasons for them exist in a
-        handful of people's memory, or in a compliance document nobody
-        engineering-facing ever reads.
-      </p>
-      <p>
-        A contract gives that reasoning a durable, structured home. The
-        non-goals section says what the capability deliberately doesn't
-        do, which matters as much for an auditor as it does for an
-        engineer, since a lot of compliance review is really just
-        verifying scope. The history section captures the lesson an
-        incident created, not just the fact that the incident happened, so
-        the constraint survives past the memory of whoever was on call
-        that day. And because <code>cdad validate</code> checks the
-        contract against the running capability, the declared exception
-        paths can't quietly drift out of sync with what the system
-        actually does.
-      </p>
-      <p>
-        None of this replaces a real compliance function or the legal
-        review a regulated change actually needs. What it does is make
-        sure the engineering side of that picture, the exception paths
-        embedded in code, is legible enough that neither a new engineer
-        nor an agent proposes removing something a regulator required,
-        simply because nothing told them it mattered.
-      </p>
+  <p>
+    Every regulated system has a version of the same capability: the
+    one with the strange conditional buried in it that exists because
+    of a rule from a regulator, a specific customer contract, or an
+    incident that happened long enough ago that only one or two people
+    remember why. Nobody added that conditional for fun. Removing it,
+    or letting an agent "clean it up" because it looks like dead code,
+    is exactly the kind of change that turns into a compliance
+    incident.
+  </p>
+  <p>
+    The legibility audit framework this toolkit is built around asks
+    four diagnostic questions about any capability, and one of them is
+    specifically about this problem: can you find every exception
+    path driven by a customer, a regulation, or something that
+    happened years ago. Most teams working in a regulated space, when
+    they ask this question honestly, find the answer is no. The
+    exceptions exist in the code. The reasons for them exist in a
+    handful of people's memory, or in a compliance document nobody
+    engineering-facing ever reads.
+  </p>
+  <p>
+    A contract gives that reasoning a durable, structured home. The
+    non-goals section says what the capability deliberately doesn't
+    do, which matters as much for an auditor as it does for an
+    engineer, since a lot of compliance review is really just
+    verifying scope. The history section captures the lesson an
+    incident created, not just the fact that the incident happened, so
+    the constraint survives past the memory of whoever was on call
+    that day. And because <code>cdad validate</code> checks the
+    contract against the running capability, the declared exception
+    paths can't quietly drift out of sync with what the system
+    actually does.
+  </p>
+  <p>
+    None of this replaces a real compliance function or the legal
+    review a regulated change actually needs. What it does is make
+    sure the engineering side of that picture, the exception paths
+    embedded in code, is legible enough that neither a new engineer
+    nor an agent proposes removing something a regulator required,
+    simply because nothing told them it mattered.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/use-cases/microservices-with-many-owners/")}>&larr; Microservices with Many Owners</a>
-        <a href={withBase("/use-cases/")}>Use Cases &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/use-cases/microservices-with-many-owners/")}>&larr; Microservices with Many Owners</a>
+    <a href={withBase("/use-cases/")}>Use Cases &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

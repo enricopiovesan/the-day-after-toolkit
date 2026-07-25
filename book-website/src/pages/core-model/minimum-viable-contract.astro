@@ -1,134 +1,130 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
 import BuyLinks from "../../components/BuyLinks.astro";
 import { withBase } from "../../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Minimum Viable Contract"
   description="The eleven fields a contract needs before it's actually useful, from id and state through non-goals and open questions, and why each one earns its place."
+  section="core-model"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Core Model</p>
-      <h1>Minimum Viable Contract</h1>
+  <h1>Minimum Viable Contract</h1>
 
-      <p>
-        How much does a contract have to say before it's actually
-        useful? The toolkit answers that with a schema, not a vibe.
-        Eleven fields are required: `id`, `version`, `owner`, `state`,
-        `name`, `description`, `inputs`, `outputs`, `non_goals`,
-        `use_cases`, and `open_questions`. Nothing below that floor
-        counts as a real contract, and the point of naming the floor
-        explicitly is that a team can stop guessing whether they've
-        written enough.
-      </p>
-      <p>
-        Four fields establish identity. `id` is the semantic name in
-        `domain/subdomain/action` form, lowercase and slash-delimited,
-        like `payment/retry`. `version` follows standard semantic
-        versioning, major for breaking changes, minor for
-        backward-compatible additions, patch for corrections to the text
-        itself. `owner` names the team or person accountable for keeping
-        the contract true. `state` tracks where the contract sits in its
-        own lifecycle: draft, active, deprecated, or retired, and a
-        contract can't sit at active while `open_questions` still holds
-        unresolved items. That rule alone stops a team from marking
-        something authoritative before it's actually settled.
-      </p>
-      <p>
-        Two fields carry the description. `name` is the plain-English
-        label a human recognizes. `description` is where discipline
-        matters most, because it's supposed to capture business intent,
-        not implementation mechanics. The schema's own guidance draws
-        the line with an example: wrong is "retries using exponential
-        backoff," correct is "retries only after confirming the upstream
-        processor has not yet received the request, because this
-        processor does not honor idempotency keys until after processing
-        completes." One describes a mechanism that might change next
-        quarter. The other describes a business reason that will still
-        be true after the mechanism does change.
-      </p>
-      <p>
-        Two fields carry the behavior. `inputs` lists every declared
-        input with a name, a JSON-compatible type, whether it's
-        required, and a constraint written as a business rule rather
-        than a validation note. `outputs` lists every declared output
-        with a name, a type, and a guarantee describing what the
-        capability promises about that value. Both fields exist so an
-        agent (or a person) can call the capability correctly without
-        reading the implementation to find out what's actually enforced.
-      </p>
-      <p>
-        It helps to notice what's absent from this floor as much as
-        what's present. There's no field for performance targets, no
-        field for error handling per condition, no field for which
-        trust zone a capability operates in. Those all exist in the
-        extended schema, but they're not required to call a contract
-        viable. The minimum viable contract is scoped deliberately
-        narrow: enough for a reader to understand what the capability
-        does, why, and where its edges are, without demanding the kind
-        of operational detail that only some capabilities actually need.
-      </p>
-      <p>
-        Two fields carry the boundary. `non_goals` states, in plain
-        declarative sentences, what the capability explicitly does not
-        do. Leaving it empty because the scope "feels obvious" is one of
-        the most common ways contracts drift, because an unstated
-        boundary is an invitation for the next change to quietly cross
-        it. `use_cases` does the opposite work: it shows the practitioner
-        scenarios the capability actually serves, written in the "as a
-        [role], I need to [action] so that [outcome]" form, grounding the
-        contract in why anyone would call this capability in the first
-        place.
-      </p>
-      <p>
-        The last field is `open_questions`, and it's arguably the most
-        honest one in the schema. It's the place to put unresolved
-        decisions instead of inventing an answer that sounds finished.
-        A contract with a filled-in `open_questions` list isn't a
-        failure. It's a contract telling the truth about what's still
-        undecided, which is worth more than a contract that pretends
-        certainty it doesn't have. The field only becomes a problem if it
-        never gets closed, since a non-empty list is what keeps `state`
-        from moving to active.
-      </p>
-      <p>
-        There's a matching rule for what not to write, and it's just as
-        important as the rule for what to include. Don't restate code
-        structure, method names, infrastructure details, or internal
-        optimization choices in a contract field, that's the code's job,
-        not the contract's. And if a field is empty because the team
-        genuinely doesn't know the answer yet, the right move is to
-        leave it open in `open_questions` rather than invent something
-        that sounds finished. A contract that guesses confidently is
-        more dangerous than one that admits what it doesn't know, because
-        the guess is the one an agent will trust.
-      </p>
-      <p>
-        In practice, you rarely fill these in from a blank file. `cdad
-        init &lt;capability-id&gt;` scaffolds the whole triple, contract.yaml,
-        contract.json, and contract.md, validates that the id follows
-        the domain/subdomain/action convention, and can pull notes
-        straight from a prior `cdad roadmap` run so the first draft
-        isn't starting from nothing. `--extended` adds the fields for
-        dependencies, performance, and error handling once a team's
-        ready for more than the minimum. `--no-prompts` writes
-        placeholders instead of asking questions interactively, useful
-        for scripting the scaffold step, but the placeholders still have
-        to get replaced with real answers before `cdad validate` will
-        call the contract clean.
-      </p>
+  <p>
+    How much does a contract have to say before it's actually
+    useful? The toolkit answers that with a schema, not a vibe.
+    Eleven fields are required: `id`, `version`, `owner`, `state`,
+    `name`, `description`, `inputs`, `outputs`, `non_goals`,
+    `use_cases`, and `open_questions`. Nothing below that floor
+    counts as a real contract, and the point of naming the floor
+    explicitly is that a team can stop guessing whether they've
+    written enough.
+  </p>
+  <p>
+    Four fields establish identity. `id` is the semantic name in
+    `domain/subdomain/action` form, lowercase and slash-delimited,
+    like `payment/retry`. `version` follows standard semantic
+    versioning, major for breaking changes, minor for
+    backward-compatible additions, patch for corrections to the text
+    itself. `owner` names the team or person accountable for keeping
+    the contract true. `state` tracks where the contract sits in its
+    own lifecycle: draft, active, deprecated, or retired, and a
+    contract can't sit at active while `open_questions` still holds
+    unresolved items. That rule alone stops a team from marking
+    something authoritative before it's actually settled.
+  </p>
+  <p>
+    Two fields carry the description. `name` is the plain-English
+    label a human recognizes. `description` is where discipline
+    matters most, because it's supposed to capture business intent,
+    not implementation mechanics. The schema's own guidance draws
+    the line with an example: wrong is "retries using exponential
+    backoff," correct is "retries only after confirming the upstream
+    processor has not yet received the request, because this
+    processor does not honor idempotency keys until after processing
+    completes." One describes a mechanism that might change next
+    quarter. The other describes a business reason that will still
+    be true after the mechanism does change.
+  </p>
+  <p>
+    Two fields carry the behavior. `inputs` lists every declared
+    input with a name, a JSON-compatible type, whether it's
+    required, and a constraint written as a business rule rather
+    than a validation note. `outputs` lists every declared output
+    with a name, a type, and a guarantee describing what the
+    capability promises about that value. Both fields exist so an
+    agent (or a person) can call the capability correctly without
+    reading the implementation to find out what's actually enforced.
+  </p>
+  <p>
+    It helps to notice what's absent from this floor as much as
+    what's present. There's no field for performance targets, no
+    field for error handling per condition, no field for which
+    trust zone a capability operates in. Those all exist in the
+    extended schema, but they're not required to call a contract
+    viable. The minimum viable contract is scoped deliberately
+    narrow: enough for a reader to understand what the capability
+    does, why, and where its edges are, without demanding the kind
+    of operational detail that only some capabilities actually need.
+  </p>
+  <p>
+    Two fields carry the boundary. `non_goals` states, in plain
+    declarative sentences, what the capability explicitly does not
+    do. Leaving it empty because the scope "feels obvious" is one of
+    the most common ways contracts drift, because an unstated
+    boundary is an invitation for the next change to quietly cross
+    it. `use_cases` does the opposite work: it shows the practitioner
+    scenarios the capability actually serves, written in the "as a
+    [role], I need to [action] so that [outcome]" form, grounding the
+    contract in why anyone would call this capability in the first
+    place.
+  </p>
+  <p>
+    The last field is `open_questions`, and it's arguably the most
+    honest one in the schema. It's the place to put unresolved
+    decisions instead of inventing an answer that sounds finished.
+    A contract with a filled-in `open_questions` list isn't a
+    failure. It's a contract telling the truth about what's still
+    undecided, which is worth more than a contract that pretends
+    certainty it doesn't have. The field only becomes a problem if it
+    never gets closed, since a non-empty list is what keeps `state`
+    from moving to active.
+  </p>
+  <p>
+    There's a matching rule for what not to write, and it's just as
+    important as the rule for what to include. Don't restate code
+    structure, method names, infrastructure details, or internal
+    optimization choices in a contract field, that's the code's job,
+    not the contract's. And if a field is empty because the team
+    genuinely doesn't know the answer yet, the right move is to
+    leave it open in `open_questions` rather than invent something
+    that sounds finished. A contract that guesses confidently is
+    more dangerous than one that admits what it doesn't know, because
+    the guess is the one an agent will trust.
+  </p>
+  <p>
+    In practice, you rarely fill these in from a blank file. `cdad
+    init &lt;capability-id&gt;` scaffolds the whole triple, contract.yaml,
+    contract.json, and contract.md, validates that the id follows
+    the domain/subdomain/action convention, and can pull notes
+    straight from a prior `cdad roadmap` run so the first draft
+    isn't starting from nothing. `--extended` adds the fields for
+    dependencies, performance, and error handling once a team's
+    ready for more than the minimum. `--no-prompts` writes
+    placeholders instead of asking questions interactively, useful
+    for scripting the scaffold step, but the placeholders still have
+    to get replaced with real answers before `cdad validate` will
+    call the contract clean.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/core-model/capability-graph/")}>&larr; Capability Graph</a>
-        <a href={withBase("/core-model/contract-anti-patterns/")}>Contract Anti-Patterns &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/core-model/capability-graph/")}>&larr; Capability Graph</a>
+    <a href={withBase("/core-model/contract-anti-patterns/")}>Contract Anti-Patterns &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {

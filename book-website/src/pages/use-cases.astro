@@ -1,68 +1,76 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageLayout from "../layouts/SubpageLayout.astro";
 import BuyLinks from "../components/BuyLinks.astro";
 import { withBase } from "../utils/url";
+
+const toc = [
+  { href: "#overview", label: "Overview" },
+  { href: "#pages-in-this-area", label: "Pages in this area" },
+];
 ---
 
-<BaseLayout
+<SubpageLayout
   title="Use Cases"
   description="Five situations where a legibility gap causes real damage: legacy modernization, onboarding, preparing for AI agents, microservices with no single owner, and regulated industries with exception paths nobody tracks."
+  section="use-cases"
+  toc={toc}
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Use Cases</p>
-      <h1>Use Cases</h1>
+  <h1>Use Cases</h1>
 
-      <p>
-        The idea behind C-DAD is general enough to sound abstract until you
-        see it against a specific situation. This section covers five of
-        them: a team inheriting a legacy system, a new engineer trying to
-        get productive without bothering six people a day, an organization
-        about to point AI agents at production code, a set of
-        microservices that outgrew any one person's understanding, and a
-        team operating under regulatory constraints that live in nobody's
-        head but the people who were there when the rule got added.
-      </p>
-      <p>
-        None of these are hypothetical categories invented to sell a
-        toolkit. They're the recurring shapes that show up whenever a
-        system gets old enough, or big enough, or regulated enough, that
-        the knowledge required to change it safely stops fitting inside
-        any one person's head.
-      </p>
-
-      <ul class="cluster-list">
-        <li>
-          <a href={withBase("/use-cases/legacy-codebase-modernization/")}>Legacy Codebase Modernization</a>
-          <p>Making an old system safe to extend without betting a quarter on a rewrite that might not even fix the real problem.</p>
-        </li>
-        <li>
-          <a href={withBase("/use-cases/onboarding-new-engineers/")}>Onboarding New Engineers</a>
-          <p>Replacing weeks of tribal-knowledge reconstruction with a contract a new hire can actually read.</p>
-        </li>
-        <li>
-          <a href={withBase("/use-cases/preparing-for-ai-coding-agents/")}>Preparing for AI Coding Agents</a>
-          <p>Why legibility has to come before you point an agent at a codebase, not after something breaks.</p>
-        </li>
-        <li>
-          <a href={withBase("/use-cases/microservices-with-many-owners/")}>Microservices with Many Owners</a>
-          <p>A capability graph as the shared map for a system no single team understands end to end.</p>
-        </li>
-        <li>
-          <a href={withBase("/use-cases/regulated-industries-and-compliance/")}>Regulated Industries and Compliance</a>
-          <p>Declaring the exception paths a regulator, a customer, or an old incident actually requires.</p>
-        </li>
-      </ul>
-
-      <BuyLinks />
-
-      <nav class="chapter-nav" aria-label="Related pages">
-        <a href={withBase("/comparisons/")}>&larr; Comparisons</a>
-        <a href={withBase("/proof/")}>Proof &rarr;</a>
-      </nav>
-    </div>
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      The idea behind C-DAD is general enough to sound abstract until you
+      see it against a specific situation. This section covers five of
+      them: a team inheriting a legacy system, a new engineer trying to
+      get productive without bothering six people a day, an organization
+      about to point AI agents at production code, a set of
+      microservices that outgrew any one person's understanding, and a
+      team operating under regulatory constraints that live in nobody's
+      head but the people who were there when the rule got added.
+    </p>
+    <p>
+      None of these are hypothetical categories invented to sell a
+      toolkit. They're the recurring shapes that show up whenever a
+      system gets old enough, or big enough, or regulated enough, that
+      the knowledge required to change it safely stops fitting inside
+      any one person's head.
+    </p>
   </section>
-</BaseLayout>
+
+  <section id="pages-in-this-area">
+    <h2>Pages in this area</h2>
+    <ul class="cluster-list">
+      <li>
+        <a href={withBase("/use-cases/legacy-codebase-modernization/")}>Legacy Codebase Modernization</a>
+        <p>Making an old system safe to extend without betting a quarter on a rewrite that might not even fix the real problem.</p>
+      </li>
+      <li>
+        <a href={withBase("/use-cases/onboarding-new-engineers/")}>Onboarding New Engineers</a>
+        <p>Replacing weeks of tribal-knowledge reconstruction with a contract a new hire can actually read.</p>
+      </li>
+      <li>
+        <a href={withBase("/use-cases/preparing-for-ai-coding-agents/")}>Preparing for AI Coding Agents</a>
+        <p>Why legibility has to come before you point an agent at a codebase, not after something breaks.</p>
+      </li>
+      <li>
+        <a href={withBase("/use-cases/microservices-with-many-owners/")}>Microservices with Many Owners</a>
+        <p>A capability graph as the shared map for a system no single team understands end to end.</p>
+      </li>
+      <li>
+        <a href={withBase("/use-cases/regulated-industries-and-compliance/")}>Regulated Industries and Compliance</a>
+        <p>Declaring the exception paths a regulator, a customer, or an old incident actually requires.</p>
+      </li>
+    </ul>
+  </section>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/comparisons/")}>&larr; Comparisons</a>
+    <a href={withBase("/proof/")}>Proof &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .cluster-list {

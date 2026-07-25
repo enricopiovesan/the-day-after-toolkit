@@ -1,59 +1,56 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import SubpageLayout from "../layouts/SubpageLayout.astro";
 import BuyLinks from "../components/BuyLinks.astro";
 import { withBase } from "../utils/url";
 ---
 
-<BaseLayout
+<SubpageLayout
   title="The Company That Gets There First"
   description="Most companies deploying agents right now are getting faster and calling it winning. Chapter 12 explains why velocity isn't the advantage, and what actually compounds instead."
+  section="chapters"
+  crumbLabel="Ch.12: The Company That Gets There First"
 >
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow">Chapter 12 &middot; Part III: The Transformation</p>
-      <h1>The Company That Gets There First</h1>
+  <h1>The Company That Gets There First</h1>
 
-      <p>
-        Most companies deploying agents right now are getting faster. The
-        sprint velocity is up, the board update has a slide about
-        AI-assisted development, and by that measure things look good.
-        What those companies aren't getting, Chapter 12 argues, is the
-        compounding structural advantage that only shows up when a system
-        gets made legible before agents are pointed at it. That's not a
-        tooling difference. It's a difference in what kind of company
-        you've decided to be, and whether you decide that on your own
-        terms or wait for a competitor who already has.
-      </p>
-      <p>
-        The chapter draws a hard line between two kinds of organizations
-        running the exact same models and the exact same agent frameworks.
-        One is getting real velocity today, and paying for it quietly with
-        senior engineers correcting agent output that violated a
-        constraint nobody declared. The other has closed that gap, and the
-        advantage doesn't stay flat. It widens with every new model
-        generation, because a more capable agent running on a system that
-        actually explains itself gets more capable in a way that an agent
-        running on inference never does.
-      </p>
-      <p>
-        It closes the book with a single diagnostic question, one worth
-        sitting with regardless of where your organization is in this
-        process: if an agent joined your team tomorrow with access to
-        everything the system makes available, and no one around to ask,
-        what could it actually do, and what would it get catastrophically
-        wrong? The distance between those two answers is what the rest of
-        the book is trying to close.
-      </p>
+  <p>
+    Most companies deploying agents right now are getting faster. The
+    sprint velocity is up, the board update has a slide about
+    AI-assisted development, and by that measure things look good.
+    What those companies aren't getting, Chapter 12 argues, is the
+    compounding structural advantage that only shows up when a system
+    gets made legible before agents are pointed at it. That's not a
+    tooling difference. It's a difference in what kind of company
+    you've decided to be, and whether you decide that on your own
+    terms or wait for a competitor who already has.
+  </p>
+  <p>
+    The chapter draws a hard line between two kinds of organizations
+    running the exact same models and the exact same agent frameworks.
+    One is getting real velocity today, and paying for it quietly with
+    senior engineers correcting agent output that violated a
+    constraint nobody declared. The other has closed that gap, and the
+    advantage doesn't stay flat. It widens with every new model
+    generation, because a more capable agent running on a system that
+    actually explains itself gets more capable in a way that an agent
+    running on inference never does.
+  </p>
+  <p>
+    It closes the book with a single diagnostic question, one worth
+    sitting with regardless of where your organization is in this
+    process: if an agent joined your team tomorrow with access to
+    everything the system makes available, and no one around to ask,
+    what could it actually do, and what would it get catastrophically
+    wrong? The distance between those two answers is what the rest of
+    the book is trying to close.
+  </p>
 
-      <BuyLinks />
+  <BuyLinks />
 
-      <nav class="chapter-nav" aria-label="Chapter navigation">
-        <a href={withBase("/for-engineering-leaders/")}>&larr; Chapter 11: The Leadership Team</a>
-        <a href={withBase("/appendix/")}>Appendix &rarr;</a>
-      </nav>
-    </div>
-  </section>
-</BaseLayout>
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/for-engineering-leaders/")}>&larr; Chapter 11: The Leadership Team</a>
+    <a href={withBase("/appendix/")}>Appendix &rarr;</a>
+  </nav>
+</SubpageLayout>
 
 <style>
   .chapter-nav {
