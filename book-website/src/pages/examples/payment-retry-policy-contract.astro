@@ -6,58 +6,103 @@ import { withBase } from "../../utils/url";
 
 <SubpageLayout
   title="Payment Retry Policy Contract"
-  description="The payment retry policy from Meridian's payments domain is the example that runs through the whole book. Here's what a real contract for it would actually need to say."
+  description="The toolkit's own real worked example: payment/retry, the capability that opens the book. What its minimum viable contract says, what the extended version adds, and the real incident that made the extra fields necessary."
   section="examples"
 >
   <h1>Payment Retry Policy Contract</h1>
 
   <p>
-    The running example throughout the book, and in the appendix's
-    schema reference, is the payment retry policy from Meridian's
-    payments domain. It's a good example precisely because it's not
-    exotic. Every team with a payments surface has some version of it:
-    code that decides whether to try charging a customer again after a
-    failure, and how many times, and under what conditions it should
-    stop trying.
+    The running example throughout the book, and in the toolkit's own
+    templates, is a capability called `payment/retry`, owned by a
+    payments team. What it does sounds simple: decide whether a failed
+    payment attempt is safe to retry. What makes it a good teaching
+    example is that the simple description hides a constraint that
+    isn't obvious from the code, and that constraint is exactly what a
+    contract exists to preserve.
   </p>
   <p>
-    A contract for that capability doesn't start with implementation
-    detail. It starts with what the capability does, described in
-    plain language a new engineer or an agent can act on without
-    reading the retry loop line by line: it decides whether and when
-    to retry a failed payment attempt, and what happens once retries
-    are exhausted.
+    The minimum viable version states the capability plainly. It
+    retries a failed payment attempt only after confirming the
+    upstream payment processor has not yet received, or is not
+    currently processing, the original request. It exists because the
+    processor used in production doesn't honor idempotency keys until
+    a transaction finishes processing, which means a naive retry fired
+    while the original request is still in flight results in a
+    duplicate charge. That sentence alone is the entire reason this
+    capability needs to exist as its own contracted unit rather than
+    a few lines buried inside a larger payment flow.
   </p>
   <p>
-    Then it says why. This is the part most codebases never write
-    down. Retries aren't attempted on every failure the same way,
-    because some failures mean the card was declined and trying again
-    immediately just annoys the customer, while others mean the
-    gateway timed out and the original charge may or may not have gone
-    through. The contract states that distinction instead of leaving
-    it as something only the engineer who wrote the original ticket
-    remembers.
+    It needs a `payment_id`, which has to be the original ID from the
+    failed attempt, never a freshly generated one, because the
+    processor uses that field to detect duplicate attempts once
+    idempotency keys are active. It needs a `retry_reason`, restricted
+    to `network_timeout`, `processor_unavailable`, or `rate_limited`,
+    explicitly excluding declined payments, which the contract states
+    is a different capability's problem, not this one's. It promises a
+    `retry_status` that only reports `confirmed_safe_to_retry` after
+    explicit confirmation from the processor's status endpoint, never
+    inferred from a timeout. And it draws a hard boundary: this
+    capability assesses retry safety and returns a status. It does not
+    initiate the retry itself, does not touch declined payments, and
+    does not modify the original payment record. Three sentences, and
+    a future engineer or agent now knows exactly where this
+    capability's authority ends.
   </p>
   <p>
-    It also declares what the capability needs: which upstream signal
-    tells it a charge is safe to retry, what idempotency guarantee it
-    depends on so a retry can't double-charge someone, and what
-    configuration or account state it reads before deciding to try
-    again. It declares what it promises: a bounded number of attempts,
-    a predictable backoff shape, a final state the rest of the system
-    can rely on once retries stop. And it declares what it explicitly
-    doesn't do, which matters just as much. It doesn't decide refund
-    policy, it doesn't touch dispute handling, and it doesn't retry
-    past the point where the payment provider has told it to stop.
-    Leaving that boundary unstated is exactly how a capability quietly
-    grows scope nobody signed up for.
+    The extended version of the same contract is where the real story
+    lives, in a field called `constraint_history`. On March 14, 2022,
+    a production incident happened because the retry logic called the
+    processor directly without checking in-flight status first. The
+    processor was still processing the original request when the
+    retry arrived. Forty-seven customers were charged twice. Refunds
+    went out the same day. The revenue impact was twenty-three
+    thousand dollars, and it triggered an SLA breach with two
+    enterprise customers. The lesson, confirmed by the processor's own
+    support team in ticket PRO-8821, is that the processor doesn't
+    honor idempotency keys until processing completes, a fact that
+    isn't in the processor's public documentation at all. Any retry
+    implementation has to check in-flight status explicitly, and that
+    requirement is now written into the contract instead of living
+    only in the memory of whoever handled the incident.
   </p>
   <p>
-    None of that requires reproducing a full schema here. The point of
-    walking through it in prose is to show that a contract isn't
-    paperwork bolted onto working code. It's the part of the
-    capability that was always true, made readable to whoever, or
-    whatever, has to change it next.
+    The extended contract also declares the dependency this capability
+    can't function without: `payment/processor/status` at version
+    2.1.0 or later, with the rationale attached directly. Earlier
+    versions of that capability didn't expose in-flight transaction
+    state, which made a safe retry decision impossible to make at all.
+    Nobody is meant to relax that version constraint without first
+    confirming an alternative detection method with the payments team,
+    and the contract says so explicitly rather than leaving it to be
+    rediscovered the hard way a second time.
+  </p>
+  <p>
+    Performance and rate limits carry their own reasoning too. The
+    p99 response target is 500 milliseconds, bounded by the
+    processor's own status-check latency, and the contract notes that
+    the threshold assumes that check completes in under 400
+    milliseconds, so any renegotiation of processor latency has to
+    happen before the timeout changes. The rate limit is set to thirty
+    requests per minute with a burst allowance of five, deliberately
+    half of the processor's own sixty-per-minute ceiling, to leave
+    headroom for every other caller hitting that same status endpoint.
+    And the error handling rule is asymmetric on purpose: if the
+    processor's status can't be confirmed, the capability returns
+    `unsafe` and blocks the retry. A false negative that blocks a safe
+    retry is an acceptable cost. A false positive that allows an
+    unsafe one is not, and the contract states that tradeoff instead
+    of leaving it as an assumption baked into a conditional somewhere.
+  </p>
+  <p>
+    None of this is hypothetical or dressed up for the page. It's the
+    actual worked example shipped in the toolkit's templates, the same
+    one the appendix's schema reference walks through field by field.
+    The point of showing it in full is that a contract isn't
+    paperwork bolted onto working code after the fact. It's the
+    incident, the dependency, and the boundary that were always true,
+    made readable to whoever, or whatever, has to touch this
+    capability next.
   </p>
 
   <BuyLinks />

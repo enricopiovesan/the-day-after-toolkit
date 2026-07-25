@@ -1,0 +1,124 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Extended Contract Fields"
+  description="Dependencies, performance, error handling, trust zones, rate limits, constraint history. The fields that turn a minimum viable contract into a full operational record, and when a capability actually needs them."
+  section="core-model"
+>
+  <h1>Extended Contract Fields</h1>
+
+  <p>
+    The minimum viable contract answers what a capability does, why,
+    and where its edges are. That's enough for most capabilities most
+    of the time. Some capabilities carry more weight than that,
+    payment paths, anything with a hard performance floor, anything
+    that's already caused an incident, and for those the toolkit
+    defines an extended schema that layers operational detail on top
+    of the same eleven required fields. Nothing in the minimum
+    contract disappears. The extended fields are additive, and a
+    capability only needs them when the risk actually justifies the
+    extra weight.
+  </p>
+  <p>
+    `dependencies` names every upstream capability this one relies
+    on, with a version constraint and, critically, the reason the
+    constraint exists. `payment/processor/status` at `>=2.1.0` isn't
+    useful on its own. What makes it useful is the sentence next to
+    it explaining that earlier versions didn't expose in-flight
+    transaction state, which is the specific thing that makes a safe
+    retry decision possible at all. Strip the rationale and the
+    version number turns back into trivia nobody can safely change.
+  </p>
+  <p>
+    `performance` declares response time and throughput thresholds,
+    and the schema pushes past a bare number to the reasoning behind
+    it. A 500ms p99 target means little by itself. It means something
+    once the contract explains that the threshold assumes a
+    downstream status check completes in under 400ms, and that
+    raising the threshold requires renegotiating with whoever owns
+    that downstream call first. `error_handling` does the equivalent
+    work for failure paths: not just what error code comes back, but
+    what the capability does about it and why that response was
+    chosen over the alternative. A false negative that blocks a safe
+    action can be an acceptable tradeoff. A false positive that
+    allows an unsafe one usually isn't, and the contract is where
+    that asymmetry gets written down instead of assumed.
+  </p>
+  <p>
+    `trust_zone` states plainly whether a capability is internal,
+    external, or privileged, which matters enormously to an agent
+    deciding whether a proposed change is even in scope for it to
+    make unsupervised. `rate_limits` records the ceiling and burst
+    allowance a capability enforces, along with where that number
+    came from, inherited from a platform-wide policy, set below a
+    downstream service's own limit to leave headroom, or something
+    else. A rate limit without its rationale is just a number someone
+    will eventually treat as arbitrary and change.
+  </p>
+  <p>
+    `inherited_constraints` captures policy that flows down from
+    somewhere above this capability rather than originating here,
+    keeping the source of a rule visible instead of letting it look
+    locally invented. `constraint_history` is the field that does the
+    most work against tribal knowledge specifically: it preserves the
+    actual incidents that shaped the capability, dated, with the
+    lesson stated explicitly, not just logged as an event but written
+    as the constraint a future maintainer has to preserve. A
+    production incident that cost real money and taught a real lesson
+    is exactly the kind of knowledge that otherwise survives only in
+    the memory of whoever was on call that day.
+  </p>
+  <p>
+    The remaining fields track how a capability changes over time.
+    `deprecation_timeline` and `migration_path` describe how a
+    capability winds down and what replaces it. `versioning_strategy`
+    and `version_history` keep the semantic versioning decisions
+    themselves legible, not just the current version number but the
+    reasoning trail that produced it. Together they mean a capability's
+    evolution stays readable years after the people who made those
+    decisions have moved on to something else.
+  </p>
+  <p>
+    The rule that governs every extended field is the same rule that
+    governs the minimum ones: write intent, guarantees, and history in
+    plain language, and if a field starts describing retries, caches,
+    queues, or backoff timers just because that's how the capability
+    happens to be implemented today, rewrite it toward the business
+    rule that actually justifies the behavior. Scaffold the extended
+    form with `cdad init &lt;capability-id&gt; --extended` once a
+    capability's risk profile earns the extra fields, not before.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/core-model/minimum-viable-contract/")}>&larr; Minimum Viable Contract</a>
+    <a href={withBase("/core-model/contract-versioning/")}>Contract Versioning &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

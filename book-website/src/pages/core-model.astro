@@ -35,10 +35,12 @@ const toc = [
       being diagnosed, and contract defines what you write down once
       you've decided a capability is worth the effort. The capability
       graph is what you get when contracts accumulate across a whole
-      system. The last three pages are more operational: the minimum
-      fields a contract actually needs, the specific ways contracts
-      drift when nobody's watching, and the arc a capability travels
-      from invisible logic to something a contract governs.
+      system. The rest of the pages are more operational: the minimum
+      fields a contract needs, the extended fields for capabilities
+      that carry more risk, how a contract's version number actually
+      gets decided, the specific ways contracts drift when nobody's
+      watching, and the arc a capability travels from invisible logic
+      to something a contract governs.
     </p>
   </section>
 
@@ -64,6 +66,14 @@ const toc = [
       <li>
         <a href={withBase("/core-model/minimum-viable-contract/")}>Minimum Viable Contract</a>
         <p>The exact fields a contract needs to be useful, no more and no less, field by field.</p>
+      </li>
+      <li>
+        <a href={withBase("/core-model/extended-contract-fields/")}>Extended Contract Fields</a>
+        <p>Dependencies, performance, error handling, trust zones, constraint history: the fields for capabilities carrying real operational weight.</p>
+      </li>
+      <li>
+        <a href={withBase("/core-model/contract-versioning/")}>Contract Versioning</a>
+        <p>Why a version bump is decided by downstream compatibility, not by how large the text diff looks.</p>
       </li>
       <li>
         <a href={withBase("/core-model/contract-anti-patterns/")}>Contract Anti-Patterns</a>

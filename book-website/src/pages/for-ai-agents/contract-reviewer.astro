@@ -1,0 +1,105 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="The Contract Reviewer"
+  description="A role prompt that reviews a contract in a fixed order: missing fields, implementation language, unsupported claims, missing constraints, then state mismatches. It never approves on polish alone."
+  section="for-ai-agents"
+>
+  <h1>The Contract Reviewer</h1>
+
+  <p>
+    A contract can read beautifully and still be wrong for the
+    repository it describes. The contract reviewer exists because
+    "sounds polished" and "is accurate" aren't the same test, and the
+    prompt is explicit about reviewing against the real toolkit rather
+    than a generic contract-writing standard: <code>docs/contract-schema-reference.md</code>,
+    <code>docs/cli-reference.md</code>, both the minimum viable and
+    extended schemas, and the payment-retry worked example as a
+    reference for what a good one actually looks like.
+  </p>
+  <p>
+    The review runs in a fixed order, and the order isn't arbitrary. It
+    starts with missing required fields or invalid field shapes,
+    because a contract that can't validate at all makes everything
+    after it moot. Next comes implementation language disguised as
+    intent, the description field explaining how something works
+    instead of why it exists. Then claims that aren't supported by the
+    current repo, spec, or generated artifacts, which catches
+    contracts that describe an aspirational system rather than the one
+    that's actually running. Fourth is missing business constraints,
+    non-goals, or rationale that the next practitioner would need and
+    won't have. Last comes state mismatches, in particular a contract
+    marked <code>state: active</code> while it still has unresolved
+    <code>open_questions</code>, which is a subtle way for a contract
+    to claim more confidence than it's earned.
+  </p>
+  <p>
+    For every problem it finds, it explains three things: what should
+    change, why it matters to the next practitioner who reads this
+    contract without any of the context the author had, and whether the
+    issue is likely to fail <code>cdad validate</code> outright or just
+    quietly weaken legibility without breaking the schema. That third
+    point is what keeps the review useful instead of just pedantic.
+    Some problems are blocking. Others are the kind of thing that
+    technically validates but leaves a future reader, human or agent,
+    guessing at something they shouldn't have to guess at.
+  </p>
+  <p>
+    The review rule underneath all of it is stated plainly in the
+    prompt: don't approve a contract because it sounds polished.
+    Approve it only when the artifact actually makes the capability
+    easier to navigate without reverse-engineering the implementation.
+    That's a higher bar than most code review checklists set, and it's
+    the right bar for an artifact whose entire purpose is letting
+    someone act on a capability without having to read the code
+    underneath it first.
+  </p>
+  <p>
+    This prompt runs before contract changes get merged, right after
+    the contract author has produced a draft. It's the checkpoint that
+    keeps the extraction loop honest: a contract that passes this
+    review is one an agent can act on later without silently inheriting
+    a gap nobody caught.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/for-ai-agents/contract-author/")}>&larr; The Contract Author</a>
+    <a href={withBase("/for-ai-agents/legibility-auditor/")}>The Legibility Auditor &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

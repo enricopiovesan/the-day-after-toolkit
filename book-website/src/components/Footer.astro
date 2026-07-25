@@ -1,46 +1,23 @@
 ---
 import { withBase } from "../utils/url";
+import { PILLARS, SITE_SECTIONS } from "../data/siteSections";
 
 const year = new Date().getFullYear();
 
-const sitemapColumns = [
-  {
-    heading: "The Book",
-    links: [
-      { href: withBase("/about-the-book/"), label: "about the book" },
-      { href: withBase("/excerpt/"), label: "free excerpt" },
-      { href: withBase("/author/"), label: "author" },
-      { href: withBase("/why-c-dad/"), label: "why C-DAD" },
-    ],
-  },
-  {
-    heading: "The Model",
-    links: [
-      { href: withBase("/core-model/"), label: "core model" },
-      { href: withBase("/how-c-dad-works/"), label: "how C-DAD works" },
-      { href: withBase("/glossary/"), label: "glossary" },
-      { href: withBase("/appendix/"), label: "appendix" },
-    ],
-  },
-  {
-    heading: "The Case",
-    links: [
-      { href: withBase("/comparisons/"), label: "comparisons" },
-      { href: withBase("/use-cases/"), label: "use cases" },
-      { href: withBase("/proof/"), label: "proof" },
-      { href: withBase("/examples/"), label: "examples" },
-    ],
-  },
-  {
-    heading: "The Toolkit",
-    links: [
-      { href: withBase("/toolkit/"), label: "toolkit overview" },
-      { href: withBase("/toolkit/installation/"), label: "installation" },
-      { href: withBase("/faq/"), label: "faq" },
-      { href: withBase("/contact/"), label: "contact" },
-    ],
-  },
-];
+// One footer column per top-level pillar, each showing every section that
+// rolls up into it (as its own mini-cluster of links) so the footer always
+// reflects the real site structure instead of a hand-picked sample. Capped
+// at 4 links per section (the section's own root page plus its top 3
+// flagship subpages) to keep columns readable.
+const footerColumns = PILLARS.map((pillar) => ({
+  pillar,
+  sections: Object.values(SITE_SECTIONS)
+    .filter((section) => section.pillar === pillar.key)
+    .map((section) => ({
+      label: section.label,
+      links: section.links.slice(0, 4),
+    })),
+}));
 
 const contactLinks = [
   { href: "https://github.com/enricopiovesan", label: "github" },
@@ -79,14 +56,21 @@ const contactLinks = [
       <div class="footer-bottom">
         <div class="footer-grid">
           {
-            sitemapColumns.map((column) => (
-              <div class="footer-cluster">
-                <h3>{column.heading}</h3>
-                <nav class="footer-links">
-                  {column.links.map((link) => (
-                    <a href={link.href}>{link.label}</a>
-                  ))}
-                </nav>
+            footerColumns.map((column) => (
+              <div class="footer-column">
+                <h3>
+                  <a href={column.pillar.href}>{column.pillar.label}</a>
+                </h3>
+                {column.sections.map((section) => (
+                  <div class="footer-cluster">
+                    {column.sections.length > 1 && <p class="footer-cluster__label">{section.label}</p>}
+                    <nav class="footer-links">
+                      {section.links.map((link) => (
+                        <a href={link.href}>{link.label}</a>
+                      ))}
+                    </nav>
+                  </div>
+                ))}
               </div>
             ))
           }
@@ -229,18 +213,38 @@ const contactLinks = [
 
   .footer-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 13rem));
-    gap: 2rem;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1.5rem;
+    flex: 1;
   }
 
-  .footer-cluster h3 {
-    margin: 0 0 0.75rem;
+  .footer-column h3 {
+    margin: 0 0 1rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.07em;
+  }
+
+  .footer-column h3 a {
     color: #201008;
+    text-decoration: none;
+  }
+
+  .footer-column h3 a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-cluster + .footer-cluster {
+    margin-top: 1.25rem;
+  }
+
+  .footer-cluster__label {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(32, 16, 8, 0.6);
   }
 
   .footer-links {
@@ -312,6 +316,10 @@ const contactLinks = [
     .footer-bottom {
       flex-direction: column;
       gap: 2.5rem;
+    }
+
+    .footer-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .footer-meta {
