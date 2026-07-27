@@ -8,5 +8,11 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thedayafteraibook.com',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      lastmod: new Date(),
+      changefreq: 'weekly',
+      priority: 0.7,
+    }),
+  ],
 });

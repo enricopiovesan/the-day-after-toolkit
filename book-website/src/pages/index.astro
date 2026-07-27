@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import SectionHeading from "../components/SectionHeading.astro";
@@ -6,6 +7,8 @@ import PanelSection from "../components/PanelSection.astro";
 import CardRow from "../components/CardRow.astro";
 import AudienceGrid from "../components/AudienceGrid.astro";
 import { withBase } from "../utils/url";
+import heroNightImage from "../assets/images/hero-night.jpg";
+import heroDayImage from "../assets/images/hero.jpg";
 
 // Section copy is written from the book's own manuscript (Chapters 1-5),
 // kept to non-spoiler summary and thesis statements, no plot points or
@@ -60,10 +63,7 @@ const extractionCards = [
 
 // Sunrise sequence, first to last. Drop extra frames (e.g. a dawn shot)
 // between night and day and the timing/zoom adjusts automatically.
-const heroStages = [
-  withBase("/images/hero-night.jpg"),
-  withBase("/images/hero.jpg"),
-];
+const heroStages = [heroNightImage, heroDayImage];
 
 // Each stage except the last fades out in turn, revealing the next one,
 // while a single continuous zoom runs across the whole stack.
@@ -104,10 +104,11 @@ const heroTiming = `
       <div class="hero__zoom" aria-hidden="true">
         {
           heroStages.map((src, i) => (
-            <img
+            <Image
               class="hero__image"
               style={`--stage: ${i}; z-index: ${heroStages.length - i};`}
               src={src}
+              width={1400}
               alt=""
               loading="eager"
               fetchpriority={i === 0 ? "high" : "auto"}

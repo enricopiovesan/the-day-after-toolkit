@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../utils/url";
+import { PILLARS } from "../data/siteSections";
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="That page doesn't exist. Here's how to find what you were looking for."
+>
+  <div class="not-found wrap">
+    <p class="not-found__eyebrow">404</p>
+    <h1>That page doesn't exist.</h1>
+    <p class="not-found__body">
+      The link might be old, or it might just be a typo. Either way,
+      here's a faster way back in than guessing at the URL.
+    </p>
+
+    <a class="btn btn--coral not-found__home" href={withBase("/")}>Back to home</a>
+
+    <nav class="not-found__nav" aria-label="Site sections">
+      {
+        PILLARS.map((pillar) => (
+          <a href={pillar.href}>{pillar.label}</a>
+        ))
+      }
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding: 8rem 0 6rem;
+    text-align: center;
+  }
+
+  .not-found__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--coral);
+    margin: 0 0 1rem;
+  }
+
+  .not-found h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    margin: 0 0 1rem;
+  }
+
+  .not-found__body {
+    max-width: 32rem;
+    margin: 0 auto 2rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  .not-found__home {
+    display: inline-block;
+    margin-bottom: 3rem;
+  }
+
+  .not-found__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .not-found__nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .not-found__nav a:hover {
+    color: var(--coral);
+  }
+</style>

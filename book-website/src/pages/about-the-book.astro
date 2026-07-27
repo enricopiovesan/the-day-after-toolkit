@@ -7,6 +7,22 @@ const toc = [
   { href: "#who-its-for", label: "Who it's for" },
   { href: "#table-of-contents", label: "Table of contents" },
 ];
+
+const bookSchema = {
+  "@context": "https://schema.org",
+  "@type": "Book",
+  name: "The Day After",
+  alternateName: "The Day After AI",
+  author: {
+    "@type": "Person",
+    name: "Enrico Piovesan",
+  },
+  description:
+    "How software companies must restructure for what comes next. Tribal knowledge is the hidden bottleneck stopping AI agents from working safely in your codebase, and The Day After is the operating model for making software legible to your team and to the agents building it with you.",
+  url: new URL(withBase("/about-the-book/"), Astro.site).toString(),
+  inLanguage: "en",
+  genre: "Software Engineering",
+};
 ---
 
 <SubpageLayout
@@ -15,6 +31,7 @@ const toc = [
   section="book"
   toc={toc}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(bookSchema)} />
   <h1>The Day After AI</h1>
   <p class="lede">
     How Software Companies Must Restructure for What Comes Next.
