@@ -1,3 +1,8 @@
+---
+title: SemVer for Contracts
+permalink: /docs/semver-for-contracts/
+---
+
 # SemVer for Contracts
 
 Contract semver follows three rules, but the decision should be based on downstream compatibility rather than how large the text diff looks.

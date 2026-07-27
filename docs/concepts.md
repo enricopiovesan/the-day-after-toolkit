@@ -1,3 +1,8 @@
+---
+title: Concepts
+permalink: /docs/concepts/
+---
+
 # Concepts
 
 The toolkit uses four core concepts.
