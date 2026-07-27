@@ -1,0 +1,73 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<SubpageLayout
+  title="The PM / PO"
+  description="A PM leaves the room knowing why a decision was made, not just what to build. Chapter 9 is about the gap between that knowledge and the ticket, and what closes it."
+  section="chapters"
+  crumbLabel="Ch.9: The PM / PO"
+>
+  <h1>The PM / PO</h1>
+
+  <p>
+    Every important decision about a capability gets made in a room. A
+    business rule gets set, a constraint gets named, a whole feature
+    category gets ruled out for reasons the PM understands better than
+    anyone else there, because they're the one who's been talking to
+    the customer for six months. They leave that room holding
+    something nobody else has in the same complete form: not just what
+    gets built, but why it exists and what the team deliberately chose
+    not to do.
+  </p>
+  <p>
+    Then they open Jira and write a ticket. The ticket says what will
+    be built. It doesn't say what was decided. It can't carry the
+    regulatory constraint that shaped the limit, or the customer whose
+    contract drew the boundary, or the direction the team considered
+    and rejected. Chapter 9 makes the case that this was never a
+    failure of documentation. The ticket, the PRD, the wiki page, none
+    of them were built to hold what a PM actually knows. For years the
+    gap got absorbed quietly, by developers who'd sat in enough
+    meetings to fill in the blanks, by architects who caught the edge
+    cases in review.
+  </p>
+  <p>
+    Agents don't sit in those meetings. They read the ticket, and only
+    the ticket. Chapter 9 is about what changes when the spec itself
+    becomes the artifact that carries intent, and what it looks like
+    for a PM to write one that an agent can actually be trusted to
+    build from.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/for-developers/")}>&larr; Chapter 8: The Developer</a>
+    <a href={withBase("/for-designers/")}>Chapter 10: The Designer &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

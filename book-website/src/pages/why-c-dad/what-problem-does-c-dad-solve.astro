@@ -1,0 +1,75 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="What Problem Does C-DAD Solve?"
+  description="AI coding agents are fast and confident and frequently wrong in ways that pass code review. C-DAD exists to close the specific gap that causes it."
+  section="why-c-dad"
+>
+  <h1>What problem does C-DAD solve?</h1>
+
+  <p>
+    Every team that's put a coding agent on a real codebase has hit the
+    same wall. The agent writes something that compiles, passes the
+    obvious tests, and looks exactly like what a competent engineer
+    would have written. Then it breaks something in production that
+    nobody thought to check, because the constraint that would have
+    stopped it was never written down anywhere the agent could see.
+  </p>
+  <p>
+    That's not a model problem. Bigger context windows and smarter
+    reasoning don't fix it, because the missing information was never
+    in the codebase to begin with. It lived in a senior engineer's
+    head, in a Slack thread from eighteen months ago, in the memory of
+    why a retry policy has an odd exception baked into it. Reading
+    every file in the repository doesn't recover that. You can't grep
+    for a decision nobody recorded.
+  </p>
+  <p>
+    Contract-Driven AI Development treats this as a structural gap,
+    not a tooling gap. The fix isn't a smarter agent or a longer
+    prompt. It's making the system say, in a form both a person and a
+    model can act on, what a capability does, why it does it that way,
+    and what would break if you changed it. Once that exists, an agent
+    stops guessing at intent and starts reading it directly.
+  </p>
+  <p>
+    C-DAD is the discipline built around producing that artifact:
+    what a contract has to contain, how to decide which parts of a
+    system need one first, and how contracts compose into something
+    larger than any single file, a map of how a whole system actually
+    works.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/why-c-dad/")}>&larr; Why C-DAD</a>
+    <a href={withBase("/why-c-dad/why-ai-agents-need-legible-systems/")}>Why AI agents need legible systems &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

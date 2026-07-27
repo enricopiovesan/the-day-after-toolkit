@@ -63,7 +63,7 @@ Prompt and agent configuration files live under [`claude-configs/`](claude-confi
 
 ## From the book
 
-This toolkit accompanies *The Day After: How to Restructure Your Software Company for the Age of AI Agents* by Enrico Piovesan and turns the book's operating model into executable tooling.
+This toolkit accompanies *The Day After: How to Restructure Your Software Company for the Age of AI Agents* by Enrico Piovesan and turns the book's operating model into executable tooling. The book's own marketing site lives in [`book-website/`](book-website/README.md) (Astro).
 
 ## Further Reading
 

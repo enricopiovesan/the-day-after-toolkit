@@ -1,0 +1,103 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="cdad roadmap"
+  description="cdad roadmap turns a cdad check report into a ranked list of which capabilities to contract first, weighing criticality, tribal knowledge density, and how often agents actually touch each one."
+  section="how-c-dad-works"
+>
+  <h1>cdad roadmap</h1>
+
+  <p>
+    A check report tells you how illegible the repo is. It doesn't
+    tell you where to start fixing that, and with a repo of any real
+    size, "start everywhere" isn't a plan. <code>cdad roadmap</code> is
+    the command that turns a score into an order of operations.
+  </p>
+  <p>
+    It reads <code>cdad-report.md</code>, the file <code>cdad check</code> just
+    wrote, and asks you two more things for each capability the check
+    step covered: how critical is this if it breaks, and how often
+    does it actually get touched. Those two answers get multiplied
+    against a third axis the check step already produced, the tribal
+    knowledge density implied by that capability's legibility score.
+    Criticality times frequency times tribal knowledge density gives
+    you a ranking, not a vibe. The capability at the top of the list
+    is the one where getting it wrong costs the most and a contract
+    would help the most often.
+  </p>
+  <p>
+    The output is <code>cdad-roadmap.md</code>, written next to the
+    report it came from. If you'd rather consume the ranking
+    programmatically, <code>--format json</code> writes it as structured
+    data instead of prose. <code>--input &lt;path&gt;</code> and
+    <code>--output &lt;path&gt;</code> exist for the same reason the check
+    command has them, so the two files don't have to live at the
+    default location if your repo's conventions say otherwise.
+  </p>
+  <p>
+    Whatever sits at the top of the roadmap is what you hand to
+    <code>cdad init</code> next. That's the whole point of ranking it in
+    the first place, so the first capability anyone contracts is
+    the one that was actually worth doing first.
+  </p>
+
+  <pre><code>cdad roadmap
+cdad roadmap --input cdad-report.md --format json</code></pre>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/how-c-dad-works/cdad-check/")}>&larr; cdad check</a>
+    <a href={withBase("/how-c-dad-works/cdad-init/")}>cdad init &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  pre {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 0.5em;
+    padding: 1em 1.25em;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.85em;
+    line-height: 1.6;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+
+const toc = [
+  { href: "#overview", label: "Overview" },
+  { href: "#pages-in-this-area", label: "Pages in this area" },
+];
+---
+
+<SubpageLayout
+  title="Proof"
+  description="Contract-Driven AI Development isn't just an argument. It's a scoring methodology you can run, a priority model you can check, and a CLI you can read line by line."
+  section="proof"
+  toc={toc}
+>
+  <h1>Proof</h1>
+
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      Most of this site makes a case: tribal knowledge is a bottleneck,
+      contracts fix it, and the fix compounds. A case is only worth as
+      much as the mechanics underneath it, so this section is where those
+      mechanics get shown rather than asserted. How does a legibility
+      score actually get computed. Why does extraction beat a rewrite on
+      the math, not just on vibes. What happens when you go look at the
+      toolkit's source instead of taking a claim about it on faith.
+    </p>
+    <p>
+      None of the three pages below ask you to trust a metaphor. They
+      walk through the scoring rules, the extraction priority logic, and
+      the fact that the CLI and its schemas are sitting in the open where
+      anyone can read them.
+    </p>
+  </section>
+
+  <section id="pages-in-this-area">
+    <h2>Pages in this area</h2>
+    <ul class="cluster-list">
+      <li>
+        <a href={withBase("/proof/legibility-scoring-methodology/")}>Legibility Scoring Methodology</a>
+        <p>How four questions and a half-point scale turn "this code feels risky" into an actual number.</p>
+      </li>
+      <li>
+        <a href={withBase("/proof/case-for-extraction-over-rewrite/")}>The Case for Extraction Over Rewrite</a>
+        <p>Why a rewrite spends senior engineering time on cleaner code that still doesn't declare what it knows.</p>
+      </li>
+      <li>
+        <a href={withBase("/proof/open-source-toolkit/")}>Open Source Toolkit</a>
+        <p>The CLI, the schemas, and the validation logic are public, so the methodology isn't a marketing claim.</p>
+      </li>
+    </ul>
+  </section>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/use-cases/")}>&larr; Use Cases</a>
+    <a href={withBase("/examples/")}>Examples &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .cluster-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+
+  .cluster-list a {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 0.15em;
+  }
+
+  .cluster-list a:hover {
+    color: var(--coral);
+    text-decoration-color: currentColor;
+  }
+
+  .cluster-list p {
+    margin: 0.35rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

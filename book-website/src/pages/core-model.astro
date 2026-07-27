@@ -1,0 +1,143 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+
+const toc = [
+  { href: "#overview", label: "Overview" },
+  { href: "#pages-in-this-area", label: "Pages in this area" },
+];
+---
+
+<SubpageLayout
+  title="The Core Model"
+  description="Legibility, capability, contract, capability graph. Four terms the toolkit uses precisely, defined here at the depth a glossary entry can't reach."
+  section="core-model"
+  toc={toc}
+>
+  <h1>The Core Model</h1>
+
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      The toolkit rests on four concepts, and the docs define each of
+      them in a single sentence: legibility, capability, contract,
+      capability graph. That's the right length for a reference card.
+      It's the wrong length for actually understanding how the pieces
+      fit together, why the order matters, or what goes wrong when a
+      team applies one of them halfway. This cluster of pages exists to
+      close that gap, one concept at a time, at the depth the book
+      gives them across Chapters 2 through 6.
+    </p>
+    <p>
+      Start with legibility, because it's the diagnostic the rest of
+      the model responds to. From there, capability defines the unit
+      being diagnosed, and contract defines what you write down once
+      you've decided a capability is worth the effort. The capability
+      graph is what you get when contracts accumulate across a whole
+      system. The rest of the pages are more operational: the minimum
+      fields a contract needs, the extended fields for capabilities
+      that carry more risk, how a contract's version number actually
+      gets decided, the specific ways contracts drift when nobody's
+      watching, and the arc a capability travels from invisible logic
+      to something a contract governs.
+    </p>
+  </section>
+
+  <section id="pages-in-this-area">
+    <h2>Pages in this area</h2>
+    <ul class="cluster-list">
+      <li>
+        <a href={withBase("/core-model/legibility/")}>Legibility</a>
+        <p>What the term means precisely, the four questions used to score it, and how `cdad check` turns that scoring into a number.</p>
+      </li>
+      <li>
+        <a href={withBase("/core-model/capability/")}>Capability</a>
+        <p>The business-facing unit the whole model is built around, and why it cuts a system along different lines than a service boundary does.</p>
+      </li>
+      <li>
+        <a href={withBase("/core-model/contract/")}>Contract</a>
+        <p>What a contract actually has to declare before an agent, or a new hire, can act on a capability without guessing.</p>
+      </li>
+      <li>
+        <a href={withBase("/core-model/capability-graph/")}>Capability Graph</a>
+        <p>The dependency map that emerges once contracts accumulate, and how humans and agents read it differently.</p>
+      </li>
+      <li>
+        <a href={withBase("/core-model/minimum-viable-contract/")}>Minimum Viable Contract</a>
+        <p>The exact fields a contract needs to be useful, no more and no less, field by field.</p>
+      </li>
+      <li>
+        <a href={withBase("/core-model/extended-contract-fields/")}>Extended Contract Fields</a>
+        <p>Dependencies, performance, error handling, trust zones, constraint history: the fields for capabilities carrying real operational weight.</p>
+      </li>
+      <li>
+        <a href={withBase("/core-model/contract-versioning/")}>Contract Versioning</a>
+        <p>Why a version bump is decided by downstream compatibility, not by how large the text diff looks.</p>
+      </li>
+      <li>
+        <a href={withBase("/core-model/contract-anti-patterns/")}>Contract Anti-Patterns</a>
+        <p>Five specific, recognizable ways a contract drifts away from what it's supposed to do, with real examples.</p>
+      </li>
+      <li>
+        <a href={withBase("/core-model/capability-lifecycle-states/")}>Capability Lifecycle States</a>
+        <p>How a capability moves from invisible logic nobody's named to a node the graph and an agent can both trust.</p>
+      </li>
+    </ul>
+  </section>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/why-c-dad/from-documentation-to-contracts/")}>&larr; From documentation to contracts</a>
+    <a href={withBase("/how-c-dad-works/")}>How C-DAD works &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .cluster-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .cluster-list a {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 0.15em;
+  }
+
+  .cluster-list a:hover {
+    color: var(--coral);
+    text-decoration-color: currentColor;
+  }
+
+  .cluster-list p {
+    margin: 0.35rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

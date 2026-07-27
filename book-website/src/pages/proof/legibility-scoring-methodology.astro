@@ -1,0 +1,93 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Legibility Scoring Methodology"
+  description="One diagnostic question, broken into four scored sub-questions, run against real capabilities. This is how the toolkit turns a gut feeling about risky code into a number."
+  section="proof"
+>
+  <h1>Legibility Scoring Methodology</h1>
+
+  <p>
+    The whole audit reduces to one diagnostic question. Could a capable
+    engineer, with no tribal knowledge and no history with your team,
+    safely change this capability using only what the system makes
+    available to them? Everything else is just that question broken
+    into pieces small enough to score.
+  </p>
+  <p>
+    There are four sub-questions underneath it. Can someone tell why
+    the capability works this way, not only what it currently does.
+    Can they see what was tried before and why it didn't stick. Can
+    they understand why it calls what it calls instead of the more
+    obvious alternative sitting right next to it. And can they find
+    every exception path that traces back to a specific customer, a
+    regulation, or an incident from a few years ago that nobody wrote
+    down.
+  </p>
+  <p>
+    Scoring is deliberately plain. A full point when the answer is
+    clearly yes, half a point when the answer is partial, zero when
+    there's nothing there but tribal memory. No weighting tricks, no
+    hidden multipliers at this stage. The scale stays legible on
+    purpose, because a scoring method nobody can audit by hand isn't
+    much of an improvement over the guesswork it replaces.
+  </p>
+  <p>
+    <code>cdad check</code> is where this methodology actually runs. It
+    combines a static scan of the repository with a short questionnaire
+    that walks through up to five capabilities and asks the same four
+    questions for each one, then rolls the result into a single score
+    from zero to ten with a band attached, written to
+    <code>cdad-report.md</code>. The methodology isn't hidden behind the
+    tool. It's the same four questions every time, just automated
+    enough that running it twice a quarter is realistic.
+  </p>
+  <p>
+    Low scores aren't a verdict on the engineers who built the
+    capability. They're a map of where tribal knowledge is doing the
+    most load-bearing work, and therefore where an agent, or a new
+    hire, is most likely to walk into something nobody thought to
+    write down.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/proof/")}>&larr; Proof</a>
+    <a href={withBase("/proof/case-for-extraction-over-rewrite/")}>The Case for Extraction Over Rewrite &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

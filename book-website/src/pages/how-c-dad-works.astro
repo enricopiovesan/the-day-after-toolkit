@@ -1,0 +1,134 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+
+const toc = [
+  { href: "#overview", label: "Overview" },
+  { href: "#pages-in-this-area", label: "Pages in this area" },
+];
+---
+
+<SubpageLayout
+  title="How C-DAD Works"
+  description="A walkthrough of the cdad CLI: check, roadmap, init, validate, and graph, the five commands that turn a diagnostic into a running contract-driven workflow."
+  section="how-c-dad-works"
+  toc={toc}
+>
+  <h1>How C-DAD Works</h1>
+
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      The cdad CLI is the part of Contract-Driven AI Development you
+      actually run. Five commands cover the whole loop. <code>cdad check</code>
+      scores how legible your repo is right now and writes a report.
+      <code>cdad roadmap</code> reads that report and ranks which capabilities
+      are worth extracting first. <code>cdad init</code> scaffolds the contract
+      files for whichever capability you picked. <code>cdad validate</code> keeps
+      those files honest as the code underneath them changes, and
+      <code>cdad graph</code> turns everything you've contracted so far into a
+      dependency map you can actually look at.
+    </p>
+    <p>
+      None of these commands are meant to run once. The intended shape
+      is a loop: check, roadmap, init, validate, graph, then check
+      again, so you can watch the score move as the repo picks up more
+      contracts over time. The pages below cover each command on its
+      own, plus a walkthrough of writing your first contract end to end.
+    </p>
+  </section>
+
+  <section id="pages-in-this-area">
+    <h2>Pages in this area</h2>
+    <ul class="cluster-list">
+      <li>
+        <a href={withBase("/how-c-dad-works/cdad-check/")}>cdad check</a>
+        <p>Scores repo agent-readiness from zero to ten and writes cdad-report.md, the file every later step reads.</p>
+      </li>
+      <li>
+        <a href={withBase("/how-c-dad-works/cdad-roadmap/")}>cdad roadmap</a>
+        <p>Turns the check report into a ranked list of which capabilities to contract first.</p>
+      </li>
+      <li>
+        <a href={withBase("/how-c-dad-works/cdad-init/")}>cdad init</a>
+        <p>Scaffolds the contract triple, yaml, json, and markdown, for a single capability.</p>
+      </li>
+      <li>
+        <a href={withBase("/how-c-dad-works/cdad-validate/")}>cdad validate</a>
+        <p>Checks contract schema, versioning, and generated-artifact consistency before a PR merges.</p>
+      </li>
+      <li>
+        <a href={withBase("/how-c-dad-works/cdad-graph/")}>cdad graph</a>
+        <p>Renders every contracted capability and its dependencies as Mermaid, JSON, and Markdown.</p>
+      </li>
+      <li>
+        <a href={withBase("/how-c-dad-works/writing-your-first-contract/")}>Writing your first contract</a>
+        <p>A full walkthrough of the loop, from a cold repo to a validated, graphed contract.</p>
+      </li>
+    </ul>
+  </section>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/core-model/")}>&larr; The Core Model</a>
+    <a href={withBase("/glossary/")}>Glossary &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .cluster-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+
+  .cluster-list a {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 0.15em;
+  }
+
+  .cluster-list a:hover {
+    color: var(--coral);
+    text-decoration-color: currentColor;
+  }
+
+  .cluster-list p {
+    margin: 0.35rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

@@ -1,0 +1,79 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="The Cost of Tribal Knowledge"
+  description="Tribal knowledge isn't a documentation gap, it's a standing cost that shows up in onboarding time, departure risk, and every AI-generated change that looks right and isn't."
+  section="why-c-dad"
+>
+  <h1>The cost of tribal knowledge</h1>
+
+  <p>
+    Tribal knowledge is easy to underprice because it doesn't show up
+    as a line item anywhere. Nobody budgets for it. It just quietly
+    taxes everything a team does, in ways that are individually small
+    enough to shrug off and collectively enormous.
+  </p>
+  <p>
+    The most visible cost is onboarding. A new hire doesn't actually
+    spend their first weeks learning to code, they spend it
+    reconstructing context that already existed somewhere, just not
+    anywhere they could find it. The constraint behind a strange-
+    looking function. The reason a retry sits at three attempts
+    instead of five. That reconstruction happens one Slack message and
+    one hallway conversation at a time, and it happens again for every
+    new hire, because none of it gets captured the first time either.
+  </p>
+  <p>
+    The second cost is departure risk, and it's the more dangerous
+    one. When a senior engineer who's been there five years leaves,
+    the org chart doesn't show what actually walked out the door. It's
+    every constraint they were carrying that never made it into a
+    document, a comment, or a ticket. The next person to touch that
+    code isn't just less experienced. They're missing information that
+    doesn't exist anywhere else, and there's no efficient way to get it
+    back.
+  </p>
+  <p>
+    The third cost is the newest one, and it's what makes the first
+    two urgent instead of merely annoying. AI coding agents are now
+    the primary interface a lot of engineers use to touch a codebase,
+    and agents inherit the tribal knowledge gap completely. They read
+    every file in seconds and still can't ask what a constraint means,
+    so every undocumented decision becomes a landmine an agent will
+    eventually step on, with a commit message that looks entirely
+    reasonable right up until it isn't.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/why-c-dad/why-ai-agents-need-legible-systems/")}>&larr; Why AI agents need legible systems</a>
+    <a href={withBase("/why-c-dad/from-documentation-to-contracts/")}>From documentation to contracts &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

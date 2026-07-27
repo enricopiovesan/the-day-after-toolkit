@@ -1,0 +1,62 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Contract: Glossary"
+  description="A contract is the machine-readable and human-readable declaration of what a capability does, what it needs, what it promises, and what it explicitly does not do."
+  section="glossary"
+  crumbLabel="Contract"
+>
+  <h1>Contract</h1>
+
+  <p>
+    Ask a contract what a capability does, and it actually answers.
+    A contract is the declaration, both machine-readable and
+    human-readable, of what a capability does, what it needs to run,
+    what it promises to callers, and what it deliberately does not
+    do.
+  </p>
+  <p>
+    <code>cdad init</code> scaffolds a contract as three files:
+    <code>contract.yaml</code> as the source of truth, plus generated
+    <code>contract.json</code> and <code>contract.md</code>. Editing
+    the generated files by hand and leaving the YAML untouched is one
+    of the toolkit's named anti-patterns, because the three copies
+    drift apart and nobody can tell which one is real.
+  </p>
+  <p>
+    Every contract in a repo becomes one node in the
+    <a href={withBase("/glossary/capability-graph/")}>capability graph</a>,
+    so a change to one contract's dependencies is visible before it
+    turns into a surprise.
+  </p>
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/glossary/")}>&larr; Glossary</a>
+    <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

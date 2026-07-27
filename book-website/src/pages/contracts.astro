@@ -1,0 +1,67 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<SubpageLayout
+  title="Contracts Are the Answer"
+  description="Not more documentation, not a better wiki: why a machine-readable contract is the structural fix for systems that need to explain themselves to AI agents."
+  section="chapters"
+  crumbLabel="Ch.3: Contracts Are the Answer"
+>
+  <h1>Contracts Are the Answer</h1>
+
+  <p>
+    The instinct, once tribal knowledge is named as the problem, is to
+    write it down. More documentation. A better wiki. Clearer onboarding
+    docs. Chapter 3 argues that every one of these responses is a
+    genuine attempt that treats the symptom without touching the
+    underlying condition, because a wiki page describes a system.
+    It doesn't let an agent act on it.
+  </p>
+  <p>
+    A contract is different in kind, not just in polish: a structured,
+    machine-readable declaration of what a piece of business logic does,
+    why it does it, and what would break if you changed it. Specific
+    enough for a human to trust. Structured enough for an agent to parse
+    without a person translating first.
+  </p>
+  <p>
+    This is the chapter that defines what a contract actually has to
+    capture, not a template to fill in casually, but the minimum
+    a system needs to declare about itself before an agent (or a new
+    hire) can act on it safely. It's the hinge point of the book:
+    everything before it names the problem, everything after it is how
+    you build the fix.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/tribal-knowledge/")}>&larr; Chapter 2: Tribal Knowledge Is the Bottleneck</a>
+    <a href={withBase("/capabilities-graph/")}>Chapter 4: The Capabilities Graph &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

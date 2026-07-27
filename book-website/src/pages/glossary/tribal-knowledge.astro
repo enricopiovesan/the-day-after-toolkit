@@ -1,0 +1,62 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Tribal Knowledge: Glossary"
+  description="Tribal knowledge is undocumented operational knowledge about how and why a system behaves as it does, that lives only in people's heads instead of in the system itself."
+  section="glossary"
+  crumbLabel="Tribal Knowledge"
+>
+  <h1>Tribal Knowledge</h1>
+
+  <p>
+    Every team has it. The reason the batch job runs at 2am and not
+    3am. The one customer whose contract quietly bent a validation
+    rule three years ago. None of it is written down anywhere the
+    system can produce on its own, it lives in a few people's heads,
+    and it evaporates the moment those people change teams.
+  </p>
+  <p>
+    Tribal knowledge isn't a character flaw. It's what happens by
+    default when documentation lags behind decisions. The trouble
+    starts when an engineer, or an AI agent, needs to change that
+    code and has no way to ask why it's shaped the way it is.
+  </p>
+  <p>
+    The toolkit exists to convert as much tribal knowledge as
+    possible into contracts. See
+    <a href={withBase("/glossary/legibility/")}>legibility</a> for how
+    that gets measured, and
+    <a href={withBase("/glossary/contract-driven-ai-development/")}>Contract-Driven AI Development</a>
+    for the discipline built around doing it on purpose.
+  </p>
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/glossary/")}>&larr; Glossary</a>
+    <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

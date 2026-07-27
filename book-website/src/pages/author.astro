@@ -1,0 +1,51 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+---
+
+<SubpageLayout
+  title="Author"
+  description="Enrico Piovesan, author of The Day After and Universal Microservices Architecture."
+  section="book"
+>
+  <h1>Enrico Piovesan</h1>
+  <p class="role">Software Architect &middot; Author of Universal Microservices Architecture</p>
+
+  <!-- TODO: swap in a real author photo at /public/author.jpg -->
+  <p>
+    Enrico Piovesan writes about software architecture in the age of AI
+    agents. <em>The Day After</em> is his second book, following
+    <a href="https://www.amazon.com/dp/B0GTTTTQH4">Universal Microservices
+    Architecture</a>, and continues in the <a
+      href="https://medium.com/software-architecture-in-the-age-of-ai"
+      >Mastering Software Architecture for the AI Era</a
+    > series on Medium.
+  </p>
+  <p>
+    He is also the author of the open-source <a
+      href="https://github.com/enricopiovesan/the-day-after-toolkit"
+      >Day After Toolkit</a
+    >, the companion CLI that turns the book's operating model into
+    executable checks and scaffolding.
+  </p>
+
+  <h2>Elsewhere</h2>
+  <ul class="links">
+    <li><a href="https://github.com/enricopiovesan">GitHub</a></li>
+    <li><a href="https://medium.com/software-architecture-in-the-age-of-ai">Medium series</a></li>
+    <li><a href="https://enricopiovesan.github.io/enricopiovesan/">Speaking</a></li>
+  </ul>
+</SubpageLayout>
+
+<style>
+  .role {
+    color: var(--text-muted);
+    margin-top: -0.5rem;
+  }
+
+  .links {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+</style>

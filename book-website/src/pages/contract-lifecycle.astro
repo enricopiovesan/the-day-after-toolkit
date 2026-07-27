@@ -1,0 +1,72 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<SubpageLayout
+  title="The Contract Lifecycle"
+  description="Writing a contract once is easy. Keeping it true as the system changes is the actual work. Chapter 6 lays out the technical model for a system that stays legible to AI agents over time."
+  section="chapters"
+  crumbLabel="Ch.6: The Contract Lifecycle"
+>
+  <h1>The Contract Lifecycle</h1>
+
+  <p>
+    A contract that's accurate on the day it's written and stale six
+    months later isn't a fix. It's a trap with better packaging than a
+    wiki page, because now everyone trusts it. Chapter 6 is about the
+    part of this model that doesn't show up in a diagram: what keeps a
+    contract true as the capability underneath it keeps changing.
+  </p>
+  <p>
+    The chapter follows a developer who's new enough to the team that
+    she's never touched the old, undocumented version of the system.
+    She opens a capability's contract before making a change, the way
+    you'd check a map before a trip. What she finds isn't just a
+    description. It's a business rule stated in one sentence, the
+    dependencies it relies on, the things it deliberately doesn't do,
+    and a constraint history that explains why a limit got lowered
+    three years ago. She hands the task to an agent. It comes back with
+    a flagged dependency the contract didn't mention yet. It was right
+    to flag it. She updates the contract before approving the change.
+    Eleven minutes, start to finish.
+  </p>
+  <p>
+    That's the lifecycle working as intended: not a document that gets
+    written once and forgotten, but something that gets checked, used,
+    and corrected as part of the normal flow of work. The chapter
+    covers what makes that possible technically, what breaks it, and
+    why a contract nobody's pipeline enforces is really just
+    documentation wearing a costume.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/extraction-over-refactoring/")}>&larr; Chapter 5: Extraction Over Refactoring</a>
+    <a href={withBase("/for-architects/")}>Chapter 7: The Architect &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

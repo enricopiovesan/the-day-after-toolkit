@@ -1,0 +1,139 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Capability"
+  description="A capability is a business-facing unit of behavior with inputs, outputs, non-goals, and a name that a contract and a graph can both reference. Here's what that actually means as a design boundary."
+  section="core-model"
+>
+  <h1>Capability</h1>
+
+  <p>
+    A capability is a business-facing unit of behavior with inputs,
+    outputs, non-goals, and a human-readable name that can be
+    referenced in contracts and in the graph. That definition is
+    short on purpose, but it's doing more work than it looks like.
+    The key phrase is business-facing. A capability isn't a class, a
+    module, or a microservice. Those are implementation choices,
+    and a team can restructure them without changing what the
+    business is actually doing. A capability is named after what it
+    does for the business: payment retry, discount calculation,
+    session login. It survives a rewrite because it describes intent,
+    not code shape.
+  </p>
+  <p>
+    Chapter 4 introduces the capability as a new atomic unit of
+    software design and gives it three properties. Headless, meaning
+    it carries no assumptions about how it gets presented, so the
+    same capability can back a web app, a batch job, or an agent
+    calling it directly. Portable, meaning it runs wherever it's
+    called from instead of being wired to one service's internals.
+    Contract-defined, meaning its boundaries and rules are declared
+    somewhere explicit rather than inferred by whoever's willing to
+    read the code closely enough. Those three properties are what
+    make a capability a stable unit to build a graph out of, instead
+    of a shape that changes every time someone refactors.
+  </p>
+  <p>
+    This is a genuinely different way to decompose a system than the
+    service boundaries most teams already have. Service boundaries
+    tend to follow deployment convenience: what's easy to scale
+    separately, what one team owns, what fits in a repo. Capability
+    boundaries follow business meaning instead. A single service can
+    host several capabilities, and a single capability can, in
+    principle, span more than one service. That mismatch is normal.
+    The capability boundary isn't trying to replace your
+    architecture. It's trying to give the business logic inside that
+    architecture a name an agent can act on.
+  </p>
+  <p>
+    Capabilities get identified with a semantic naming convention,
+    lowercase and slash-delimited, in the form
+    `domain/subdomain/action`. `payment/retry` and
+    `auth/session/login` are the examples the schema itself uses.
+    That's not a cosmetic choice. The id is what a contract
+    references, what shows up as a node in the graph, and what you
+    pass to `cdad init` when you're ready to scaffold a contract for
+    it. A capability without a stable id is hard to point an agent
+    at reliably, because there's nothing consistent to point at.
+  </p>
+  <p>
+    Granularity is the other thing that trips teams up when they
+    first start drawing these boundaries. A capability isn't a whole
+    domain, payment processing as a topic is too broad to fit
+    inputs, outputs, and one clear set of non-goals. It's also not a
+    single low-level function, a currency-rounding helper is too
+    small to carry any business intent worth declaring on its own.
+    The right size is the one that maps to a business rule someone
+    could actually explain in a sentence: retry this payment, apply
+    this discount, log this session in. If a capability needs three
+    sentences to explain what it does, it's probably two
+    capabilities wearing one name, and if it needs a whole paragraph
+    to say what it doesn't do, the non-goals are covering for a
+    boundary that was never drawn tightly enough in the first place.
+  </p>
+  <p>
+    Here's the part that trips people up early: a capability doesn't
+    get created when you write a contract for it. It usually already
+    exists, running in production, embedded somewhere in the
+    codebase, doing its job correctly with nobody having drawn a
+    boundary around it. Extraction, the subject of Chapter 5, is the
+    act of noticing that boundary and naming it. Writing the contract
+    comes after. The capability was real the whole time. It just
+    wasn't legible.
+  </p>
+  <p>
+    The `domain` segment of that id isn't decorative either. It's
+    what lets tooling group capabilities the way a business actually
+    thinks about them, `cdad graph --domain payment` scopes the
+    dependency map to one business area instead of the whole repo,
+    and the graph's own summary reports coverage domain by domain,
+    not service by service. A capability's domain and a capability's
+    deployment home can line up, but they don't have to, and when
+    they don't, that mismatch is often the first sign that a service
+    boundary was drawn for infrastructure reasons rather than
+    business ones.
+  </p>
+  <p>
+    Once a capability has a name and a boundary, it becomes the thing
+    everything else in the model attaches to. A contract declares
+    what one capability does. The graph shows how many capabilities
+    connect to each other. Get the capability boundary wrong, drawn
+    around a chunk of implementation instead of a piece of business
+    intent, and the contract you write for it will fight you the
+    whole way, because you'll be trying to describe intent for
+    something that was never scoped to have any.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/core-model/legibility/")}>&larr; Legibility</a>
+    <a href={withBase("/core-model/contract/")}>Contract &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Legibility: Glossary"
+  description="Legibility is the degree to which an engineer or AI agent can understand why a capability behaves the way it does, without relying on tribal knowledge."
+  section="glossary"
+  crumbLabel="Legibility"
+>
+  <h1>Legibility</h1>
+
+  <p>
+    A system is legible when a capable engineer, or an AI agent, can
+    look at a piece of behavior and understand why it works that way,
+    without hunting down the one person who remembers.
+  </p>
+  <p>
+    Most codebases run fine and stay illegible at the same time. The
+    tests pass. The service ships. Nobody can say why a particular
+    retry limit exists, or why one customer segment gets a special
+    code path. That gap between working and understood is where
+    tribal knowledge does its quiet, load-bearing work, and where an
+    agent handed the same task starts to guess.
+  </p>
+  <p>
+    The toolkit treats legibility as something you can score, not
+    something you feel. A handful of short questions, about intent,
+    history, dependency choices, and exceptions, turn that vague
+    unease into a number you can compare across capabilities. See
+    <a href={withBase("/glossary/tribal-knowledge/")}>tribal knowledge</a>
+    for the failure mode legibility is meant to fix.
+  </p>
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/glossary/")}>&larr; Glossary</a>
+    <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

@@ -1,0 +1,49 @@
+---
+interface Props {
+  align?: "left" | "right";
+}
+
+const { align = "left" } = Astro.props;
+---
+
+<div class={`section-heading section-heading--${align}`}>
+  <hr class="divider" />
+  <h2><slot /></h2>
+</div>
+
+<style>
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 4.5rem;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    font-weight: 200;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .section-heading--left {
+    flex-direction: row-reverse;
+  }
+
+  .section-heading--right {
+    flex-direction: row;
+  }
+
+  .section-heading .divider {
+    flex: 1;
+    height: 1.5px;
+    background: currentColor;
+    opacity: 0.4;
+  }
+
+  @media (max-width: 640px) {
+    .section-heading h2 {
+      white-space: normal;
+    }
+  }
+</style>

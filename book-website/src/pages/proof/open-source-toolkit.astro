@@ -1,0 +1,87 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Open Source Toolkit"
+  description="The CLI, the contract schemas, and the validation logic behind Contract-Driven AI Development are public. You don't have to take the methodology on faith when you can read the code."
+  section="proof"
+>
+  <h1>Open Source Toolkit</h1>
+
+  <p>
+    Everything described elsewhere on this site, the scoring
+    methodology, the extraction priority model, the shape of a
+    contract, is backed by a real, runnable command-line tool, and that
+    tool is open source. That's not a footnote. It's the difference
+    between a framework you have to trust and one you can go verify
+    yourself, field by field.
+  </p>
+  <p>
+    The <code>cdad</code> CLI implements <code>check</code>,
+    <code>roadmap</code>, <code>init</code>, <code>validate</code>, and
+    <code>graph</code> as five real commands with real output files,
+    not five slide-deck labels. The contract schemas that
+    <code>init</code> scaffolds and <code>validate</code> checks against
+    live in the same repository as the code that reads them. If you
+    want to know exactly what makes a contract pass validation, or
+    exactly how the legibility questionnaire turns answers into a
+    score, the answer isn't a claim on this page. It's a file you can
+    open.
+  </p>
+  <p>
+    That matters most for the parts of the methodology that are easiest
+    to be skeptical about from a distance. Multiplying three axes
+    instead of adding them, scoring half-points on partial answers,
+    deciding what counts as an exception path worth flagging. None of
+    that is arbitrary once you can see the logic that implements it,
+    and none of it is hidden behind a paywall or a sales call to check.
+  </p>
+  <p>
+    The toolkit being public also means it's inspectable by the exact
+    audience it's built for. An engineer deciding whether to adopt this
+    in their own repository doesn't need to trust a vendor's pitch.
+    They can read the schemas, run the CLI against a real repo, and
+    judge the output on its own terms before committing a single
+    capability to it.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/proof/case-for-extraction-over-rewrite/")}>&larr; The Case for Extraction Over Rewrite</a>
+    <a href={withBase("/proof/")}>Proof overview &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

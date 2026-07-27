@@ -1,0 +1,111 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+
+const toc = [
+  { href: "#who-its-for", label: "Who it's for" },
+  { href: "#table-of-contents", label: "Table of contents" },
+];
+
+const bookSchema = {
+  "@context": "https://schema.org",
+  "@type": "Book",
+  name: "The Day After",
+  alternateName: "The Day After AI",
+  author: {
+    "@type": "Person",
+    name: "Enrico Piovesan",
+  },
+  description:
+    "How software companies must restructure for what comes next. Tribal knowledge is the hidden bottleneck stopping AI agents from working safely in your codebase, and The Day After is the operating model for making software legible to your team and to the agents building it with you.",
+  url: new URL(withBase("/about-the-book/"), Astro.site).toString(),
+  inLanguage: "en",
+  genre: "Software Engineering",
+};
+---
+
+<SubpageLayout
+  title="About the Book"
+  description="What The Day After covers, chapter by chapter: why tribal knowledge breaks AI agents, why contracts (not more docs) are the fix, and the capability graph that makes a codebase legible to humans and agents alike."
+  section="book"
+  toc={toc}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(bookSchema)} />
+  <h1>The Day After AI</h1>
+  <p class="lede">
+    How Software Companies Must Restructure for What Comes Next.
+  </p>
+
+  <p>
+    Tribal knowledge is the hidden bottleneck preventing every software
+    organization from effectively leveraging AI agents. The knowledge
+    that lives in people's heads, in Slack threads, in undocumented
+    decisions, is not a documentation problem. It is a structural
+    problem, and it has a structural solution. A system that cannot make
+    its intent legible to an AI agent is a system that will be navigated
+    by competitors who can.
+  </p>
+  <p>
+    <em>The Day After</em> gives every role in a software organization a
+    concrete recipe for that shift. The organizations that make it first
+    will compound that advantage with every agent generation that
+    follows. The ones that don't will find themselves outpaced not by
+    better technology, but by better structure, the kind their
+    competitors built while the window was still open.
+  </p>
+
+  <h2 id="who-its-for">Who it's for</h2>
+  <ul>
+    <li>Architects designing the capability graph and writing the contracts that govern it.</li>
+    <li>Developers and tech leads shipping inside and outside a legacy codebase.</li>
+    <li>PMs and POs deciding what gets extracted first.</li>
+    <li>Designers working in systems that now have to explain themselves to a machine.</li>
+    <li>Engineering leaders deciding how much autonomy to hand to AI agents, and how to restructure for it.</li>
+  </ul>
+
+  <h2 id="table-of-contents">Table of contents</h2>
+  <ol class="toc">
+    <li>Opening Scene: Monday Morning</li>
+    <li>The Day After</li>
+    <li><a href={withBase("/tribal-knowledge/")}>Tribal Knowledge Is the Bottleneck</a></li>
+    <li><a href={withBase("/contracts/")}>Contracts Are the Answer</a></li>
+    <li><a href={withBase("/capabilities-graph/")}>The Capabilities Graph</a></li>
+    <li><a href={withBase("/extraction-over-refactoring/")}>Extraction Over Refactoring</a></li>
+    <li>The Contract Lifecycle</li>
+    <li>The Architect</li>
+    <li>The Developer</li>
+    <li>The PM / PO</li>
+    <li>The Designer</li>
+    <li>The Leadership Team</li>
+    <li>The Company That Gets There First</li>
+    <li>Appendix: contract schema reference, legibility audit framework, extraction priority matrix, glossary</li>
+  </ol>
+
+  <BuyLinks />
+</SubpageLayout>
+
+<style>
+  .lede {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+  }
+
+  .toc {
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .toc a {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 0.15em;
+  }
+
+  .toc a:hover {
+    color: var(--coral);
+    text-decoration-color: currentColor;
+  }
+</style>

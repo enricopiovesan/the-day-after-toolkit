@@ -1,0 +1,143 @@
+---
+import { Image } from "astro:assets";
+import { withBase } from "../utils/url";
+import teamDevelopers from "../assets/images/team-developers.jpg";
+import teamProjectManagers from "../assets/images/team-project-managers.jpg";
+import teamArchitects from "../assets/images/team-architects.jpg";
+import teamDesigners from "../assets/images/team-designers.jpg";
+import teamLeadership from "../assets/images/team-leadership.jpg";
+import teamEngineeringManagers from "../assets/images/team-engineering-managers.jpg";
+
+const tiles = [
+  { title: "Software\nDevelopers", tag: "SOFTWARE ENGINEERS", color: "pink", image: teamDevelopers, href: "/for-developers/", alt: "A software developer working at a laptop in an office" },
+  { title: "Project\nManagers", tag: "PROJECT OWNERS", color: "sage", image: teamProjectManagers, href: "/for-product-managers/", alt: "A project manager in front of a planning whiteboard" },
+  { title: "Software\nArchitects", tag: "TECH LEADS", color: "gray", image: teamArchitects, href: "/for-architects/", alt: "A software architect reviewing a system diagram" },
+  { title: "UI/XD\nDesigners", tag: "SOFTWARE ENGINEERS", color: "tan", image: teamDesigners, href: "/for-designers/", alt: "A UI and UX designer working at a desk" },
+  { title: "Leadership\nTeams", tag: "CEOs, CTOs", color: "coral", image: teamLeadership, href: "/for-engineering-leaders/", alt: "A leadership team in a discussion around a table" },
+  { title: "Engineering\nManagers", tag: "ENGINEERING DIRECTORS", color: "pink", image: teamEngineeringManagers, href: "/for-engineering-leaders/", alt: "An engineering manager at his desk" },
+];
+---
+
+<div class="audience-grid">
+  {
+    tiles.map((tile) => (
+      <a class="tile" href={withBase(tile.href)}>
+        <div class={`tile__header tile__header--${tile.color}`}>
+          <p class="tile__tag">
+            <span class="tick" aria-hidden="true" />
+            {tile.tag}
+          </p>
+          <h3 class="tile__title">
+            {tile.title.split("\n").map((line) => (
+              <>
+                {line}
+                <br />
+              </>
+            ))}
+          </h3>
+        </div>
+        <div class={`tile__image-wrap tile__image-wrap--${tile.color}`}>
+          <Image class="tile__image" src={tile.image} width={700} alt={tile.alt} loading="lazy" />
+        </div>
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .tile {
+    display: block;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .tile__header {
+    padding: 1.25rem;
+    color: var(--card-text);
+  }
+
+  .tile__header--pink { background: var(--pink); }
+  .tile__header--sage { background: var(--sage); }
+  .tile__header--gray { background: var(--gray-light); }
+  .tile__header--tan { background: var(--tan); }
+  .tile__header--coral { background: var(--coral); }
+
+  .tile__tag {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.65rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    opacity: 0.75;
+  }
+
+  .tick {
+    display: inline-block;
+    width: 0.7rem;
+    height: 1px;
+    background: currentColor;
+    transform: rotate(-55deg);
+  }
+
+  .tile__title {
+    text-align: right;
+    font-size: 1.1rem;
+    line-height: 1.2;
+  }
+
+  .tile__image-wrap {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .tile__image-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: color;
+  }
+
+  .tile__image-wrap--pink::after { background: var(--pink); }
+  .tile__image-wrap--sage::after { background: var(--sage); }
+  .tile__image-wrap--gray::after { background: var(--gray-light); }
+  .tile__image-wrap--tan::after { background: var(--tan); }
+  .tile__image-wrap--coral::after { background: var(--coral); }
+
+  .tile__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .tile:hover .tile__image {
+    filter: grayscale(0.6) contrast(1.05);
+  }
+
+  @media (max-width: 720px) {
+    .audience-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .audience-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

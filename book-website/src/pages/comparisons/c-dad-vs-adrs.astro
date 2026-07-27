@@ -1,0 +1,84 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="C-DAD vs. Architecture Decision Records"
+  description="ADRs and contracts are close in spirit: both record a decision and the reasoning behind it. The difference is what happens after the decision, whether the record stays current and whether a machine can act on it."
+  section="comparisons"
+>
+  <h1>C-DAD vs. Architecture Decision Records</h1>
+
+  <p>
+    Of everything on this list, an ADR is the closest relative a
+    contract has. Teams that already write ADRs are usually already
+    doing the hard part: sitting down and writing out why a decision
+    was made, what alternatives got considered, what tradeoff got
+    accepted. That habit is genuinely good practice, and a lot of what
+    makes a contract useful is the same instinct pointed at a slightly
+    different target.
+  </p>
+  <p>
+    The difference shows up after the decision gets made. An ADR is a
+    point-in-time record. It captures the reasoning as of the day
+    someone wrote it, gets merged, and then in most teams' experience
+    sits untouched even after the decision it describes gets partially
+    reversed or quietly superseded by a later one. Nothing forces
+    anyone to go back and update an old ADR when a newer one changes
+    the underlying assumption, so a reader trying to understand the
+    current state has to read the whole history and guess which parts
+    are still true.
+  </p>
+  <p>
+    A contract is written to stay current against the system as it
+    actually runs, not just the day it was written. <code>cdad validate</code>
+    checks it against versioning rules and generated-artifact
+    consistency, so a contract that's fallen out of sync with the
+    capability it describes gets caught rather than quietly trusted.
+    And an ADR is written for a historian, someone trying to
+    understand how the system got to where it is. A contract is
+    written for someone making a change today, an agent or an engineer
+    who needs to know what's true right now, not the full sequence of
+    decisions that got there.
+  </p>
+  <p>
+    One anti-pattern makes the gap concrete: recording that an
+    incident happened without capturing the constraint it created. An
+    ADR that notes a database choice from years back, and never gets
+    revisited, is exactly the kind of record that looks thorough and
+    turns out to be dead weight. A contract's history section is meant
+    to hold the lesson, the actual constraint that future work has to
+    respect, not just a log of what happened once.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/comparisons/c-dad-vs-openapi/")}>&larr; C-DAD vs. OpenAPI</a>
+    <a href={withBase("/comparisons/c-dad-vs-full-rewrite/")}>C-DAD vs. A Full Rewrite &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

@@ -1,0 +1,104 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="cdad validate"
+  description="cdad validate checks contract schema, versioning rules, and generated-artifact consistency, and can install a pre-commit hook so a stale contract never quietly merges."
+  section="how-c-dad-works"
+>
+  <h1>cdad validate</h1>
+
+  <p>
+    A contract is only useful while it's true. The moment the code
+    changes and nobody updates the contract next to it, you're back to
+    documentation that lies, which is arguably worse than no
+    documentation at all. <code>cdad validate &lt;path&gt;</code> is the
+    command that catches that drift before it ships. It checks the
+    contract files against the schema, enforces the versioning rules,
+    and confirms the generated artifacts still match what the contract
+    actually declares.
+  </p>
+  <p>
+    Run it against a single path while you're working on one
+    capability, or add <code>--all</code> to validate every contract in
+    the repo at once, which is what most teams run in CI. <code>--strict</code>
+    turns warnings into errors, so a check that would otherwise pass
+    with a note now fails the build. If a problem has a safe automatic
+    fix, <code>--fix</code> will apply it rather than just flagging it,
+    and <code>--format json</code> gives you machine-readable output if
+    another tool needs to consume the results.
+  </p>
+  <p>
+    The flag worth calling out specifically is <code>--install-hook</code>.
+    It installs a POSIX shell pre-commit hook that runs validation
+    automatically before a commit lands, which is the difference
+    between "we're supposed to validate contracts" and contracts that
+    actually stay validated. Most teams run this once, early, and then
+    forget it's there because it just quietly does its job on every
+    commit.
+  </p>
+  <p>
+    The recommended point to run this by hand is right before a PR:
+    <code>cdad validate --all --strict</code>, so nothing with a stale
+    or malformed contract merges in the first place.
+  </p>
+
+  <pre><code>cdad validate cdad/payments/retries/schedule-retry
+cdad validate --all --strict</code></pre>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/how-c-dad-works/cdad-init/")}>&larr; cdad init</a>
+    <a href={withBase("/how-c-dad-works/cdad-graph/")}>cdad graph &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  pre {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 0.5em;
+    padding: 1em 1.25em;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.85em;
+    line-height: 1.6;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

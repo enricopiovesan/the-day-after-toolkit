@@ -1,0 +1,100 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Reading a Capability Graph"
+  description="Nodes are capabilities, edges are dependencies. A short walkthrough of how to read what cdad graph actually shows you, and what a well-connected or isolated node means."
+  section="examples"
+>
+  <h1>Reading a Capability Graph</h1>
+
+  <p>
+    A capability graph looks like a lot of other diagrams you've
+    probably seen: boxes connected by arrows. What makes it different
+    is what the boxes and arrows are actually made of. Each node is a
+    capability with a real contract behind it, not a service boundary
+    drawn from memory or a box added to make an architecture diagram
+    look complete. Each edge is a dependency that the contracts
+    themselves declare, one capability stating that it needs another
+    to do its job.
+  </p>
+  <p>
+    Reading the graph is mostly about noticing shape. A capability
+    with several edges pointing into it is one that a lot of the
+    system leans on, which usually means it deserves a higher bar for
+    legibility, since a change there can propagate further than a
+    change to something more isolated. A node sitting off by itself
+    with no edges either way is worth a second look too, for the
+    opposite reason. Sometimes that isolation is correct, a genuinely
+    self-contained capability. Sometimes it just means nobody has
+    contracted its neighbors yet, so the dependency exists in the code
+    but hasn't shown up in the graph.
+  </p>
+  <p>
+    <code>cdad graph</code> renders this in three formats at once. The
+    Mermaid output is what you'd actually look at, a diagram you can
+    drop into a doc or a PR description. The Markdown output gives you
+    the same information in a form that reads well inline. The JSON
+    adjacency list is the one worth treating as the source of truth if
+    you're feeding graph state into other tooling, an agent, a CI
+    check, a dashboard, because it's the stable, machine-friendly
+    format the other two are rendered from.
+  </p>
+  <p>
+    You can also scope a run instead of rendering the whole thing at
+    once. <code>--capability &lt;id&gt;</code> narrows the graph to one
+    capability and its immediate neighbors, useful when you're about to
+    touch something and want to know what else might feel it.
+    <code>--domain &lt;name&gt;</code> narrows to a domain, and
+    <code>--state &lt;state&gt;</code> filters by lifecycle state, which
+    matters once a repo has a mix of contracted and not-yet-contracted
+    capabilities living side by side.
+  </p>
+  <p>
+    The graph is only as trustworthy as the contracts behind it,
+    though. It reflects what the contracts declare, not what prose
+    documentation says elsewhere, so if a dependency relationship
+    changes, the fix goes into the contract first and the graph gets
+    regenerated after, not the other way around.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/examples/payment-retry-policy-contract/")}>&larr; Payment Retry Policy Contract</a>
+    <a href={withBase("/examples/before-and-after-a-legibility-audit/")}>Before and After a Legibility Audit &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

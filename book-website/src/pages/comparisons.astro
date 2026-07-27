@@ -1,0 +1,122 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+
+const toc = [
+  { href: "#overview", label: "Overview" },
+  { href: "#pages-in-this-area", label: "Pages in this area" },
+];
+---
+
+<SubpageLayout
+  title="Comparisons"
+  description="How a C-DAD contract differs from documentation, code comments, OpenAPI specs, architecture decision records, and a full rewrite. Five honest comparisons, not five reasons to throw the alternative out."
+  section="comparisons"
+  toc={toc}
+>
+  <h1>Comparisons</h1>
+
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      Most teams that look at C-DAD are not starting from zero. They
+      already write documentation, leave comments in the code, maintain
+      an OpenAPI spec, keep a folder of architecture decision records, or
+      are eyeing a rewrite as the fix for a system nobody trusts anymore.
+      The question is never whether a contract is better than nothing.
+      It's whether a contract does something those existing artifacts
+      don't.
+    </p>
+    <p>
+      This section works through five comparisons on their own terms.
+      None of them exist to declare a winner. Documentation, comments,
+      OpenAPI, and ADRs all solve real problems, and a contract doesn't
+      replace any of them wholesale. What follows is where each one
+      falls short for the specific job a contract is built to do: giving
+      an agent, or a new engineer, enough to act safely without tracking
+      down someone who remembers why.
+    </p>
+  </section>
+
+  <section id="pages-in-this-area">
+    <h2>Pages in this area</h2>
+    <ul class="cluster-list">
+      <li>
+        <a href={withBase("/comparisons/c-dad-vs-documentation/")}>C-DAD vs. Documentation</a>
+        <p>Documentation is prose for humans to interpret. A contract is structured enough for an agent to act on directly.</p>
+      </li>
+      <li>
+        <a href={withBase("/comparisons/c-dad-vs-code-comments/")}>C-DAD vs. Code Comments</a>
+        <p>Comments live inline and drift with the code around them. A contract is a separate artifact that gets checked, not just read.</p>
+      </li>
+      <li>
+        <a href={withBase("/comparisons/c-dad-vs-openapi/")}>C-DAD vs. OpenAPI</a>
+        <p>OpenAPI describes the shape of a request. A contract describes why the rule inside it exists.</p>
+      </li>
+      <li>
+        <a href={withBase("/comparisons/c-dad-vs-adrs/")}>C-DAD vs. Architecture Decision Records</a>
+        <p>An ADR records a decision at the moment it was made. A contract stays validated against the system as it runs today.</p>
+      </li>
+      <li>
+        <a href={withBase("/comparisons/c-dad-vs-full-rewrite/")}>C-DAD vs. A Full Rewrite</a>
+        <p>A rewrite spends months producing cleaner code that still can't explain itself. Extraction fixes legibility one capability at a time.</p>
+      </li>
+    </ul>
+  </section>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/glossary/")}>&larr; Glossary</a>
+    <a href={withBase("/use-cases/")}>Use Cases &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .cluster-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+
+  .cluster-list a {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 0.15em;
+  }
+
+  .cluster-list a:hover {
+    color: var(--coral);
+    text-decoration-color: currentColor;
+  }
+
+  .cluster-list p {
+    margin: 0.35rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

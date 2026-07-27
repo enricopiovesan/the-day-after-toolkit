@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thedayafteraibook.com/sitemap-index.xml

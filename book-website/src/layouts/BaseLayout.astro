@@ -1,0 +1,78 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { withBase } from "../utils/url";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  hideHeader?: boolean;
+}
+
+const {
+  title,
+  description = "Tribal knowledge is the hidden bottleneck stopping AI agents from working safely in your codebase. The Day After is the operating model for making software legible, to your team and to the agents building it with you.",
+  hideHeader = false,
+} = Astro.props;
+
+const pageTitle = title === "The Day After AI" ? title : `${title}: The Day After AI`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(withBase("/images/hero.jpg"), Astro.site);
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "The Day After AI",
+  url: Astro.site?.toString(),
+  description:
+    "The companion site for the book The Day After and its open source toolkit, cdad, on Contract-Driven AI Development.",
+  inLanguage: "en",
+  publisher: {
+    "@type": "Person",
+    name: "Enrico Piovesan",
+  },
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Poppins:wght@200;300;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>{pageTitle}</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Day After AI" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script is:inline>
+      // Applied before paint to avoid a flash of the wrong theme.
+      const stored = localStorage.getItem("theme");
+      if (stored) document.documentElement.setAttribute("data-theme", stored);
+    </script>
+  </head>
+  <body>
+    {!hideHeader && <Header />}
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

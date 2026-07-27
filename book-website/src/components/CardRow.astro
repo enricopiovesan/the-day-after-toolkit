@@ -1,0 +1,81 @@
+---
+interface Card {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  color: "cream" | "tan";
+  cards: Card[];
+}
+
+const { color, cards } = Astro.props;
+---
+
+<div class="card-row">
+  {
+    cards.map((card) => (
+      <div class={`card card--${color}`}>
+        <p class="card__title">
+          <span class="tick" aria-hidden="true" />
+          {card.title}
+        </p>
+        <p class="card__body">{card.body}</p>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .card-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .card {
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    color: var(--card-text);
+  }
+
+  .card--cream {
+    background: var(--cream);
+  }
+
+  .card--tan {
+    background: var(--tan);
+  }
+
+  .card__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+  }
+
+  .tick {
+    display: inline-block;
+    width: 0.9rem;
+    height: 1px;
+    background: currentColor;
+    transform: rotate(-55deg);
+  }
+
+  .card__body {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.8;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 720px) {
+    .card-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

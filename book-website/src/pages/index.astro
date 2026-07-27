@@ -1,0 +1,448 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import PanelSection from "../components/PanelSection.astro";
+import CardRow from "../components/CardRow.astro";
+import AudienceGrid from "../components/AudienceGrid.astro";
+import { withBase } from "../utils/url";
+import heroNightImage from "../assets/images/hero-night.jpg";
+import heroDayImage from "../assets/images/hero.jpg";
+
+// Section copy is written from the book's own manuscript (Chapters 1-5),
+// kept to non-spoiler summary and thesis statements, no plot points or
+// worked examples from the text itself.
+const tribalKnowledgeCopy = [
+  "Every software organization has the same hidden liability: the reasoning behind its own decisions lives in people's heads, in Slack threads that decay within months, in commit messages that record what changed but never why. AI agents can read an entire codebase in seconds, but they can't ask a senior engineer what a payment constraint actually means, or why a service calls another out of the “obvious” order.",
+  "That gap isn't a documentation problem you can wiki your way out of. It's structural. The knowledge that keeps a system safe was never designed to be found by anything that can't tap someone on the shoulder, and every constraint that exists only in someone's memory is a constraint an agent will walk straight past.",
+  "The Day After opens on a single incident: a clean, fast, technically correct AI-generated change that breaks production hours later, not because the agent did anything wrong, but because the system never told it what it needed to know. It's the pattern already playing out on every team pointing agents at a real codebase, and it's where the book begins.",
+];
+
+const tribalKnowledgeCards = [
+  { title: "The Onboarding Tax", body: "New hires spend weeks reconstructing context that already existed, just nowhere they could find it." },
+  { title: "The Departure Risk", body: "When a senior engineer leaves, years of undeclared context leave with them." },
+  { title: "The Agent Blind Spot", body: "Coding agents read your files, not your Slack history, so tribal knowledge is invisible to exactly the tool you're betting on." },
+];
+
+const contractsCopy = [
+  "Contracts aren't more documentation, and they aren't a better wiki. A contract is a structured, machine-readable declaration of what a piece of business logic does, why it does it, and what would break if it changed, written once, in a form both humans and agents can act on.",
+  "Every fix teams normally reach for, documentation sprints, tighter prompts, more supervision, treats the symptom. Each one makes an illegible system slightly less illegible for a while. None of them change the underlying condition: the system still doesn't declare what it knows.",
+  "Chapter 3 makes the case for contracts as the structural fix, not a documentation exercise: what a contract has to capture, and why “good enough” documentation was never going to be enough for agents that can't ask a follow-up question.",
+];
+
+const contractsCards = [
+  { title: "Not Documentation", body: "A wiki page describes a system. A contract declares it, in a form an agent can act on without a human translating first." },
+  { title: "Machine-Readable", body: "Contracts are structured enough for an agent to parse, and specific enough for a human to trust." },
+  { title: "Built to Survive Turnover", body: "Contracts outlive the engineer who wrote them, the way a Slack thread never does." },
+];
+
+const capabilitiesCopy = [
+  "Contracts describe individual pieces of logic. The capabilities graph is what happens when you connect them: a map of every capability in a system, its dependencies, its owner, and the contract that governs it, legible to a new hire and an AI agent in exactly the same way.",
+  "Chapter 4 introduces the capability as a new atomic unit of software design: headless, portable, and contract-defined, a different way of decomposing a system than the service boundaries most teams already have.",
+  "The result isn't a diagram for a slide deck. It's a structure a coding agent can actually navigate, the difference between an agent guessing at your architecture and an agent reading it.",
+];
+
+const capabilitiesCards = [
+  { title: "Headless", body: "A capability doesn't know or care how it's presented, no UI assumptions baked into the logic." },
+  { title: "Portable", body: "The same capability runs wherever it's called from, without dragging its old service along." },
+  { title: "Contract-Defined", body: "Every capability's boundaries, dependencies, and rules are declared, not inferred from reading the code." },
+];
+
+const extractionCopy = [
+  "The instinctive response to an illegible codebase is a refactor. Chapter 5 argues that's the expensive trap: a months-long cleanup that consumes an organization's most senior engineers and, at the end, produces cleaner code that still can't explain itself to an agent.",
+  "Refactoring makes code easier to read. It doesn't make a system declare what it knows, and legibility is a property of declared contracts, not clean code. An agent pointed at a beautifully refactored system fails for the exact same reasons it failed before.",
+  "Extraction is the alternative this chapter lays out: pull capabilities out of the legacy system one at a time, contract them properly, and leave the rest of the codebase untouched until it's its turn, progress that compounds instead of a rewrite that has to finish before it pays off.",
+];
+
+const extractionCards = [
+  { title: "Code Is Cheap", body: "Rewriting a service is the easy part. Capturing why it works the way it does is what refactors skip." },
+  { title: "Ship the Slice", body: "Extract one capability, contract it, move on, value lands after the first slice, not after the whole system is done." },
+  { title: "Senior Time, Spent Once", body: "The knowledge in your senior engineers' heads gets captured in the contract, not burned re-implementing what already worked." },
+];
+
+// Sunrise sequence, first to last. Drop extra frames (e.g. a dawn shot)
+// between night and day and the timing/zoom adjusts automatically.
+const heroStages = [heroNightImage, heroDayImage];
+
+// Each stage except the last fades out in turn, revealing the next one,
+// while a single continuous zoom runs across the whole stack.
+const firstHold = 1.2; // seconds of full night before dawn starts
+const fadeDuration = 2.5;
+const stageGap = 2.9; // start-to-start spacing between stage fade-outs
+const lastFadeEnd =
+  firstHold + (heroStages.length - 2) * stageGap + fadeDuration;
+const heroTiming = `
+  --hero-first-hold: ${firstHold}s;
+  --hero-stage-gap: ${stageGap}s;
+  --hero-fade: ${fadeDuration}s;
+  --hero-zoom: ${(lastFadeEnd + 2).toFixed(1)}s;
+  --hero-text-delay: ${Math.max(lastFadeEnd - 0.9, 0).toFixed(1)}s;
+`;
+---
+
+<BaseLayout title="The Day After AI" hideHeader>
+  <script is:inline>
+    // Decide before first paint whether the sunrise plays: once per
+    // browsing session, and never for reduced-motion users. The class
+    // darkens the page and shows the night frame immediately, so there
+    // is no flash of the daylight end-state while images load.
+    try {
+      if (
+        !sessionStorage.getItem("hero-sunrise-played") &&
+        !matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        document.documentElement.classList.add("sunrise-pending");
+      }
+    } catch (e) {
+      /* storage blocked: play nothing, show the static hero */
+    }
+  </script>
+  <div class="hero-wrap" id="hero-wrap" style={heroTiming}>
+    <section class="hero" id="hero">
+      <Header overlay />
+      <div class="hero__zoom" aria-hidden="true">
+        {
+          heroStages.map((src, i) => (
+            <Image
+              class="hero__image"
+              style={`--stage: ${i}; z-index: ${heroStages.length - i};`}
+              src={src}
+              width={1400}
+              alt=""
+              loading="eager"
+              fetchpriority={i === 0 ? "high" : "auto"}
+            />
+          ))
+        }
+      </div>
+      <div class="hero__text">
+        <h1>The Day After AI</h1>
+        <p class="hero__subtitle">Making Software Companies<br />Legible to AI Agents.</p>
+      </div>
+      <a class="btn btn--coral hero__scroll" href="#tribal-knowledge">Scroll down</a>
+    </section>
+  </div>
+
+  <section class="section" id="tribal-knowledge">
+    <div class="wrap wrap--wide">
+      <SectionHeading align="right">Tribal Knowledge<br />Is the Bottleneck.</SectionHeading>
+      <div class="section__body section__body--left">
+        {tribalKnowledgeCopy.map((p) => <p>{p}</p>)}
+      </div>
+      <PanelSection eyebrow="Use Cases" color="sage" columns={tribalKnowledgeCards} />
+      <a class="chapter-link" href={withBase("/tribal-knowledge/")}>Read the chapter &rarr;</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--wide">
+      <SectionHeading align="left">Contracts Are<br />the Answer.</SectionHeading>
+      <div class="section__body">
+        {contractsCopy.map((p) => <p>{p}</p>)}
+      </div>
+      <CardRow color="cream" cards={contractsCards} />
+      <a class="chapter-link" href={withBase("/contracts/")}>Read the chapter &rarr;</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--wide">
+      <SectionHeading align="right">The Capabilities<br />Graph.</SectionHeading>
+      <div class="section__body section__body--left">
+        {capabilitiesCopy.map((p) => <p>{p}</p>)}
+      </div>
+      <PanelSection eyebrow="The Graph" color="pink" columns={capabilitiesCards} />
+      <a class="chapter-link" href={withBase("/capabilities-graph/")}>Read the chapter &rarr;</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--wide">
+      <SectionHeading align="left">Extraction Over<br />Refactoring.</SectionHeading>
+      <div class="section__body">
+        {extractionCopy.map((p) => <p>{p}</p>)}
+      </div>
+      <CardRow color="tan" cards={extractionCards} />
+      <a class="chapter-link" href={withBase("/extraction-over-refactoring/")}>Read the chapter &rarr;</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--wide">
+      <h2 class="audience-heading">
+        <span class="tick" aria-hidden="true" />
+        Who is this book for?
+        <span class="tick tick--end" aria-hidden="true" />
+      </h2>
+      <AudienceGrid />
+    </div>
+  </section>
+
+  <section class="section quote">
+    <div class="wrap">
+      <!-- Pull-quote from the book itself (Ch. 1), no reader testimonials
+           exist yet. Swap this for a real endorsement once one does. -->
+      <p class="quote__text">"A system that cannot make its intent legible to an AI agent is a system that will be navigated by competitors who can."</p>
+      <hr class="divider quote__divider" />
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script>
+  // Run the sunrise only once every frame is ready, so the cross-fade
+  // never plays against a half-loaded image. The inline gate above has
+  // already decided whether it plays at all (once per session, no
+  // reduced motion); otherwise the hero shows the static daylight frame.
+  const hero = document.getElementById("hero");
+  const heroWrap = document.getElementById("hero-wrap");
+  const root = document.documentElement;
+  if (hero && heroWrap && root.classList.contains("sunrise-pending")) {
+    try {
+      sessionStorage.setItem("hero-sunrise-played", "1");
+    } catch (e) {
+      /* ignore */
+    }
+    const frames = hero.querySelectorAll<HTMLImageElement>(".hero__image");
+    Promise.all(
+      [...frames].map((img) =>
+        img.complete
+          ? Promise.resolve()
+          : new Promise((resolve) => {
+              img.addEventListener("load", resolve, { once: true });
+              img.addEventListener("error", resolve, { once: true });
+            })
+      )
+    ).then(() => {
+      // Copy the hero's computed timing onto <html> so the ambient
+      // page-background animation stays in sync with the image sequence.
+      const styles = getComputedStyle(hero);
+      for (const name of ["--hero-zoom", "--hero-first-hold"]) {
+        root.style.setProperty(name, styles.getPropertyValue(name));
+      }
+      root.classList.add("sunrise-play");
+      heroWrap.classList.add("hero--animate");
+    });
+  }
+</script>
+
+<style>
+  .hero-wrap {
+    position: relative;
+    max-width: 1400px;
+    margin: calc(-1 * var(--header-height)) auto 0;
+  }
+
+  .hero {
+    position: relative;
+    z-index: 1;
+    height: 70vh;
+    overflow: hidden;
+  }
+
+  .hero__zoom {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+  }
+
+  /* Static state (no JS, reduced motion, or animation finished): only the
+     final daylight frame shows and the text is fully visible. */
+  .hero__image:last-child {
+    opacity: 1;
+  }
+
+  /* While the sunrise is pending (decided pre-paint, images still
+     loading): hold on the night frame with the text hidden, so the page
+     opens in darkness instead of flashing the daylight end-state. */
+  :global(.sunrise-pending) .hero__image:first-child {
+    opacity: 1;
+  }
+
+  :global(.sunrise-pending) .hero__text,
+  :global(.sunrise-pending) .hero__scroll {
+    opacity: 0;
+  }
+
+  /* Sunrise sequence, enabled once every frame has loaded. Each stage
+     except the last fades out in turn to reveal the frame beneath it,
+     while one continuous zoom runs on the whole stack so the cross-fades
+     read as a single time-lapse instead of a slideshow. */
+  .hero--animate .hero__image {
+    opacity: 1;
+    animation: hero-stage-out var(--hero-fade) ease-in-out forwards;
+    animation-delay: calc(
+      var(--hero-first-hold) + var(--stage) * var(--hero-stage-gap)
+    );
+  }
+
+  .hero--animate .hero__image:last-child {
+    animation: none;
+  }
+
+  .hero--animate .hero__zoom {
+    animation: hero-zoom var(--hero-zoom) cubic-bezier(0.25, 0.1, 0.25, 1)
+      forwards;
+  }
+
+  .hero--animate .hero__text {
+    opacity: 0;
+    animation: hero-text-in 1.6s ease-out forwards;
+    animation-delay: var(--hero-text-delay);
+  }
+
+  .hero--animate .hero__scroll {
+    opacity: 0;
+    animation: hero-scroll-in 1.6s ease-out forwards;
+    animation-delay: var(--hero-text-delay);
+  }
+
+  @keyframes hero-scroll-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes hero-stage-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes hero-zoom {
+    from {
+      transform: scale(1.18);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes hero-text-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) translateY(0.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) translateY(0);
+    }
+  }
+
+  .hero__text {
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    color: #1a1a1a;
+    padding: 0 1.5rem;
+    z-index: 2;
+  }
+
+  .hero h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero__subtitle {
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--pink);
+    z-index: 2;
+  }
+
+
+  .section__body {
+    display: grid;
+    gap: 2rem;
+    max-width: 40rem;
+    margin: 0 0 5.5rem auto;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .section__body--left {
+    margin: 0 auto 5.5rem 0;
+  }
+
+  .section__body p {
+    margin: 0;
+  }
+
+  .chapter-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .chapter-link:hover {
+    color: var(--coral);
+  }
+
+  .audience-heading {
+    text-align: center;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .tick {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1px;
+    background: var(--text-muted);
+    transform: rotate(-55deg);
+  }
+
+  section.quote {
+    text-align: center;
+    padding: 7rem 0 5rem;
+  }
+
+  .quote__text {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    max-width: 32rem;
+    margin: 0 auto 1.5rem;
+  }
+
+  .quote__divider {
+    width: 3rem;
+    margin: 0 auto;
+  }
+
+</style>

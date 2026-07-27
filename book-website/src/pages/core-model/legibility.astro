@@ -1,0 +1,142 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Legibility"
+  description="Legibility is whether a capable engineer or agent can understand why a capability behaves the way it does, without someone explaining the backstory out loud. Here's how the toolkit scores it."
+  section="core-model"
+>
+  <h1>Legibility</h1>
+
+  <p>
+    Legibility is the concept the rest of the toolkit gets built on
+    top of. The precise definition: the degree to which a capable
+    engineer or agent can understand why a capability behaves the way
+    it does, without relying on someone who remembers the backstory.
+    It's not a synonym for documentation coverage. A repository can
+    carry exhaustive comments and still be illegible if none of them
+    explain the reasoning behind a decision, and a repository can be
+    sparse on comments and still score well if the reasoning that
+    actually matters lives somewhere a reader can find it.
+  </p>
+  <p>
+    The distinction legibility hinges on is why versus what. Reading
+    a function usually tells you what it does. That part's rarely
+    the hard problem, assuming the code isn't actively hostile to
+    reading. What the code can't tell you is why it does that
+    instead of the more obvious alternative, why a limit sits at the
+    value it sits at, why one path retries and a nearly identical
+    path doesn't. That reasoning either lives in something built to
+    carry it or it lives in a person's memory, and people leave
+    teams. Chapter 2 of the book spends its length on exactly this
+    gap: an engineer walking a new hire through constraints that
+    exist nowhere except in her own head, and the moment that
+    knowledge transfer becomes the actual bottleneck to shipping
+    anything with confidence.
+  </p>
+  <p>
+    The toolkit measures legibility with four diagnostic questions,
+    covered in full in the Legibility Audit Framework appendix. Can
+    someone tell why the capability works this way, not only what it
+    does? Can they see what was tried before and why it failed? Can
+    they understand why it calls what it calls instead of the
+    obvious alternative? Can they find every exception path driven
+    by a customer, a regulation, or an incident from three years
+    back? Each question is scored a full point for yes, half a point
+    for partially, and zero for no. The resulting score isn't a
+    judgment on whoever built the capability. It's a map of where
+    tribal knowledge is doing the heaviest lifting.
+  </p>
+  <p>
+    The diagnostic question underneath all four of those is the same
+    one: could you hand this capability to a capable engineer who's
+    never spoken to your team, and still expect a safe change, using
+    only what the system makes available? That phrasing is doing
+    something specific. It doesn't say "a senior engineer on this
+    team" or "someone who's read the wiki." It says a capable
+    engineer with no history here, because that's the actual
+    condition an AI agent operates under on every single task. An
+    agent can read every file in a repository in seconds, but it
+    can't sit in on the hallway conversation where someone explains
+    why a limit is set where it's set. Legibility is what determines
+    whether that gap matters.
+  </p>
+  <p>
+    In practice, this scoring runs the first time you use the CLI.
+    `cdad check` combines a static scan of the repository with that
+    four-question interview, asked against up to five capabilities
+    by default and tunable with `--capabilities`. It returns a
+    single agent-readiness score from 0 to 10 along with a band that
+    tells you roughly where the repo stands, and it writes the full
+    result to `cdad-report.md` in a format structured enough that
+    `cdad roadmap` can read it back in and use it to decide what gets
+    extracted first. The two halves of the check, static scan and
+    questionnaire, are independent enough that either one can be
+    skipped on its own: `--skip-scan` runs the questionnaire alone,
+    `--skip-questions` runs the static analysis alone. That's a
+    useful thing to know if you're re-running check often and only
+    want a quick signal from one side of it.
+  </p>
+  <p>
+    It's worth being precise about what a legibility score isn't.
+    It's not a code quality metric. A codebase can be clean,
+    well-tested, and consistently styled, and still be illegible if
+    the reasoning behind its harder decisions was never captured
+    anywhere durable. It's also not a one-time badge. A capability
+    that scores well today can drift back down if its contract goes
+    stale and nobody notices, which is a large part of why `cdad
+    check` is meant to run again and again as the repo changes, not
+    once at kickoff and never again.
+  </p>
+  <p>
+    There's also a difference between legibility and comfort that's
+    easy to blur. A senior engineer who's worked on a system for
+    years might feel completely at home in code that would score
+    badly on every one of the four questions, because their comfort
+    is coming from memory, not from anything the system itself
+    makes available. Legibility asks a harder question than "does
+    this feel navigable to the people who already know it." It asks
+    whether the knowledge those people are carrying around in their
+    heads has actually made it into something durable enough for
+    the next person, or the next agent, to find on their own.
+  </p>
+  <p>
+    Legibility is the diagnostic. The rest of the core model exists
+    to respond to what it finds. Once you know which parts of a
+    system are illegible, and roughly why, the next question is what
+    unit of that system you're actually trying to fix, which is
+    where the idea of a capability comes in.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/core-model/")}>&larr; The core model</a>
+    <a href={withBase("/core-model/capability/")}>Capability &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

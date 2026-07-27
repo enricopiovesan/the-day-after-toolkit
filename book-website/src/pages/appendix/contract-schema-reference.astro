@@ -1,0 +1,73 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Contract Schema Reference"
+  description="The minimum viable contract and the extended contract, both shown against the same real capability, so the first contract you write doesn't start from a blank page."
+  section="chapters"
+  crumbLabel="Contract Schema Reference"
+>
+  <h1>Contract Schema Reference</h1>
+
+  <p>
+    Understanding what a contract is and knowing how to write one are
+    different things. This is the artifact that closes that gap: two
+    schemas, both shown against the same capability, `payment/retry`,
+    the toolkit's own real worked example of what undeclared knowledge
+    actually costs.
+  </p>
+  <p>
+    The <strong>minimum viable contract</strong> is the starting
+    point. It contains the fields a team needs to make one capability
+    navigable today, whether that's the first contract in a brownfield
+    extraction or the first contract a new capability ships with from
+    sprint one. The <strong>extended contract</strong> adds
+    dependency, behavioral, and evolutionary layers on top, for the
+    capabilities where it's worth going past sufficient.
+  </p>
+  <p>
+    Neither schema is done when every field is filled in. It's done
+    when it passes the same diagnostic used throughout the book: could
+    a capable engineer with no tribal knowledge navigate this
+    capability safely using only what the contract makes available?
+    The minimum viable contract is built to clear that bar. The
+    extended contract is built to clear it with room to spare.
+  </p>
+  <p>
+    The full YAML schemas and a completed working example live in the
+    companion repository, alongside the open-source CLI that scaffolds
+    and validates contracts against them.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/appendix/")}>&larr; Appendix overview</a>
+    <a href={withBase("/appendix/legibility-audit-framework/")}>Legibility Audit Framework &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

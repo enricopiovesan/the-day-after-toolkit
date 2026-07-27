@@ -1,0 +1,83 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Before and After a Legibility Audit"
+  description="What changes about a capability once it stops running on tribal knowledge and starts declaring its own behavior, boundaries, and safe extension points."
+  section="examples"
+>
+  <h1>Before and After a Legibility Audit</h1>
+
+  <p>
+    Before a capability has been through the audit, changing it is
+    mostly guesswork dressed up as confidence. An engineer opens the
+    code, reads the function that seems relevant, and forms a theory
+    about why it works the way it does. Sometimes that theory is
+    right. Often it's right about the mechanism and wrong about the
+    reason, because the reason lived in a Slack thread, a postmortem,
+    or a conversation that happened before anyone currently on the
+    team joined. An agent asked to make the same change has even less
+    to go on. It can read the code, but it can't read the room the
+    code was written in.
+  </p>
+  <p>
+    That gap is where the risky changes come from. Not from careless
+    engineers, but from a system that never wrote down its own
+    boundaries. A change that looks safe by every signal the code
+    offers can still break an exception path that only existed because
+    of a customer complaint two years ago, and nothing in the
+    repository says so.
+  </p>
+  <p>
+    After the audit, and after the resulting contract exists, the same
+    capability looks different from the outside even if not one line
+    of its implementation has changed. The behavior is declared, not
+    inferred. The boundaries are explicit: what the capability owns,
+    what it depends on, and what it deliberately refuses to do. The
+    history that used to live in someone's memory is captured as the
+    constraint it created, not just as an anecdote about an incident.
+  </p>
+  <p>
+    The practical difference shows up at the moment of change. Before,
+    extending the capability means reading everything nearby and
+    hoping you've found all the exception paths. After, extending it
+    means checking the contract first, seeing what's already promised,
+    and knowing exactly which parts are safe to touch and which
+    parts are load-bearing for a reason the contract already states.
+    That's the shift the whole methodology is built around: not making
+    the code smarter, but making what the code already knows visible
+    to whoever has to work with it next.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/examples/reading-a-capability-graph/")}>&larr; Reading a Capability Graph</a>
+    <a href={withBase("/examples/cdad-check-output-walkthrough/")}>cdad check Output Walkthrough &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

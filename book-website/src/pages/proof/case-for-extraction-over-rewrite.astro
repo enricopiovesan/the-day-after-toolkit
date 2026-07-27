@@ -1,0 +1,91 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="The Case for Extraction Over Rewrite"
+  description="A rewrite spends senior engineering time and produces cleaner code that still doesn't declare what it knows. Extraction produces incremental value that compounds instead."
+  section="proof"
+>
+  <h1>The Case for Extraction Over Rewrite</h1>
+
+  <p>
+    The instinct when a codebase feels illegible is to rewrite it.
+    Clear it out, start clean, do it properly this time. Chapter 5
+    argues that instinct is usually wrong, and not for sentimental
+    reasons. A rewrite consumes months of your most senior engineers'
+    time, and at the end of it you have cleaner code that still
+    doesn't declare why it works the way it does. The tribal knowledge
+    that made the old system risky just moves into the new one,
+    unwritten, waiting for the next person who has to guess at it.
+  </p>
+  <p>
+    Extraction is a different bet. Instead of replacing a system, you
+    pull one capability at a time into a contract that says what it
+    does, what it needs, what it promises, and what it explicitly
+    doesn't do. Each extraction ships independently, each one is
+    immediately useful on its own, and the value compounds as the
+    capability graph fills in. A rewrite pays off once, if it pays off
+    at all. Extraction pays off capability by capability, starting
+    with the first one you finish.
+  </p>
+  <p>
+    The harder question is which capability to extract first, and
+    that's where the priority model earns its keep. Three axes decide
+    it: business criticality, how much revenue or compliance risk
+    actually sits inside the capability, tribal knowledge density,
+    pulled straight from the legibility audit score, and agent
+    touchpoint frequency, how often agents are actually going to work
+    inside this capability once they're operating in the system.
+  </p>
+  <p>
+    Those three axes get multiplied, never added. That choice matters
+    more than it looks. A capability that's mission-critical and
+    completely opaque but that nobody, human or agent, ever touches
+    shouldn't jump the queue ahead of one that's moderately risky and
+    gets hit constantly. Multiplying keeps a zero on any single axis
+    from letting a capability sneak to the front, because a zero
+    anywhere means it isn't a real candidate yet, no matter how bad the
+    other two numbers look.
+  </p>
+  <p>
+    The result sorts into three phases. A perfect score of nine lands
+    in phase one: extract now. Scores from four to eight are phase two:
+    next in line. Scores of one to three are phase three: worth
+    tracking, not urgent. A score of zero means the capability isn't a
+    current extraction candidate at all, and knowing that is useful too.
+    Not everything needs a contract on day one, and pretending
+    otherwise is how extraction programs stall under their own scope.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/proof/legibility-scoring-methodology/")}>&larr; Legibility Scoring Methodology</a>
+    <a href={withBase("/proof/open-source-toolkit/")}>Open Source Toolkit &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

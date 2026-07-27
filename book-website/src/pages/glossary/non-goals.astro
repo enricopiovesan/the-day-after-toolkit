@@ -1,0 +1,60 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Non-Goals: Glossary"
+  description="Non-goals are the explicit statement, inside a contract, of what a capability does not do, so its scope can't quietly expand."
+  section="glossary"
+  crumbLabel="Non-Goals"
+>
+  <h1>Non-Goals</h1>
+
+  <p>
+    A contract that only says what a capability does is half
+    finished. Non-goals are the other half, an explicit list of what
+    the capability deliberately does not handle, written down so the
+    next person doesn't expand it by accident.
+  </p>
+  <p>
+    Leaving <code>non_goals</code> blank because the scope feels
+    obvious is one of the toolkit's named anti-patterns. It feels
+    harmless in the moment and turns into a real problem the first
+    time someone extends a capability into territory it was never
+    meant to cover, and review has no boundary left to point at.
+  </p>
+  <p>
+    Non-goals pair with inputs and outputs to define a capability's
+    edges. Together they're what makes a
+    <a href={withBase("/glossary/contract/")}>contract</a> something
+    you can trust instead of something you have to reverse-engineer.
+  </p>
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/glossary/")}>&larr; Glossary</a>
+    <a href={withBase("/core-model/")}>Learn more in the Core Model &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

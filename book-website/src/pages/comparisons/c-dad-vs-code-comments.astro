@@ -1,0 +1,82 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="C-DAD vs. Code Comments"
+  description="A good comment explains intent at the moment someone writes it. Nothing keeps that comment honest six refactors later. A contract is a separate artifact built to be checked, not just read in passing."
+  section="comparisons"
+>
+  <h1>C-DAD vs. Code Comments</h1>
+
+  <p>
+    A comment is the cheapest way to leave a note for the next person,
+    and plenty of comments earn their keep. The problem was never that
+    comments are worthless. It's that a comment lives inside the exact
+    code it describes, and code changes for reasons that have nothing
+    to do with keeping the comment true.
+  </p>
+  <p>
+    Take an anti-pattern that shows up constantly in early drafts of a
+    contract, before anyone's cleaned it up: a description that says
+    something like "retries using exponential backoff until the
+    gateway responds." That sentence describes an implementation
+    detail, not a guarantee. Six months later someone swaps the
+    backoff strategy for something smarter, the comment stays exactly
+    where it was, and now it's actively wrong instead of merely stale.
+    A better version, "retries only after the upstream system has
+    confirmed the original request is safe to repeat," survives that
+    refactor because it describes the behavior that has to stay true,
+    not the mechanism that happens to implement it today.
+  </p>
+  <p>
+    That's the structural problem with comments as a source of truth.
+    Nothing forces them to change when the code around them does, and
+    nothing flags it when they don't. A contract is deliberately built
+    as a separate, versioned artifact instead of being embedded in the
+    function it describes, and <code>cdad validate</code> checks it
+    against versioning rules and generated-artifact consistency before
+    it can drift too far from reality. It's a small difference in
+    location with a large difference in outcome.
+  </p>
+  <p>
+    Comments still matter for the small, local "why did I write it
+    this way" notes that don't rise to the level of a capability's
+    behavior. A contract isn't trying to compete there. What it's
+    built for is the higher-stakes question a comment was never
+    designed to answer reliably: can someone who's never touched this
+    code make a safe change to it, months or years after the person
+    who wrote the comment has moved on.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/comparisons/c-dad-vs-documentation/")}>&larr; C-DAD vs. Documentation</a>
+    <a href={withBase("/comparisons/c-dad-vs-openapi/")}>C-DAD vs. OpenAPI &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>

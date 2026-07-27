@@ -1,0 +1,95 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="cdad check Output Walkthrough"
+  description="A walkthrough of what cdad-report.md actually looks like: the score, the band, the per-capability findings, and the next step, illustrated rather than pulled from a real repo."
+  section="examples"
+>
+  <h1>cdad check Output Walkthrough</h1>
+
+  <p>
+    Running <code>cdad check</code> produces one file,
+    <code>cdad-report.md</code>, and that file follows the same output
+    shape every command in the CLI uses: a header, a divider, the
+    content block, any generated file paths, and a closing
+    <code>Next step</code> line. The illustration below shows the
+    structure a report takes. Treat the specific numbers as
+    illustrative, not as a real score pulled from a real customer's
+    repository.
+  </p>
+  <p>
+    Near the top sits the overall score, a single number from zero to
+    ten, next to a band that names roughly where the repo sits, from
+    something like "early" or "developing" up toward "agent-ready."
+    The score is a summary, not the useful part on its own. It exists
+    so a team can compare one run against a later one and see whether
+    the direction is right.
+  </p>
+  <p>
+    Below the headline score sits the part that actually matters day
+    to day: per-capability findings from the questionnaire. For each
+    of the capabilities walked through during the run, the report
+    notes how it scored across the four legibility questions, where
+    the answer was clearly there, where it was partial, and where
+    there was nothing to point to but tribal memory. This is the
+    section a team actually reads together, because it names specific
+    gaps instead of leaving everyone to infer them from one number.
+  </p>
+  <p>
+    The report closes with a <code>Next step</code> line, and that line
+    is what turns the check into a workflow instead of a one-off
+    diagnostic. It's the reminder that the report itself isn't the
+    destination. It's the input <code>cdad roadmap</code> reads next,
+    the file that turns "here's where the gaps are" into "here's what
+    to contract first."
+  </p>
+  <p>
+    Run the check again after a few extraction passes and you get a
+    second report to set beside the first one. The value isn't in
+    any single run's number. It's in watching the band move, and the
+    per-capability findings shrink, as more of the system starts
+    declaring itself instead of relying on whoever happens to remember
+    why it works.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Related pages">
+    <a href={withBase("/examples/before-and-after-a-legibility-audit/")}>&larr; Before and After a Legibility Audit</a>
+    <a href={withBase("/examples/")}>Examples overview &rarr;</a>
+  </nav>
+</SubpageLayout>
+
+<style>
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--bg-elev);
+    padding: 0.1em 0.35em;
+    border-radius: 0.25em;
+  }
+
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .chapter-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+
+  .chapter-nav a:hover {
+    color: var(--coral);
+  }
+</style>
