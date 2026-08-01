@@ -7,6 +7,11 @@
   --pill-bg: rgba(255, 255, 255, 0.6);
 
   --coral: #ed6f61;
+  /* Text-only variant of --coral: the base coral is 2.7:1 against --bg,
+     well under WCAG AA's 4.5:1 for text. Darkened to 4.6:1 for eyebrow
+     labels, nav/link hover states, etc. Buttons keep the brighter --coral
+     background since their text color is dark, not this variable. */
+  --coral-text: #d52b18;
   --sage: #9cb2af;
   --cream: #ebecdc;
   --pink: #eabebb;
@@ -29,6 +34,8 @@
   --text-muted: #a8a29b;
   --border: rgba(255, 255, 255, 0.12);
   --pill-bg: rgba(255, 255, 255, 0.08);
+  /* Base coral already clears 4.5:1 against the dark background. */
+  --coral-text: var(--coral);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -39,6 +46,7 @@
     --text-muted: #a8a29b;
     --border: rgba(255, 255, 255, 0.12);
     --pill-bg: rgba(255, 255, 255, 0.08);
+    --coral-text: var(--coral);
   }
 }
 
@@ -111,7 +119,7 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.8rem;
-  color: var(--coral);
+  color: var(--coral-text);
   font-weight: 700;
 }
 

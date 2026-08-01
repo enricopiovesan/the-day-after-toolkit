@@ -43,8 +43,35 @@ const currentPath = Astro.url.pathname;
       <a class="site-header__link" href="https://medium.com/software-architecture-in-the-age-of-ai">Blog</a>
       <!-- TODO: replace with the real retailer URL once the book is listed -->
       <a class="btn btn--sage site-header__cta" href="#">Pre-order on Amazon</a>
+      <button
+        type="button"
+        class="nav-toggle"
+        id="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <span class="nav-toggle__bar" aria-hidden="true" />
+        <span class="nav-toggle__bar" aria-hidden="true" />
+        <span class="nav-toggle__bar" aria-hidden="true" />
+      </button>
     </div>
   </div>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile" hidden>
+    {
+      PILLARS.map((pillar) => (
+        <a href={pillar.href} aria-current={currentPath === pillar.href ? "page" : undefined}>
+          {pillar.label}
+        </a>
+      ))
+    }
+    <hr class="mobile-nav__divider" />
+    <a href="https://github.com/enricopiovesan/the-day-after-toolkit">GitHub</a>
+    <a href="https://medium.com/software-architecture-in-the-age-of-ai">Blog</a>
+    <!-- TODO: replace with the real retailer URL once the book is listed -->
+    <a class="btn btn--sage mobile-nav__cta" href="#">Pre-order on Amazon</a>
+  </nav>
 </header>
 
 <script is:inline>
@@ -65,6 +92,28 @@ const currentPath = Astro.url.pathname;
   }
   updateHeaderScrolled();
   window.addEventListener("scroll", updateHeaderScrolled, { passive: true });
+
+  const navToggle = document.getElementById("nav-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+  function closeMobileNav() {
+    navToggle?.setAttribute("aria-expanded", "false");
+    mobileNav?.setAttribute("hidden", "");
+  }
+  navToggle?.addEventListener("click", () => {
+    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+    if (isOpen) {
+      closeMobileNav();
+    } else {
+      navToggle.setAttribute("aria-expanded", "true");
+      mobileNav?.removeAttribute("hidden");
+    }
+  });
+  mobileNav?.addEventListener("click", (e) => {
+    if (e.target instanceof HTMLElement && e.target.tagName === "A") closeMobileNav();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMobileNav();
+  });
 </script>
 
 <style>
@@ -144,7 +193,7 @@ const currentPath = Astro.url.pathname;
 
   .site-nav a:hover,
   .site-nav a[aria-current="page"] {
-    color: var(--coral);
+    color: var(--coral-text);
   }
 
   .site-header__actions {
@@ -174,7 +223,7 @@ const currentPath = Astro.url.pathname;
   }
 
   .theme-toggle:hover {
-    color: var(--coral);
+    color: var(--coral-text);
   }
 
   .site-header__link {
@@ -189,7 +238,7 @@ const currentPath = Astro.url.pathname;
   }
 
   .site-header__link:hover {
-    color: var(--coral);
+    color: var(--coral-text);
   }
 
   .site-header__cta {
@@ -198,10 +247,102 @@ const currentPath = Astro.url.pathname;
     white-space: nowrap;
   }
 
+  .nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .site-header--overlay .nav-toggle {
+    color: rgba(245, 243, 238, 0.9);
+  }
+
+  .nav-toggle__bar {
+    display: block;
+    width: 1.15rem;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    gap: 0.25rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+    padding: 1rem 1.5rem 1.5rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .mobile-nav:not([hidden]) {
+    display: flex;
+  }
+
+  .mobile-nav a {
+    display: block;
+    padding: 0.65rem 0;
+    text-decoration: none;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+
+  .mobile-nav a:hover,
+  .mobile-nav a[aria-current="page"] {
+    color: var(--coral-text);
+  }
+
+  .mobile-nav__divider {
+    height: 1px;
+    background: var(--border);
+    border: none;
+    margin: 0.5rem 0;
+  }
+
+  .mobile-nav__cta {
+    margin-top: 0.75rem;
+    text-align: center;
+  }
+
   @media (max-width: 900px) {
     .site-nav,
-    .site-header__link {
+    .site-header__link,
+    .site-header__cta {
       display: none;
+    }
+
+    .nav-toggle {
+      display: inline-flex;
     }
   }
 </style>
