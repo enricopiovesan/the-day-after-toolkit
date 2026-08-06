@@ -13,8 +13,31 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header" class:list={[{ "site-header--overlay": overlay }]}>
   <div class="site-header__inner wrap wrap--wide">
-    <a href={withBase("/")} class="site-header__logo">
-      <img src={withBase("/logo.svg")} alt="The Day After AI" class="site-header__logo-image" />
+    <a href={withBase("/")} class="site-header__logo" aria-label="The Day After AI">
+      <svg
+        class="site-header__logo-image"
+        width="127"
+        height="31"
+        viewBox="0 0 127 31"
+        fill="none"
+        aria-hidden="true"
+        focusable="false"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M0 1.25V0H8.72727V1.25H5.06818V11.6364H3.65909V1.25H0Z" fill="#ED6F61" />
+        <path d="M10.902 11.6364V0H12.3111V5.18182H18.5156V0H19.9247V11.6364H18.5156V6.43182H12.3111V11.6364H10.902Z" fill="#ED6F61" />
+        <path d="M22.7457 11.6364V0H29.7685V1.25H24.1548V5.18182H29.4048V6.43182H24.1548V10.3864H29.8594V11.6364H22.7457Z" fill="#ED6F61" />
+        <path d="M40.581 11.6364H36.2798V0H40.5753C41.7609 0 42.7817 0.232955 43.6378 0.698864C44.4976 1.16098 45.1605 1.82765 45.6264 2.69886C46.0923 3.56629 46.3253 4.60417 46.3253 5.8125C46.3253 7.02462 46.0923 8.06629 45.6264 8.9375C45.1643 9.80871 44.5033 10.4773 43.6435 10.9432C42.7836 11.4053 41.7628 11.6364 40.581 11.6364ZM39.0923 9.23864H40.473C41.1245 9.23864 41.6757 9.12879 42.1264 8.90909C42.581 8.68561 42.9238 8.32386 43.1548 7.82386C43.3897 7.32008 43.5071 6.64962 43.5071 5.8125C43.5071 4.97538 43.3897 4.30871 43.1548 3.8125C42.92 3.3125 42.5734 2.95265 42.1151 2.73295C41.6605 2.50947 41.0999 2.39773 40.4332 2.39773H39.0923V9.23864Z" fill="currentColor" />
+        <path d="M49.7969 11.6364H46.7741L50.7003 0H54.4446L58.3707 11.6364H55.348L52.6151 2.93182H52.5241L49.7969 11.6364ZM49.3935 7.05682H55.7116V9.19318H49.3935V7.05682Z" fill="currentColor" />
+        <path d="M57.8565 0H60.9986L63.4588 4.86932H63.5611L66.0213 0H69.1634L64.9077 7.75V11.6364H62.1122V7.75L57.8565 0Z" fill="currentColor" />
+        <path d="M20.1662 30.6364H17.5298L21.5469 19H24.7173L28.7287 30.6364H26.0923L23.1776 21.6591H23.0866L20.1662 30.6364ZM20.0014 26.0625H26.2287V27.983H20.0014V26.0625Z" fill="currentColor" />
+        <path d="M30.1293 30.6364V19H37.8338V21.0284H32.5895V23.8011H37.3224V25.8295H32.5895V30.6364H30.1293Z" fill="currentColor" />
+        <path d="M39.0455 21.0284V19H48.6023V21.0284H45.0398V30.6364H42.608V21.0284H39.0455Z" fill="currentColor" />
+        <path d="M50.1761 30.6364V19H58.017V21.0284H52.6364V23.8011H57.6136V25.8295H52.6364V28.608H58.0398V30.6364H50.1761Z" fill="currentColor" />
+        <path d="M59.973 30.6364V19H64.5639C65.4427 19 66.1927 19.1572 66.8139 19.4716C67.4389 19.7822 67.9143 20.2235 68.2401 20.7955C68.5696 21.3636 68.7344 22.0322 68.7344 22.8011C68.7344 23.5739 68.5677 24.2386 68.2344 24.7955C67.901 25.3485 67.4181 25.7727 66.7855 26.0682C66.1567 26.3636 65.3954 26.5114 64.5014 26.5114H61.4276V24.5341H64.1037C64.5734 24.5341 64.9635 24.4697 65.2741 24.3409C65.5848 24.2121 65.8158 24.0189 65.9673 23.7614C66.1226 23.5038 66.2003 23.1837 66.2003 22.8011C66.2003 22.4148 66.1226 22.089 65.9673 21.8239C65.8158 21.5587 65.5829 21.358 65.2685 21.2216C64.9579 21.0814 64.5658 21.0114 64.0923 21.0114H62.4332V30.6364H59.973ZM66.2571 25.3409L69.1491 30.6364H66.4332L63.6037 25.3409H66.2571Z" fill="currentColor" />
+        <path d="M77.8056 30.6364V30.2064L80.1706 29.7334L92.1676 0.192364H97.5426L109.153 29.7334L111.389 30.2064V30.6364H96.9407V30.3784L99.9506 29.7764L90.7916 6.51336H90.2757L88.2546 11.8884C87.452 13.9237 86.8356 15.8587 86.4056 17.6934C86.0043 19.528 85.8036 21.1477 85.8036 22.5524C85.8036 23.9857 86.0186 25.29 86.4486 26.4654C86.9073 27.612 87.6096 28.5294 88.5556 29.2174C89.5303 29.8767 90.7773 30.2064 92.2966 30.2064V30.6364H77.8056ZM85.0726 18.3384V17.9084L95.6936 17.1774V18.3384H85.0726Z" fill="#ED6F61" />
+        <path d="M126.304 0.192364V0.622363L123.939 1.09536V29.7334L126.304 30.2064V30.6364H113.103V30.2064L115.425 29.7334V1.09536L113.103 0.622363V0.192364H126.304Z" fill="#ED6F61" />
+      </svg>
     </a>
 
     <nav class="site-nav" aria-label="Primary">
@@ -132,8 +155,12 @@ const currentPath = Astro.url.pathname;
     border-bottom: 1px solid var(--border);
   }
 
+  /* No background of its own — the hero's own top gradient (.hero::before)
+     already fades from a solid --bg-colored band into the photo, so the
+     header just floats on top of it and inherits var(--text), which
+     stays correct in both themes instead of assuming a dark backdrop. */
   .site-header--overlay {
-    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.55), rgba(10, 10, 10, 0.2) 70%, transparent);
+    background: transparent;
     border-bottom: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -146,9 +173,16 @@ const currentPath = Astro.url.pathname;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
+  /* The scrolled state is always a dark, blurred bar regardless of the
+     site's light/dark theme — so anything using var(--text) (which flips
+     to dark in light theme) needs an explicit light override here, same
+     as the nav links already had. Missing this on the logo/nav-toggle is
+     what made them invisible when scrolling in light theme. */
   .site-header.is-scrolled .site-nav a,
   .site-header.is-scrolled .theme-toggle,
-  .site-header.is-scrolled .site-header__link {
+  .site-header.is-scrolled .site-header__link,
+  .site-header.is-scrolled .site-header__logo-image,
+  .site-header.is-scrolled .nav-toggle {
     color: rgba(245, 243, 238, 0.9);
   }
 
@@ -169,6 +203,7 @@ const currentPath = Astro.url.pathname;
     display: block;
     width: 126px;
     height: 31px;
+    color: var(--text);
   }
 
   .site-nav {
@@ -185,10 +220,6 @@ const currentPath = Astro.url.pathname;
     font-size: 0.8rem;
     font-weight: 500;
     white-space: nowrap;
-  }
-
-  .site-header--overlay .site-nav a {
-    color: rgba(245, 243, 238, 0.9);
   }
 
   .site-nav a:hover,
@@ -218,10 +249,6 @@ const currentPath = Astro.url.pathname;
     padding: 0;
   }
 
-  .site-header--overlay .theme-toggle {
-    color: rgba(245, 243, 238, 0.9);
-  }
-
   .theme-toggle:hover {
     color: var(--coral-text);
   }
@@ -231,10 +258,6 @@ const currentPath = Astro.url.pathname;
     color: var(--text);
     font-size: 0.9rem;
     white-space: nowrap;
-  }
-
-  .site-header--overlay .site-header__link {
-    color: rgba(245, 243, 238, 0.9);
   }
 
   .site-header__link:hover {
@@ -261,10 +284,6 @@ const currentPath = Astro.url.pathname;
     color: var(--text);
     cursor: pointer;
     padding: 0;
-  }
-
-  .site-header--overlay .nav-toggle {
-    color: rgba(245, 243, 238, 0.9);
   }
 
   .nav-toggle__bar {
