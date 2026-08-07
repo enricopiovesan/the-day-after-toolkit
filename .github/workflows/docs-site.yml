@@ -1,5 +1,15 @@
 name: Docs Site
 
+# Build-only: a GitHub Pages site can only have one active deployment
+# source per repo. book-website-deploy.yml already owns that slot (it's
+# the live site at thedayafteraibook.com). This workflow used to also
+# deploy to Pages, and since both fired on every push to main with no
+# ordering between them, they raced — whichever finished last silently
+# overwrote the other's deployment, which took the live site down with
+# a 404 (the Jekyll build has no homepage at the domain root).
+#
+# This still builds the Jekyll site on every push as a validation check
+# (catches broken Jekyll config/content) without ever publishing it.
 on:
   push:
     branches:
@@ -8,12 +18,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: docs-site
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -22,27 +26,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./_site
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
