@@ -19,7 +19,7 @@
   --gray-light: #e4e3df;
   --card-text: #201d18;
 
-  --font-heading: "Poppins", "Segoe UI", var(--font-body);
+  --font-heading: "Inter", "Segoe UI", var(--font-body);
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "Roboto Mono", monospace;
   --content-width: 46rem;

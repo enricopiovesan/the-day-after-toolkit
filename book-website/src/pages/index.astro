@@ -116,8 +116,8 @@ const heroTiming = `
           ))
         }
       </div>
-      <div class="hero__text">
-        <h1>The Day After AI</h1>
+      <div class="hero__content">
+        <h1 class="hero__title">The Day After AI</h1>
         <p class="hero__subtitle">Making Software Companies<br />Legible to AI Agents.</p>
       </div>
       <a class="btn btn--coral hero__scroll" href="#tribal-knowledge">Scroll down</a>
@@ -230,15 +230,28 @@ const heroTiming = `
 <style>
   .hero-wrap {
     position: relative;
-    max-width: 1400px;
-    margin: calc(-1 * var(--header-height)) auto 0;
+    margin-top: calc(-1 * var(--header-height));
   }
 
   .hero {
     position: relative;
     z-index: 1;
-    height: 70vh;
+    height: 100vh;
+    min-height: 32rem;
     overflow: hidden;
+  }
+
+  /* Solid at the very top, fading to transparent — so the floating header
+     always sits on a flat --bg-colored band instead of directly on
+     whatever the photo happens to show there. */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 30%;
+    background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
   }
 
   .hero__zoom {
@@ -269,7 +282,7 @@ const heroTiming = `
     opacity: 1;
   }
 
-  :global(.sunrise-pending) .hero__text,
+  :global(.sunrise-pending) .hero__content,
   :global(.sunrise-pending) .hero__scroll {
     opacity: 0;
   }
@@ -295,7 +308,7 @@ const heroTiming = `
       forwards;
   }
 
-  .hero--animate .hero__text {
+  .hero--animate .hero__content {
     opacity: 0;
     animation: hero-text-in 1.6s ease-out forwards;
     animation-delay: var(--hero-text-delay);
@@ -305,15 +318,6 @@ const heroTiming = `
     opacity: 0;
     animation: hero-scroll-in 1.6s ease-out forwards;
     animation-delay: var(--hero-text-delay);
-  }
-
-  @keyframes hero-scroll-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
   }
 
   @keyframes hero-stage-out {
@@ -334,6 +338,15 @@ const heroTiming = `
     }
   }
 
+  @keyframes hero-scroll-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   @keyframes hero-text-in {
     from {
       opacity: 0;
@@ -345,7 +358,7 @@ const heroTiming = `
     }
   }
 
-  .hero__text {
+  .hero__content {
     position: absolute;
     top: 47%;
     left: 50%;
@@ -357,22 +370,73 @@ const heroTiming = `
     z-index: 2;
   }
 
-  .hero h1 {
+  /* No box: the text itself is the cutout. A warm gradient wider than the
+     text drifts across it, clipped to the glyph shapes, so the photo
+     still shows through everywhere around the letters. */
+  .hero__title {
+    display: inline-block;
+    position: relative;
     font-family: var(--font-heading);
     font-weight: 800;
-    font-size: clamp(2.25rem, 5.5vw, 4rem);
-    margin-bottom: 0.75rem;
+    font-size: clamp(2.75rem, 8vw, 5.625rem);
+    line-height: 1.05;
+    margin: 0 0 1rem;
+    background: linear-gradient(
+      100deg,
+      #fff 0%,
+      var(--pink) 22%,
+      var(--coral) 45%,
+      var(--tan) 65%,
+      #fff 85%
+    );
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: hero-title-aurora 10s ease-in-out infinite alternate;
+  }
+
+  /* A soft, minimal dark patch behind the whole title — not shaped to the
+     glyphs, so it never mixes with the gradient's own pixels the way a
+     text-shadow would. Just enough to lift the text off the photo. */
+  .hero__title::before {
+    content: "";
+    position: absolute;
+    inset: -6% 0%;
+    z-index: -1;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 75%);
+    filter: blur(10px);
+    pointer-events: none;
+  }
+
+  @keyframes hero-title-aurora {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__title {
+      animation: none;
+      background-position: 30% 50%;
+    }
   }
 
   .hero__subtitle {
-    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    font-size: clamp(1.15rem, 2.6vw, 1.75rem);
     font-weight: 500;
     margin: 0;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
   }
 
   .hero__scroll {
     position: absolute;
-    bottom: 7%;
+    bottom: 8%;
     left: 50%;
     transform: translateX(-50%);
     background: var(--pink);
