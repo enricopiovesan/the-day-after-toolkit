@@ -160,3 +160,48 @@ a {
   border: none;
   margin: 0;
 }
+
+.lede {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+}
+
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.chapter-nav a {
+  text-decoration: none;
+  color: var(--text-muted);
+}
+
+.chapter-nav a:hover {
+  color: var(--coral);
+}
+
+.companion-notice {
+  margin: 0 0 1.5rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--bg-elev);
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.companion-notice p {
+  margin: 0;
+  max-width: 42rem;
+}
+
+.publication {
+  margin: 1.5rem 0;
+  font-weight: 600;
+}

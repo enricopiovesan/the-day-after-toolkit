@@ -1,0 +1,32 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Appendix C: The Agent Onboarding Test"
+  description="Appendix C of The Day After AI: The Agent Onboarding Test. It evaluates the contract, not the agent."
+  section="chapters"
+  crumbLabel="Appendix C: The Agent Onboarding Test"
+>
+  <h1>Appendix C: The Agent Onboarding Test</h1>
+
+  <p>
+    The agent onboarding test checks whether a capability's contract is
+    enough, on its own, for an agent to navigate the capability safely.
+    It evaluates the contract, not the agent.
+  </p>
+  <p>
+    The appendix includes scoring bands and a legibility index. It is
+    the book's artifact for that check. It is not a command in the
+    companion cdad CLI, which the book does not cover.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/appendix/mcp-documentation-and-implementation-resources/")}>&larr; Appendix B: MCP Documentation and Implementation Resources</a>
+    <a href={withBase("/appendix/interaction-contract-template/")}>Appendix D: The Interaction Contract Template &rarr;</a>
+  </nav>
+</SubpageLayout>

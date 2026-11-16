@@ -8,6 +8,12 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thedayafteraibook.com',
+  redirects: {
+    '/contract-lifecycle': '/making-your-system-legible/',
+    '/appendix/contract-schema-reference': '/appendix/',
+    '/appendix/legibility-audit-framework': '/appendix/agent-onboarding-test/',
+    '/appendix/extraction-priority-matrix': '/appendix/',
+  },
   integrations: [
     sitemap({
       lastmod: new Date(),

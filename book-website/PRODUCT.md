@@ -26,7 +26,9 @@ Marketing/companion site for the book *The Day After AI: Making Software
 Companies Legible to AI Agents* by Enrico Piovesan. Static Astro site, no
 backend. Purpose: explain the book's thesis (tribal knowledge is what
 breaks AI coding agents; contracts, not more documentation, are the
-structural fix), let visitors read a free excerpt, and drive pre-orders.
+structural fix) and let visitors read a free excerpt. No retailer links
+until an official listing exists. The cdad CLI section is a companion
+product. The book does not cover it.
 
 ## Positioning
 
@@ -46,9 +48,8 @@ on-page TOC.
 
 ## Capabilities and Constraints
 
-- No backend: contact form, newsletter signup, and buy links are currently
-  placeholders (`href="#"` / `hello@example.com`), documented as pre-launch
-  TODOs in `book-website/README.md`.
+- No backend. No contact email is shown. No buy buttons. Newsletter
+  signup is not wired. See `book-website/README.md`.
 - Every internal link/asset must go through `withBase()` (`src/utils/url.ts`)
   because the site can be deployed under a `/the-day-after-toolkit/` base
   path or a bare custom domain depending on GitHub Pages routing.
@@ -57,19 +58,18 @@ on-page TOC.
 
 ## Evidence on Hand
 
-Real manuscript excerpts back the chapter-summary copy on the homepage and
-chapter landing pages (non-spoiler, per an in-code comment in `index.astro`).
-No reader testimonials exist yet (`index.astro` pull-quote is from the book
-itself, not a reader). Visual design ports an existing Figma file
+Chapter titles, the table of contents, and the Monday Morning excerpt
+follow the current manuscript. The homepage does not show an unsourced
+pull-quote. Visual design ports an existing Figma file
 ("the-day-after") per `book-website/README.md`.
 
 ## Product Principles
 
-- Content is drawn from the real manuscript, not invented marketing copy —
-  preserve that distinction when editing page text.
+- Content is drawn from the real manuscript, not invented marketing copy.
+  Preserve that distinction when editing page text.
 - The site's core value is structural legibility for both human personas
   and AI-agent personas; both audiences get dedicated navigation sections.
-- Deep IA (many short, cross-linked pages) over long single pages — new
+- Deep IA (many short, cross-linked pages) over long single pages. New
   content should extend `siteSections.ts`, not get bolted onto an existing
   page.
 

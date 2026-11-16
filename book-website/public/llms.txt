@@ -1,0 +1,38 @@
+# The Day After AI
+
+Making Software Companies Legible to AI Agents
+
+Author: Enrico Piovesan
+Publisher: Apress
+ISBN: 9798868834516
+
+Companion site: https://thedayafteraibook.com/
+C-DAD white paper: https://enricopiovesan.com/whitepapers/c-dad/
+
+The cdad command-line tool documented on this site is a companion product. The book does not cover the CLI.
+
+## Book structure
+
+- Part 0: Monday Morning (Opening Scene): https://thedayafteraibook.com/excerpt/
+- Introduction: https://thedayafteraibook.com/introduction/
+- Part I: The Problem
+  - Chapter 1: The Day After. The industry changed. Most companies didn't notice what changed. https://thedayafteraibook.com/the-day-after/
+  - Chapter 2: Tribal Knowledge Is the Bottleneck. Everything your company knows is buried. Here's exactly where. https://thedayafteraibook.com/tribal-knowledge/
+- Part II: The Architecture
+  - Chapter 3: Contracts Are the Answer. Not documentation. Not better wikis. Contracts. https://thedayafteraibook.com/contracts/
+  - Chapter 4: Capability Graphs, the New Atomic Unit. Stop thinking in services. Start thinking in capabilities. https://thedayafteraibook.com/capabilities-graph/
+  - Chapter 5: Extraction Over Refactoring. Don't fix the legacy system. Extract from it. https://thedayafteraibook.com/extraction-over-refactoring/
+  - Chapter 6: Making Your System Legible to AI Agents. The technical model for agent-navigable architecture https://thedayafteraibook.com/making-your-system-legible/
+- Part III: The Transformation
+  - Chapter 7: The Architect. From execution overhead to judgment at scale https://thedayafteraibook.com/for-architects/
+  - Chapter 8: The Developer. From coder to software engineer https://thedayafteraibook.com/for-developers/
+  - Chapter 9: The PM / PO. From story author to contract author https://thedayafteraibook.com/for-product-managers/
+  - Chapter 10: The Designer. From visual author to behavioral contract author https://thedayafteraibook.com/for-designers/
+  - Chapter 11: Leadership. Most companies will get the velocity. Few will get the value. https://thedayafteraibook.com/for-engineering-leaders/
+  - Chapter 12: The Company That Gets There First. What winning looks like, and what it compounds into https://thedayafteraibook.com/company-that-gets-there-first/
+- Appendix A: The C-DAD Specification. https://thedayafteraibook.com/appendix/c-dad-specification/
+- Appendix B: MCP Documentation and Implementation Resources. https://thedayafteraibook.com/appendix/mcp-documentation-and-implementation-resources/
+- Appendix C: The Agent Onboarding Test. https://thedayafteraibook.com/appendix/agent-onboarding-test/
+- Appendix D: The Interaction Contract Template. https://thedayafteraibook.com/appendix/interaction-contract-template/
+
+About the book: https://thedayafteraibook.com/about-the-book/

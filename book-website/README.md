@@ -1,4 +1,4 @@
-# The Day After AI — Book Website
+# The Day After AI: Book Website
 
 Marketing site for *The Day After AI: Making Software Companies Legible to
 AI Agents* by Enrico Piovesan. Built with [Astro](https://astro.build),
@@ -30,14 +30,13 @@ Run from `book-website/`:
 | `npm run build`     | Build production site to `./dist/`            |
 | `npm run preview`   | Preview the production build locally          |
 
-## Before launch — TODOs left in the code
+## Still open
 
-Search the codebase for `TODO` to find every placeholder:
-
-- **Buy links** — `src/components/BuyLinks.astro` and the header's "Pre-order on Amazon" link (`src/components/Header.astro`) have `href="#"` placeholders.
-- **Contact email** — `src/pages/contact.astro` (`hello@example.com` placeholder).
-- **Newsletter signup** — no form-handling service is wired up yet (this is a static site with no backend); pick one (Mailchimp, ConvertKit, Buttondown, Formspree, etc.) before advertising it.
-- **Photos** — `public/images/` was exported directly from the Figma file's stock placeholders (hero landscape + 6 "who is this book for" portraits). Three of the team photos (`team-project-managers.jpg`, `team-leadership.jpg`, `team-engineering-managers.jpg`) are low-resolution crops (~250–390px wide) — replace all of these with real or licensed photography before launch.
+- **Buy links:** no retailer URL is shown. `BuyLinks.astro` states that the book is forthcoming from Apress and gives ISBN 9798868834516. Do not add a date, a price, or a store link until an official listing is confirmed.
+- **Contact email:** none is shown. The contact page says contact details are coming soon.
+- **Newsletter signup:** no form-handling service is wired up yet (this is a static site with no backend).
+- **Photos:** `public/images/` was exported from the Figma file's stock placeholders (hero landscape + 6 "who is this for" portraits). Three of the team photos (`team-project-managers.jpg`, `team-leadership.jpg`, `team-engineering-managers.jpg`) are low-resolution crops (about 250-390px wide). Replace them only with photos that are supplied or licensed.
+- **Author photo:** not included. Do not invent one.
 
 Body copy, the synopsis/table of contents, the sample chapter, and the four
 chapter landing pages (`/tribal-knowledge/`, `/contracts/`,
@@ -53,12 +52,12 @@ builds this site and deploys it to GitHub Pages on every push to `main`
 that touches `book-website/**`. `astro.config.mjs` sets `site` and `base`
 for this deployment; every internal link and asset reference goes through
 `src/utils/url.ts`'s `withBase()` helper so they resolve correctly under
-the `/the-day-after-toolkit/` path — use it for any new internal
+the `/the-day-after-toolkit/` path. Use it for any new internal
 `href`/`src` rather than a bare `/...` string.
 
 **Note:** GitHub Pages serves only one site per repository. If this repo's
 GitHub Pages is later used for the toolkit's own docs site (see issue #44),
 it will conflict with this deployment. Options if that happens: put the
-book site on a custom domain (drop `base` in `astro.config.mjs` — every
+book site on a custom domain (drop `base` in `astro.config.mjs`; every
 link already routes through `withBase()`, so that's the only change
 needed), or move `book-website/` to its own repository.

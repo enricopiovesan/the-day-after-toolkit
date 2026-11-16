@@ -10,29 +10,19 @@ const toc = [
 ---
 
 <SubpageLayout
-  title="Appendix"
-  description="Understanding what a contract is and knowing how to write one are different things. The appendix is where the book hands over the actual artifacts: schemas, an audit framework, and a priority matrix."
+  title="Appendices"
+  description="Appendices A through D of The Day After AI: The C-DAD Specification, MCP Documentation and Implementation Resources, The Agent Onboarding Test, and The Interaction Contract Template."
   section="chapters"
-  crumbLabel="Appendix"
+  crumbLabel="Appendices"
   toc={toc}
 >
-  <h1>Appendix</h1>
+  <h1>Appendices</h1>
 
   <section id="overview">
     <h2>Overview</h2>
     <p>
-      Understanding what a contract is and knowing how to write one are
-      different things. The twelve chapters before this build the
-      argument with precision: what a contract declares, why it fixes
-      the legibility problem, how it composes into a graph, what each
-      role in an organization owes to it and reads from it. A reader
-      who's worked through those chapters understands the model. What
-      they don't have yet is the artifact.
-    </p>
-    <p>
-      The appendix hands over three of them, each built against the same
-      running example from the book, `payment/retry`, the capability
-      that opens the book and never really leaves it.
+      <em>The Day After AI</em> closes with four appendices. The site
+      glossary is companion vocabulary. It is not one of them.
     </p>
   </section>
 
@@ -40,16 +30,20 @@ const toc = [
     <h2>Pages in this area</h2>
     <ul class="appendix-list">
       <li>
-        <a href={withBase("/appendix/contract-schema-reference/")}>Contract Schema Reference</a>
-        <p>The minimum viable contract and the extended contract, shown fully filled in, so the first one you write doesn't start from a blank page.</p>
+        <a href={withBase("/appendix/c-dad-specification/")}>Appendix A: The C-DAD Specification</a>
+        <p>Contract-Driven AI Development, C-DAD, is the framework I set out in a white paper. Its premise is that contracts, not code, should be the surface on which humans, AI agents, and runtimes collaborate.</p>
       </li>
       <li>
-        <a href={withBase("/appendix/legibility-audit-framework/")}>Legibility Audit Framework</a>
-        <p>How to score what your system currently makes legible, and what it doesn't, before you decide what to extract first.</p>
+        <a href={withBase("/appendix/mcp-documentation-and-implementation-resources/")}>Appendix B: MCP Documentation and Implementation Resources</a>
+        <p>Contracts first, MCP last. This appendix is for teams whose capabilities already have complete contracts; it does not cover standing up an MCP server.</p>
       </li>
       <li>
-        <a href={withBase("/appendix/extraction-priority-matrix/")}>Extraction Priority Matrix</a>
-        <p>A way to rank which capabilities are worth contracting first, based on risk and how often they actually get touched.</p>
+        <a href={withBase("/appendix/agent-onboarding-test/")}>Appendix C: The Agent Onboarding Test</a>
+        <p>The agent onboarding test checks whether a capability's contract is enough, on its own, for an agent to navigate the capability safely. It evaluates the contract, not the agent.</p>
+      </li>
+      <li>
+        <a href={withBase("/appendix/interaction-contract-template/")}>Appendix D: The Interaction Contract Template</a>
+        <p>In Chapter 10, a component exists either as a picture or as a declaration. This appendix is the working material for the second option.</p>
       </li>
     </ul>
   </section>

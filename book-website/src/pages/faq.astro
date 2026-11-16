@@ -6,7 +6,7 @@ import { withBase } from "../utils/url";
 
 <SubpageLayout
   title="FAQ"
-  description="Answers to the questions that come up most about the book, The Day After, and its companion open source toolkit, cdad."
+  description="Answers to the questions that come up most about The Day After AI, and about the companion cdad toolkit. The book does not cover the CLI."
   section="book"
 >
   <h1>Frequently Asked Questions</h1>
@@ -16,12 +16,13 @@ import { withBase } from "../utils/url";
   </p>
 
   <p>
-    Straight answers to the questions that come up most, about the
-    book and about the toolkit it ships alongside.
+    Straight answers to the questions that come up most, about
+    <em>The Day After AI</em> and about the companion toolkit. The book
+    does not cover the cdad CLI.
   </p>
 
   <div class="faq-item">
-    <h2>What is The Day After actually about?</h2>
+    <h2>What is The Day After AI actually about?</h2>
     <p>
       It's about why AI coding agents keep making unsafe changes to
       real codebases, and it argues the cause isn't the agents. It's
@@ -47,8 +48,8 @@ import { withBase } from "../utils/url";
   <div class="faq-item">
     <h2>Is it a technical book or a business book?</h2>
     <p>
-      Both, on purpose. The core argument is technical, contracts,
-      graphs, extraction priority, but it's written so a
+      Both, on purpose. The core argument is technical: contracts,
+      capability graphs, and extraction. It is written so a
       non-engineering reader in the same organization can follow the
       reasoning and understand what's being asked of their team.
       Nobody needs a computer science degree to get through it, and
@@ -59,9 +60,9 @@ import { withBase } from "../utils/url";
   <div class="faq-item">
     <h2>Where can I buy the book?</h2>
     <p>
-      Links to the current retailers are on the homepage and repeated
-      at the bottom of every page on this site, right below the main
-      content.
+      <em>The Day After AI</em> is forthcoming from Apress. ISBN
+      9798868834516. Retailer links will be posted here when official
+      listings are live.
     </p>
   </div>
 
@@ -78,7 +79,7 @@ import { withBase } from "../utils/url";
   <div class="faq-item">
     <h2>Is the cdad CLI free?</h2>
     <p>
-      Yes. It's an open source command-line tool you install and run
+      Toolkit behavior, not a procedure from the book. Yes. It's an open source command-line tool you install and run
       against your own repository. There's no paid tier gating the
       commands described on this site.
     </p>
@@ -87,6 +88,7 @@ import { withBase } from "../utils/url";
   <div class="faq-item">
     <h2>Is the toolkit actually open source?</h2>
     <p>
+      This answer is about the companion toolkit. The book does not cover the CLI.
       Yes, the CLI, the contract schemas, and the validation logic are
       all public in the companion GitHub repository. You can read
       exactly how a report gets scored or a contract gets validated
@@ -97,6 +99,7 @@ import { withBase } from "../utils/url";
   <div class="faq-item">
     <h2>What languages or stacks does the toolkit work with?</h2>
     <p>
+      Toolkit behavior, not a procedure from the book.
       Conceptually, any codebase organized around business capabilities
       rather than a specific framework. The methodology, and the
       contract format it produces, isn't tied to one language. The
@@ -109,6 +112,7 @@ import { withBase } from "../utils/url";
   <div class="faq-item">
     <h2>Do I need to read the book to use the toolkit?</h2>
     <p>
+      Toolkit behavior, not a procedure from the book.
       No. You can install <code>cdad</code>, run <code>cdad check</code>
       against a repository, and follow the reports it produces without
       having read a page of the book first. The book is what explains
@@ -123,10 +127,11 @@ import { withBase } from "../utils/url";
     <p>
       Documentation describes a system and drifts out of date the
       moment the code changes underneath it. A contract is validated,
-      versioned, and machine-readable, so <code>cdad validate</code>
-      can catch it when the contract and the code it describes fall out
-      of sync. Documentation is a description. A contract is closer to
-      a checked promise.
+      versioned, and machine-readable. In the companion toolkit,
+      <code>cdad validate</code> can catch it when the contract and the
+      code it describes fall out of sync. That command is toolkit
+      behavior, not a procedure from the book. Documentation is a
+      description. A contract is closer to a checked promise.
     </p>
   </div>
 
@@ -136,9 +141,11 @@ import { withBase } from "../utils/url";
       It's the degree to which a capable engineer, or an agent, can
       understand why a capability behaves the way it does without
       relying on tribal knowledge nobody wrote down. It's measured
-      with a short questionnaire covering four questions, and the
-      resulting score is what the toolkit uses to find where the risk
-      actually sits.
+      with a short questionnaire covering four questions. Chapter 3 of
+      the book includes that test. A score produced by <code>cdad check</code>
+      is companion toolkit behavior. The book does not cover the CLI.
+      The book's scoring bands and legibility index are in Appendix C,
+      The Agent Onboarding Test.
     </p>
   </div>
 

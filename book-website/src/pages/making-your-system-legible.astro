@@ -1,0 +1,37 @@
+---
+import SubpageLayout from "../layouts/SubpageLayout.astro";
+import BuyLinks from "../components/BuyLinks.astro";
+import { withBase } from "../utils/url";
+---
+
+<SubpageLayout
+  title="Making Your System Legible to AI Agents"
+  description="Chapter 6 of The Day After AI: Making Your System Legible to AI Agents. The technical model for agent-navigable architecture."
+  section="chapters"
+  crumbLabel="Ch.6: Making Your System Legible to AI Agents"
+>
+  <h1>Making Your System Legible to AI Agents</h1>
+  <p class="lede">The technical model for agent-navigable architecture</p>
+
+  <p>
+    Chapter 6 is the technical model for a system an agent can navigate.
+    It covers what agents actually need. It covers contract completeness:
+    the minimum viable contract, the extended contract, and anti-patterns.
+    It covers MCP as the runtime bridge, the agent onboarding test, and
+    governing the graph under agent-assisted evolution.
+  </p>
+  <p>
+    The agent onboarding test checks whether a capability's contract is
+    enough, on its own, for an agent to navigate the capability safely.
+    It evaluates the contract, not the agent. The book's write-up of that
+    test, including scoring bands and a legibility index, is
+    <a href={withBase("/appendix/agent-onboarding-test/")}>Appendix C</a>.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/extraction-over-refactoring/")}>&larr; Chapter 5: Extraction Over Refactoring</a>
+    <a href={withBase("/for-architects/")}>Chapter 7: The Architect &rarr;</a>
+  </nav>
+</SubpageLayout>

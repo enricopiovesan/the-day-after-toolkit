@@ -23,8 +23,11 @@ import { withBase } from "../../utils/url";
   </p>
   <p>
     Four fields establish identity. `id` is the semantic name in
-    `domain/subdomain/action` form, lowercase and slash-delimited,
-    like `payment/retry`. `version` follows standard semantic
+    `domain/subdomain/action` form, lowercase and slash-delimited.
+    The book uses IDs such as `payment/retry/policy`,
+    `payment/charge/create`, and `payment/transfer`. `payment/retry`
+    is a companion toolkit example, not a book capability ID.
+    `version` follows standard semantic
     versioning, major for breaking changes, minor for
     backward-compatible additions, patch for corrections to the text
     itself. `owner` names the team or person accountable for keeping

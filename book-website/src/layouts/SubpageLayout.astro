@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import CompanionNotice from "../components/CompanionNotice.astro";
 import { SITE_SECTIONS } from "../data/siteSections";
 
 interface TocEntry {
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const { title, description, section, crumbLabel = title, toc = [] } = Astro.props;
+const showCompanion = section === "toolkit" || section === "how-c-dad-works" || section === "for-ai-agents";
 const current = SITE_SECTIONS[section];
 const currentPath = Astro.url.pathname;
 const hasToc = toc.length > 0;
@@ -66,6 +68,7 @@ const breadcrumbSchema = {
       </details>
 
       <div class="subpage-body">
+        {showCompanion && <CompanionNotice />}
         <slot />
       </div>
     </main>

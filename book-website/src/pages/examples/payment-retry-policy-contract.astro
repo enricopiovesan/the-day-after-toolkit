@@ -6,14 +6,18 @@ import { withBase } from "../../utils/url";
 
 <SubpageLayout
   title="Payment Retry Policy Contract"
-  description="The toolkit's own real worked example: payment/retry, the capability that opens the book. What its minimum viable contract says, what the extended version adds, and the real incident that made the extra fields necessary."
+  description="A companion toolkit example, payment/retry. The Day After AI uses capability IDs such as payment/retry/policy, payment/charge/create, and payment/transfer. The book does not cover the cdad CLI."
   section="examples"
 >
   <h1>Payment Retry Policy Contract</h1>
 
   <p>
-    The running example throughout the book, and in the toolkit's own
-    templates, is a capability called `payment/retry`, owned by a
+    This page is a companion toolkit example. <em>The Day After AI</em>
+    does not cover the cdad CLI, and it does not use `payment/retry`
+    as a capability ID. The book's payments example uses IDs such as
+    `payment/retry/policy`, `payment/charge/create`, and
+    `payment/transfer`. The template below is the toolkit's own
+    `payment/retry` contract, owned by a
     payments team. What it does sounds simple: decide whether a failed
     payment attempt is safe to retry. What makes it a good teaching
     example is that the simple description hides a constraint that
@@ -96,8 +100,8 @@ import { withBase } from "../../utils/url";
   </p>
   <p>
     None of this is hypothetical or dressed up for the page. It's the
-    actual worked example shipped in the toolkit's templates, the same
-    one the appendix's schema reference walks through field by field.
+    actual worked example shipped in the toolkit's templates. It is
+    not an appendix of the book.
     The point of showing it in full is that a contract isn't
     paperwork bolted onto working code after the fact. It's the
     incident, the dependency, and the boundary that were always true,

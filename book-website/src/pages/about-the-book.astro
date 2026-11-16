@@ -1,6 +1,5 @@
 ---
 import SubpageLayout from "../layouts/SubpageLayout.astro";
-import BuyLinks from "../components/BuyLinks.astro";
 import { withBase } from "../utils/url";
 
 const toc = [
@@ -11,14 +10,17 @@ const toc = [
 const bookSchema = {
   "@context": "https://schema.org",
   "@type": "Book",
-  name: "The Day After",
-  alternateName: "The Day After AI",
+  name: "The Day After AI",
   author: {
     "@type": "Person",
     name: "Enrico Piovesan",
   },
-  description:
-    "How software companies must restructure for what comes next. Tribal knowledge is the hidden bottleneck stopping AI agents from working safely in your codebase, and The Day After is the operating model for making software legible to your team and to the agents building it with you.",
+  description: "Making Software Companies Legible to AI Agents.",
+  publisher: {
+    "@type": "Organization",
+    name: "Apress",
+  },
+  isbn: "9798868834516",
   url: new URL(withBase("/about-the-book/"), Astro.site).toString(),
   inLanguage: "en",
   genre: "Software Engineering",
@@ -27,14 +29,14 @@ const bookSchema = {
 
 <SubpageLayout
   title="About the Book"
-  description="What The Day After covers, chapter by chapter: why tribal knowledge breaks AI agents, why contracts (not more docs) are the fix, and the capability graph that makes a codebase legible to humans and agents alike."
+  description="The Day After AI: Making Software Companies Legible to AI Agents, by Enrico Piovesan. Forthcoming from Apress. ISBN 9798868834516."
   section="book"
   toc={toc}
 >
   <script type="application/ld+json" set:html={JSON.stringify(bookSchema)} />
   <h1>The Day After AI</h1>
   <p class="lede">
-    How Software Companies Must Restructure for What Comes Next.
+    Making Software Companies Legible to AI Agents.
   </p>
 
   <p>
@@ -42,17 +44,24 @@ const bookSchema = {
     organization from effectively leveraging AI agents. The knowledge
     that lives in people's heads, in Slack threads, in undocumented
     decisions, is not a documentation problem. It is a structural
-    problem, and it has a structural solution. A system that cannot make
-    its intent legible to an AI agent is a system that will be navigated
-    by competitors who can.
+    problem, and it has a structural solution.
   </p>
   <p>
-    <em>The Day After</em> gives every role in a software organization a
+    <em>The Day After AI</em> gives every role in a software organization a
     concrete recipe for that shift. The organizations that make it first
     will compound that advantage with every agent generation that
     follows. The ones that don't will find themselves outpaced not by
     better technology, but by better structure, the kind their
     competitors built while the window was still open.
+  </p>
+  <p>
+    Forthcoming from Apress. ISBN 9798868834516.
+  </p>
+  <p>
+    Appendix A names the
+    <a href="https://enricopiovesan.com/whitepapers/c-dad/">C-DAD white paper</a>
+    as the place for the twenty-one principles, the contract lifecycle,
+    and the adoption playbook.
   </p>
 
   <h2 id="who-its-for">Who it's for</h2>
@@ -66,23 +75,52 @@ const bookSchema = {
 
   <h2 id="table-of-contents">Table of contents</h2>
   <ol class="toc">
-    <li>Opening Scene: Monday Morning</li>
-    <li>The Day After</li>
-    <li><a href={withBase("/tribal-knowledge/")}>Tribal Knowledge Is the Bottleneck</a></li>
-    <li><a href={withBase("/contracts/")}>Contracts Are the Answer</a></li>
-    <li><a href={withBase("/capabilities-graph/")}>The Capabilities Graph</a></li>
-    <li><a href={withBase("/extraction-over-refactoring/")}>Extraction Over Refactoring</a></li>
-    <li>The Contract Lifecycle</li>
-    <li>The Architect</li>
-    <li>The Developer</li>
-    <li>The PM / PO</li>
-    <li>The Designer</li>
-    <li>The Leadership Team</li>
-    <li>The Company That Gets There First</li>
-    <li>Appendix: contract schema reference, legibility audit framework, extraction priority matrix, glossary</li>
+    <li id="part-0">
+      Part 0: Monday Morning
+      <ol>
+        <li><a href={withBase("/excerpt/")}>Monday Morning</a></li>
+      </ol>
+    </li>
+    <li id="introduction">
+      <a href={withBase("/introduction/")}>Introduction</a>
+    </li>
+    <li id="part-i">
+      Part I: The Problem
+      <ol>
+        <li><a href={withBase("/the-day-after/")}>Chapter 1: The Day After</a></li>
+        <li><a href={withBase("/tribal-knowledge/")}>Chapter 2: Tribal Knowledge Is the Bottleneck</a></li>
+      </ol>
+    </li>
+    <li id="part-ii">
+      Part II: The Architecture
+      <ol>
+        <li><a href={withBase("/contracts/")}>Chapter 3: Contracts Are the Answer</a></li>
+        <li><a href={withBase("/capabilities-graph/")}>Chapter 4: Capability Graphs, the New Atomic Unit</a></li>
+        <li><a href={withBase("/extraction-over-refactoring/")}>Chapter 5: Extraction Over Refactoring</a></li>
+        <li><a href={withBase("/making-your-system-legible/")}>Chapter 6: Making Your System Legible to AI Agents</a></li>
+      </ol>
+    </li>
+    <li id="part-iii">
+      Part III: The Transformation
+      <ol>
+        <li><a href={withBase("/for-architects/")}>Chapter 7: The Architect</a></li>
+        <li><a href={withBase("/for-developers/")}>Chapter 8: The Developer</a></li>
+        <li><a href={withBase("/for-product-managers/")}>Chapter 9: The PM / PO</a></li>
+        <li><a href={withBase("/for-designers/")}>Chapter 10: The Designer</a></li>
+        <li><a href={withBase("/for-engineering-leaders/")}>Chapter 11: Leadership</a></li>
+        <li><a href={withBase("/company-that-gets-there-first/")}>Chapter 12: The Company That Gets There First</a></li>
+      </ol>
+    </li>
+    <li id="appendices">
+      Appendices
+      <ol>
+        <li><a href={withBase("/appendix/c-dad-specification/")}>Appendix A: The C-DAD Specification</a></li>
+        <li><a href={withBase("/appendix/mcp-documentation-and-implementation-resources/")}>Appendix B: MCP Documentation and Implementation Resources</a></li>
+        <li><a href={withBase("/appendix/agent-onboarding-test/")}>Appendix C: The Agent Onboarding Test</a></li>
+        <li><a href={withBase("/appendix/interaction-contract-template/")}>Appendix D: The Interaction Contract Template</a></li>
+      </ol>
+    </li>
   </ol>
-
-  <BuyLinks />
 </SubpageLayout>
 
 <style>
@@ -92,6 +130,13 @@ const bookSchema = {
   }
 
   .toc {
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .toc ol {
+    margin: 0.4rem 0 0;
     padding-left: 1.25rem;
     display: grid;
     gap: 0.4rem;

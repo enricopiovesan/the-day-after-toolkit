@@ -64,8 +64,6 @@ const currentPath = Astro.url.pathname;
       </button>
       <a class="site-header__link" href="https://github.com/enricopiovesan/the-day-after-toolkit">GitHub</a>
       <a class="site-header__link" href="https://medium.com/software-architecture-in-the-age-of-ai">Blog</a>
-      <!-- TODO: replace with the real retailer URL once the book is listed -->
-      <a class="btn btn--sage site-header__cta" href="#">Pre-order on Amazon</a>
       <button
         type="button"
         class="nav-toggle"
@@ -92,8 +90,6 @@ const currentPath = Astro.url.pathname;
     <hr class="mobile-nav__divider" />
     <a href="https://github.com/enricopiovesan/the-day-after-toolkit">GitHub</a>
     <a href="https://medium.com/software-architecture-in-the-age-of-ai">Blog</a>
-    <!-- TODO: replace with the real retailer URL once the book is listed -->
-    <a class="btn btn--sage mobile-nav__cta" href="#">Pre-order on Amazon</a>
   </nav>
 </header>
 
@@ -155,7 +151,7 @@ const currentPath = Astro.url.pathname;
     border-bottom: 1px solid var(--border);
   }
 
-  /* No background of its own — the hero's own top gradient (.hero::before)
+  /* No background of its own: the hero's own top gradient (.hero::before)
      already fades from a solid --bg-colored band into the photo, so the
      header just floats on top of it and inherits var(--text), which
      stays correct in both themes instead of assuming a dark backdrop. */
@@ -174,7 +170,7 @@ const currentPath = Astro.url.pathname;
   }
 
   /* The scrolled state is always a dark, blurred bar regardless of the
-     site's light/dark theme — so anything using var(--text) (which flips
+     site's light/dark theme, so anything using var(--text) (which flips
      to dark in light theme) needs an explicit light override here, same
      as the nav links already had. Missing this on the logo/nav-toggle is
      what made them invisible when scrolling in light theme. */

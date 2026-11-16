@@ -1,0 +1,27 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Appendix D: The Interaction Contract Template"
+  description="Appendix D of The Day After AI: The Interaction Contract Template. Working material for a component that exists as a declaration."
+  section="chapters"
+  crumbLabel="Appendix D: The Interaction Contract Template"
+>
+  <h1>Appendix D: The Interaction Contract Template</h1>
+
+  <p>
+    In Chapter 10, a component exists either as a picture or as a
+    declaration. This appendix is the working material for the second
+    option.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/appendix/agent-onboarding-test/")}>&larr; Appendix C: The Agent Onboarding Test</a>
+    <a href={withBase("/about-the-book/")}>Full table of contents &rarr;</a>
+  </nav>
+</SubpageLayout>

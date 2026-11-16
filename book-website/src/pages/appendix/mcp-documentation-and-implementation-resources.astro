@@ -1,0 +1,27 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Appendix B: MCP Documentation and Implementation Resources"
+  description="Appendix B of The Day After AI: MCP Documentation and Implementation Resources. Contracts first, MCP last."
+  section="chapters"
+  crumbLabel="Appendix B: MCP Documentation and Implementation Resources"
+>
+  <h1>Appendix B: MCP Documentation and Implementation Resources</h1>
+  <h2>Contracts first, MCP last</h2>
+
+  <p>
+    This appendix is for teams whose capabilities already have complete
+    contracts; it does not cover standing up an MCP server.
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/appendix/c-dad-specification/")}>&larr; Appendix A: The C-DAD Specification</a>
+    <a href={withBase("/appendix/agent-onboarding-test/")}>Appendix C: The Agent Onboarding Test &rarr;</a>
+  </nav>
+</SubpageLayout>
