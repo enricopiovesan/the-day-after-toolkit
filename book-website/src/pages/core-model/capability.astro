@@ -52,13 +52,14 @@ import { withBase } from "../../utils/url";
   <p>
     Capabilities get identified with a semantic naming convention,
     lowercase and slash-delimited, in the form
-    `domain/subdomain/action`. `payment/retry` and
-    `auth/session/login` are the examples the schema itself uses.
-    That's not a cosmetic choice. The id is what a contract
-    references, what shows up as a node in the graph, and what you
-    pass to `cdad init` when you're ready to scaffold a contract for
-    it. A capability without a stable id is hard to point an agent
-    at reliably, because there's nothing consistent to point at.
+    `domain/subdomain/action`. The book uses capability IDs such as
+    `payment/retry/policy`, `payment/charge/create`, and
+    `payment/transfer`. The companion toolkit's schema examples
+    include `payment/retry` and `auth/session/login`. Passing an id
+    to `cdad init` is toolkit behavior. <em>The Day After AI</em> does
+    not cover the CLI. A capability without a stable id is hard to
+    point an agent at reliably, because there's nothing consistent to
+    point at.
   </p>
   <p>
     Granularity is the other thing that trips teams up when they

@@ -10,13 +10,12 @@ import { withBase } from "../utils/url";
 import heroNightImage from "../assets/images/hero-night.jpg";
 import heroDayImage from "../assets/images/hero.jpg";
 
-// Section copy is written from the book's own manuscript (Chapters 1-5),
-// kept to non-spoiler summary and thesis statements, no plot points or
-// worked examples from the text itself.
+// Section copy stays with manuscript titles, subtitles, and chapter
+// theses already verified against the current book. No plot points.
 const tribalKnowledgeCopy = [
   "Every software organization has the same hidden liability: the reasoning behind its own decisions lives in people's heads, in Slack threads that decay within months, in commit messages that record what changed but never why. AI agents can read an entire codebase in seconds, but they can't ask a senior engineer what a payment constraint actually means, or why a service calls another out of the “obvious” order.",
   "That gap isn't a documentation problem you can wiki your way out of. It's structural. The knowledge that keeps a system safe was never designed to be found by anything that can't tap someone on the shoulder, and every constraint that exists only in someone's memory is a constraint an agent will walk straight past.",
-  "The Day After opens on a single incident: a clean, fast, technically correct AI-generated change that breaks production hours later, not because the agent did anything wrong, but because the system never told it what it needed to know. It's the pattern already playing out on every team pointing agents at a real codebase, and it's where the book begins.",
+  "The Day After AI opens on a single incident: a clean, fast, technically correct AI-generated change that breaks production hours later, not because the agent did anything wrong, but because the system never told it what it needed to know. It's the pattern already playing out on every team pointing agents at a real codebase, and it's where the book begins.",
 ];
 
 const tribalKnowledgeCards = [
@@ -38,8 +37,8 @@ const contractsCards = [
 ];
 
 const capabilitiesCopy = [
-  "Contracts describe individual pieces of logic. The capabilities graph is what happens when you connect them: a map of every capability in a system, its dependencies, its owner, and the contract that governs it, legible to a new hire and an AI agent in exactly the same way.",
-  "Chapter 4 introduces the capability as a new atomic unit of software design: headless, portable, and contract-defined, a different way of decomposing a system than the service boundaries most teams already have.",
+  "Contracts describe individual pieces of logic. The capability graph is what happens when you connect them: a map of every capability in a system, its dependencies, its owner, and the contract that governs it, legible to a new hire and an AI agent in exactly the same way.",
+  "Chapter 4, Capability Graphs, the New Atomic Unit, introduces the capability as that unit of software design: headless, portable, and contract-defined. Stop thinking in services. Start thinking in capabilities.",
   "The result isn't a diagram for a slide deck. It's a structure a coding agent can actually navigate, the difference between an agent guessing at your architecture and an agent reading it.",
 ];
 
@@ -59,6 +58,17 @@ const extractionCards = [
   { title: "Code Is Cheap", body: "Rewriting a service is the easy part. Capturing why it works the way it does is what refactors skip." },
   { title: "Ship the Slice", body: "Extract one capability, contract it, move on, value lands after the first slice, not after the whole system is done." },
   { title: "Senior Time, Spent Once", body: "The knowledge in your senior engineers' heads gets captured in the contract, not burned re-implementing what already worked." },
+];
+
+const legibleCopy = [
+  "Chapter 6, Making Your System Legible to AI Agents, is the technical model for agent-navigable architecture.",
+  "It covers what agents actually need, contract completeness (the minimum viable contract, the extended contract, and anti-patterns), MCP as the runtime bridge, the agent onboarding test, and governing the graph under agent-assisted evolution.",
+];
+
+const legibleCards = [
+  { title: "What Agents Actually Need", body: "The opening of the technical model for agent-navigable architecture." },
+  { title: "Contract Completeness", body: "Minimum viable contract, extended contract, and anti-patterns." },
+  { title: "The Agent Onboarding Test", body: "It checks whether a contract is enough, on its own, for an agent to navigate a capability safely. It evaluates the contract, not the agent." },
 ];
 
 // Sunrise sequence, first to last. Drop extra frames (e.g. a dawn shot)
@@ -148,7 +158,7 @@ const heroTiming = `
 
   <section class="section">
     <div class="wrap wrap--wide">
-      <SectionHeading align="right">The Capabilities<br />Graph.</SectionHeading>
+      <SectionHeading align="right">Capability Graphs,<br />the New Atomic Unit.</SectionHeading>
       <div class="section__body section__body--left">
         {capabilitiesCopy.map((p) => <p>{p}</p>)}
       </div>
@@ -168,6 +178,17 @@ const heroTiming = `
     </div>
   </section>
 
+  <section class="section" id="making-your-system-legible">
+    <div class="wrap wrap--wide">
+      <SectionHeading align="right">Making Your System<br />Legible to AI Agents.</SectionHeading>
+      <div class="section__body section__body--left">
+        {legibleCopy.map((p) => <p>{p}</p>)}
+      </div>
+      <PanelSection eyebrow="Chapter 6" color="sage" columns={legibleCards} />
+      <a class="chapter-link" href={withBase("/making-your-system-legible/")}>Read the chapter &rarr;</a>
+    </div>
+  </section>
+
   <section class="section">
     <div class="wrap wrap--wide">
       <h2 class="audience-heading">
@@ -176,15 +197,6 @@ const heroTiming = `
         <span class="tick tick--end" aria-hidden="true" />
       </h2>
       <AudienceGrid />
-    </div>
-  </section>
-
-  <section class="section quote">
-    <div class="wrap">
-      <!-- Pull-quote from the book itself (Ch. 1), no reader testimonials
-           exist yet. Swap this for a real endorsement once one does. -->
-      <p class="quote__text">"A system that cannot make its intent legible to an AI agent is a system that will be navigated by competitors who can."</p>
-      <hr class="divider quote__divider" />
     </div>
   </section>
 
@@ -241,7 +253,7 @@ const heroTiming = `
     overflow: hidden;
   }
 
-  /* Solid at the very top, fading to transparent — so the floating header
+  /* Solid at the very top, fading to transparent, so the floating header
      always sits on a flat --bg-colored band instead of directly on
      whatever the photo happens to show there. */
   .hero::before {
@@ -397,7 +409,7 @@ const heroTiming = `
     animation: hero-title-aurora 10s ease-in-out infinite alternate;
   }
 
-  /* A soft, minimal dark patch behind the whole title — not shaped to the
+  /* A soft, minimal dark patch behind the whole title, not shaped to the
      glyphs, so it never mixes with the gradient's own pixels the way a
      text-shadow would. Just enough to lift the text off the photo. */
   .hero__title::before {
@@ -489,24 +501,6 @@ const heroTiming = `
     height: 1px;
     background: var(--text-muted);
     transform: rotate(-55deg);
-  }
-
-  section.quote {
-    text-align: center;
-    padding: 7rem 0 5rem;
-  }
-
-  .quote__text {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-    max-width: 32rem;
-    margin: 0 auto 1.5rem;
-  }
-
-  .quote__divider {
-    width: 3rem;
-    margin: 0 auto;
   }
 
 </style>

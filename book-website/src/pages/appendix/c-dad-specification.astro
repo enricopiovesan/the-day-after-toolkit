@@ -1,0 +1,34 @@
+---
+import SubpageLayout from "../../layouts/SubpageLayout.astro";
+import BuyLinks from "../../components/BuyLinks.astro";
+import { withBase } from "../../utils/url";
+---
+
+<SubpageLayout
+  title="Appendix A: The C-DAD Specification"
+  description="Appendix A of The Day After AI: The C-DAD Specification. Contracts, not code, are the surface on which humans, AI agents, and runtimes collaborate."
+  section="chapters"
+  crumbLabel="Appendix A: The C-DAD Specification"
+>
+  <h1>Appendix A: The C-DAD Specification</h1>
+
+  <p>
+    Contract-Driven AI Development, C-DAD, is the framework I set out in
+    a white paper. Its premise is that contracts, not code, should be the
+    surface on which humans, AI agents, and runtimes collaborate.
+  </p>
+  <p>
+    The white paper, not this site, is the place for the twenty-one
+    principles, the contract lifecycle, and the adoption playbook.
+  </p>
+  <p>
+    <a href="https://enricopiovesan.com/whitepapers/c-dad/">C-DAD white paper</a>
+  </p>
+
+  <BuyLinks />
+
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <a href={withBase("/appendix/")}>&larr; Appendices</a>
+    <a href={withBase("/appendix/mcp-documentation-and-implementation-resources/")}>Appendix B: MCP Documentation and Implementation Resources &rarr;</a>
+  </nav>
+</SubpageLayout>
